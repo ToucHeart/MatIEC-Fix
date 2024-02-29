@@ -140,6 +140,8 @@ runtime_options_t runtime_options;
 
 
 int main(int argc, char **argv) {
+  setbuf(stdout,NULL);
+  setbuf(stderr,NULL);
   symbol_c *tree_root, *ordered_tree_root;
   char * builddir = NULL;
   int optres, errflg = 0;

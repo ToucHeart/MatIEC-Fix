@@ -1,0 +1,321 @@
+{
+    "code-runner.runInTerminal": true,
+    "code-runner.executorMap": {
+        "javascript": "node",
+        "java": "cd $dir && javac $fileName && java $fileNameWithoutExt",
+        "c": "cd $dir && gcc $fileName -fexec-charset=gbk -o $fileNameWithoutExt -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_ttf && $dir$fileNameWithoutExt",
+        "cpp": "cd $dir && g++ $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
+        "objective-c": "cd $dir && gcc -framework Cocoa $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
+        "php": "php",
+        "python": "python -u",
+        "perl": "perl",
+        "perl6": "perl6",
+        "ruby": "ruby",
+        "go": "go run",
+        "lua": "lua",
+        "groovy": "groovy",
+        "powershell": "powershell -ExecutionPolicy ByPass -File",
+        "bat": "cmd /c",
+        "shellscript": "bash",
+        "fsharp": "fsi",
+        "csharp": "scriptcs",
+        "vbscript": "cscript //Nologo",
+        "typescript": "ts-node",
+        "coffeescript": "coffee",
+        "scala": "scala",
+        "swift": "swift",
+        "julia": "julia",
+        "crystal": "crystal",
+        "ocaml": "ocaml",
+        "r": "Rscript",
+        "applescript": "osascript",
+        "clojure": "lein exec",
+        "haxe": "haxe --cwd $dirWithoutTrailingSlash --run $fileNameWithoutExt",
+        "rust": "cd $dir && rustc $fileName && $dir$fileNameWithoutExt",
+        "racket": "racket",
+        "scheme": "csi -script",
+        "ahk": "autohotkey",
+        "autoit": "autoit3",
+        "dart": "dart",
+        "pascal": "cd $dir && fpc $fileName && $dir$fileNameWithoutExt",
+        "d": "cd $dir && dmd $fileName && $dir$fileNameWithoutExt",
+        "haskell": "runhaskell",
+        "nim": "nim compile --verbosity:0 --hints:off --run",
+        "lisp": "sbcl --script",
+        "kit": "kitc --run",
+        "v": "v run",
+        "sass": "sass --style expanded",
+        "scss": "scss --style expanded",
+        "less": "cd $dir && lessc $fileName $fileNameWithoutExt.css",
+        "FortranFreeForm": "cd $dir && gfortran $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
+        "fortran-modern": "cd $dir && gfortran $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
+        "fortran_fixed-form": "cd $dir && gfortran $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
+        "fortran": "cd $dir && gfortran $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
+        "sml": "cd $dir && sml $fileName"
+    },
+    "code-runner.saveFileBeforeRun": true,
+    "explorer.confirmDelete": false,
+    "files.autoGuessEncoding": true,
+    "code-runner.saveAllFilesBeforeRun": true,
+    "editor.codeLensFontSize": 3,
+    "tabnine.experimentalAutoImports": true,
+    "editor.formatOnPaste": true,
+    "cmake.configureOnOpen": true,
+    "C_Cpp.default.cppStandard": "c++17",
+    "C_Cpp.default.cStandard": "c11",
+    "editor.defaultFormatter": "ms-vscode.cpptools",
+    "[cpp]": {
+        "editor.defaultFormatter": "ms-vscode.cpptools"
+    },
+    "sync.gist": "ebec01061d50faa29073133283f2f088",
+    "workbench.colorCustomizations": {
+        "editor.selectionHighlightBackground": "#5eff0071",
+        "editor.selectionBackground": "#00ff4094"
+        // "editor.lineHighlightBackground": "#323b3b3d" //修改光标所在行的背景色
+        // "editor.lineHighlightBorder": "#16161630" //修改光标所在行的边框色
+    },
+    // "workbench.preferredHighContrastColorTheme": "Visual Studio Light",
+    // "workbench.preferredLightColorTheme": "Visual Studio Light",
+    // "workbench.preferredDarkColorTheme": "Visual Studio Light",
+    "editor.selectionHighlight": false,
+    "editor.minimap.enabled": false,
+    "workbench.editorAssociations": {
+        "*.exe": "default",
+        "*.ipynb": "jupyter-notebook",
+        "*.chm": "default",
+        "*.o": "hexEditor.hexedit",
+        "*.md": "cweijan.markdownViewer",
+        "*.png": "cweijan.officeViewer",
+        "*.pdf": "cweijan.officeViewer"
+    },
+    "python.showStartPage": false,
+    "notebook.cellToolbarLocation": {
+        "default": "right",
+        "jupyter-notebook": "left"
+    },
+    "editor.autoClosingBrackets": "beforeWhitespace",
+    "editor.quickSuggestions": {
+        "comments": "on",
+        "strings": "on",
+        "other": "on"
+    },
+    "editor.formatOnSave": true,
+    "html.format.contentUnformatted": "",
+    "C_Cpp.default.systemIncludePath": [],
+    "editor.codeActionsOnSave": {
+        "source.fixAll.tslint": "explicit"
+    },
+    "clang-format.language.typescript.fallbackStyle": "WebKit",
+    "clang-format.fallbackStyle": "WebKit",
+    "clang-format.language.c.fallbackStyle": "WebKit",
+    "clang-format.language.cpp.fallbackStyle": "WebKit",
+    "clang-format.style": "WebKit",
+    "clang-format.language.javascript.fallbackStyle": "WebKit",
+    "editor.formatOnType": true,
+    "clang-format.assumeFilename": "true",
+    "[c]": {
+        "editor.defaultFormatter": "ms-vscode.cpptools"
+    },
+    "C_Cpp.formatting": "clangFormat",
+    "C_Cpp.vcFormat.newLine.beforeOpenBrace.type": "sameLine",
+    "C_Cpp.vcFormat.newLine.beforeOpenBrace.namespace": "sameLine",
+    "C_Cpp.vcFormat.newLine.beforeOpenBrace.lambda": "sameLine",
+    "C_Cpp.vcFormat.newLine.beforeOpenBrace.function": "sameLine",
+    "C_Cpp.vcFormat.newLine.beforeOpenBrace.block": "sameLine",
+    "C_Cpp.vcFormat.indent.caseContents": false,
+    "C_Cpp.vcFormat.indent.lambdaBracesWhenParameter": true,
+    "C_Cpp.vcFormat.indent.namespaceContents": false,
+    "C_Cpp.default.compilerPath": "",
+    "C_Cpp.default.compilerArgs": [],
+    "editor.tokenColorCustomizations": {
+        "comments": "#00ffea"
+    },
+    "terminal.integrated.defaultProfile.windows": "zsh",
+    "terminal.integrated.cursorBlinking": true,
+    "vim.useCtrlKeys": true,
+    "vim.useSystemClipboard": true,
+    "vim.handleKeys": {
+        "<C-a>": false,
+        "<C-b>": false,
+        "<C-c>": false,
+        "<C-d>": false,
+        "<C-e>": false,
+        "<C-f>": false,
+        "<C-g>": false,
+        "<C-h>": false,
+        //"<C-i>": false,
+        "<C-j>": false,
+        "<C-k>": false,
+        "<C-l>": false,
+        "<C-m>": false,
+        "<C-n>": false,
+        //"<C-o>": false,
+        "<C-p>": false,
+        "<C-q>": false,
+        // "<C-r>": false,
+        "<C-s>": false,
+        "<C-t>": false,
+        "<C-u>": false,
+        "<C-v>": false,
+        "<C-w>": false,
+        "<C-x>": false,
+        "<C-y>": false,
+        "<C-z>": false
+    },
+    "editor.fontFamily": "'Fira Code', Consolas, 'Microsoft Yahei'",
+    "editor.fontLigatures": true,
+    "[jsonc]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "workbench.startupEditor": "none",
+    "explorer.confirmDragAndDrop": false,
+    "http.proxySupport": "off",
+    "files.autoSave": "afterDelay",
+    "bracket-pair-colorizer-2.depreciation-notice": false,
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.python",
+        "editor.formatOnType": true
+    },
+    "python.testing.pytestEnabled": true,
+    "terminal.integrated.fontFamily": "monospace",
+    "terminal.integrated.enableMultiLinePasteWarning": false,
+    // "editor.fontWeight": "bold" //这个设置字体粗细，可选normal,bold,"100"~"900"等，选择合适的就行
+    "todo-tree.general.tags": [
+        "TODO:",
+        "FIXME:",
+        "?"
+    ],
+    "todo-tree.highlights.defaultHighlight": {
+        "gutterIcon": true
+    },
+    "todo-tree.highlights.customHighlight": {
+        "TODO:": {
+            "foreground": "#fff",
+            "background": "#ffbd2a",
+            "iconColour": "#ffbd2a"
+        },
+        "FIXME:": {
+            "foreground": "#fff",
+            "background": "#f06292",
+            "icon": "flame",
+            "iconColour": "#f06292"
+        },
+        "ADDNEW:": {
+            "foreground": "#fff",
+            "background": "#ffbd2a",
+            "icon": "flame",
+            "iconColour": "#ffbd2a"
+        },
+        "COMMENT:": {
+            "foreground": "#ffffff83",
+            "background": "#f06292",
+            "icon": "flame",
+            "iconColour": "#f06292"
+        }
+    },
+    "workbench.editor.enablePreview": false,
+    "vscode-office.viewAbsoluteLocal": true,
+    "vscode-office.openOutline": false,
+    "git.confirmSync": false,
+    "security.workspace.trust.untrustedFiles": "open",
+    "[shellscript]": {
+        "editor.defaultFormatter": "foxundermoon.shell-format"
+    },
+    "git.enableSmartCommit": true,
+    "workbench.colorTheme": "Xcode Classic (Light)",
+    "extensions.ignoreRecommendations": true,
+    "[java]": {
+        "editor.defaultFormatter": "redhat.java"
+    },
+    "[sql]": {
+        "editor.defaultFormatter": "adpyke.vscode-sql-formatter"
+    },
+    "latex-workshop.latex.autoBuild.run": "never",
+    "latex-workshop.message.error.show": false,
+    "latex-workshop.message.warning.show": false,
+    "latex-workshop.latex.tools": [
+        {
+            // 编译工具和命令
+            "name": "xelatex",
+            "command": "xelatex",
+            "args": [
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "-pdf",
+                "%DOCFILE%"
+            ]
+        },
+        {
+            "name": "pdflatex",
+            "command": "pdflatex",
+            "args": [
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "%DOCFILE%"
+            ]
+        },
+        {
+            "name": "bibtex",
+            "command": "bibtex",
+            "args": [
+                "%DOCFILE%"
+            ]
+        }
+    ],
+    "latex-workshop.latex.recipes": [
+        {
+            "name": "xelatex",
+            "tools": [
+                "xelatex"
+            ]
+        },
+        {
+            "name": "pdflatex",
+            "tools": [
+                "pdflatex"
+            ]
+        },
+        {
+            "name": "xe->bib->xe->xe",
+            "tools": [
+                "xelatex",
+                "bibtex",
+                "xelatex",
+                "xelatex"
+            ]
+        },
+        {
+            "name": "pdf->bib->pdf->pdf",
+            "tools": [
+                "pdflatex",
+                "bibtex",
+                "pdflatex",
+                "pdflatex"
+            ]
+        }
+    ],
+    "diffEditor.ignoreTrimWhitespace": false,
+    "remote.SSH.remotePlatform": {
+        "192.168.161.128": "linux"
+    },
+    "graphvizPreview.dotExtraArgs": [],
+    "todohighlight.defaultStyle": {},
+    "todo-tree.general.tagGroups": {},
+    "files.associations": {
+        "*.def": "cpp",
+        "cmath": "cpp",
+        "standard_function_names.c": "cpp",
+        "iec_types_all.h": "c",
+        "iec_std_functions.h": "c",
+        "iec_std_lib.h": "c"
+    },
+    "C_Cpp.vcFormat.indent.braces": true,
+    "C_Cpp.vcFormat.indent.caseContentsWhenBlock": true,
+    "C_Cpp.vcFormat.newLine.closeBraceSameLine.emptyFunction": true,
+    "C_Cpp.vcFormat.newLine.closeBraceSameLine.emptyType": true,
+    "C_Cpp.vcFormat.newLine.scopeBracesOnSeparateLines": true,
+    "C_Cpp.vcFormat.space.beforeInitializerListOpenBrace": true,
+    "C_Cpp.vcFormat.space.betweenEmptyBraces": true
+}

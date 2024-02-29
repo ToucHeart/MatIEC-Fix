@@ -89,7 +89,7 @@ void yyerror (const char *error_msg);
  * Printing of debug info must then be activated by setting
  * the variable yydebug to 1.
  */
-#define YYDEBUG 0
+#define YYDEBUG 1
 
 
 /* file with declaration of absyntax classes... */
@@ -5448,15 +5448,25 @@ program_declaration:
 	 variable_name_symtable.pop();
 	 direct_variable_symtable.pop();
 	}
+| PROGRAM program_type_name {library_element_symtable.insert($2, prev_declared_program_type_name_token);} function_block_body END_PROGRAM
+	{$$ = new program_declaration_c($2,NULL, $4, locloc(@$));
+	 /* Clear the variable_name_symtable. Since we have finished parsing the program declaration,
+	  * the variable names are now out of scope, so are no longer valid!
+	  */
+	 variable_name_symtable.pop();
+	 direct_variable_symtable.pop();
+	}
 /* ERROR_CHECK_BEGIN */
 | PROGRAM program_var_declarations_list function_block_body END_PROGRAM
   {$$ = NULL; print_err_msg(locl(@1), locf(@2), "no program name defined in program declaration.");}
 | PROGRAM error program_var_declarations_list function_block_body END_PROGRAM
 	{$$ = NULL; print_err_msg(locf(@2), locl(@2), "invalid program name in program declaration."); yyerrok;}
+/*
 | PROGRAM prev_declared_program_type_name function_block_body END_PROGRAM
 	{$$ = NULL; print_err_msg(locl(@2), locf(@3), "no variable(s) declared in program declaration."); yynerrs++;}
 | PROGRAM prev_declared_program_type_name program_var_declarations_list END_PROGRAM
 	{$$ = NULL; print_err_msg(locl(@3), locf(@4), "no body defined in program declaration."); yynerrs++;}
+*/
 /*  Rule already covered by the rule to handle the preparse state!
 | PROGRAM prev_declared_program_type_name END_PROGRAM 
 	{$$ = NULL; print_err_msg(locl(@2), locf(@3), "no variable(s) declared and body defined in program declaration."); yynerrs++;}
@@ -7879,7 +7889,9 @@ function_invocation:
 /* B 3.2 Statements */
 /********************/
 statement_list:
-  statement ';'
+  ';'
+	{$$ = new statement_list_c(locloc(@$));}
+| statement ';'
 	{$$ = new statement_list_c(locloc(@$)); $$->add_element($1);}
 | any_pragma
 	{$$ = new statement_list_c(locloc(@$)); $$->add_element($1);}

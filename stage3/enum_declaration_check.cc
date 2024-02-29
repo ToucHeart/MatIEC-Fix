@@ -104,7 +104,7 @@ class populate_enumvalue_symtable_c: public iterator_visitor_c {
     
     void populate(symbol_c::enumvalue_symtable_t *symtable, symbol_c *symbol) {
        enumvalue_symtable = symtable;
-       symbol->accept(*this);
+       if(symbol) symbol->accept(*this);
        enumvalue_symtable = NULL;
      }
 

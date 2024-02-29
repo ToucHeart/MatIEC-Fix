@@ -1,0 +1,901 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-DHAVE_CONFIG_H",
+      "-I.",
+      "-I../config",
+      "-g",
+      "-Wall",
+      "-Wpointer-arith",
+      "-Wwrite-strings",
+      "-Wno-unused",
+      "-c",
+      "-o",
+      "absyntax.o",
+      "absyntax.cc"
+    ],
+    "directory": "/home/mxj/matiec/absyntax",
+    "file": "/home/mxj/matiec/absyntax/absyntax.cc",
+    "output": "/home/mxj/matiec/absyntax/absyntax.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-DHAVE_CONFIG_H",
+      "-I.",
+      "-I../config",
+      "-g",
+      "-Wall",
+      "-Wpointer-arith",
+      "-Wwrite-strings",
+      "-Wno-unused",
+      "-c",
+      "-o",
+      "visitor.o",
+      "visitor.cc"
+    ],
+    "directory": "/home/mxj/matiec/absyntax",
+    "file": "/home/mxj/matiec/absyntax/visitor.cc",
+    "output": "/home/mxj/matiec/absyntax/visitor.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-DHAVE_CONFIG_H",
+      "-I.",
+      "-I../config",
+      "-g",
+      "-Wall",
+      "-Wpointer-arith",
+      "-Wwrite-strings",
+      "-Wno-unused",
+      "-c",
+      "-o",
+      "absyntax_utils.o",
+      "absyntax_utils.cc"
+    ],
+    "directory": "/home/mxj/matiec/absyntax_utils",
+    "file": "/home/mxj/matiec/absyntax_utils/absyntax_utils.cc",
+    "output": "/home/mxj/matiec/absyntax_utils/absyntax_utils.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-DHAVE_CONFIG_H",
+      "-I.",
+      "-I../config",
+      "-g",
+      "-Wall",
+      "-Wpointer-arith",
+      "-Wwrite-strings",
+      "-Wno-unused",
+      "-c",
+      "-o",
+      "add_en_eno_param_decl.o",
+      "add_en_eno_param_decl.cc"
+    ],
+    "directory": "/home/mxj/matiec/absyntax_utils",
+    "file": "/home/mxj/matiec/absyntax_utils/add_en_eno_param_decl.cc",
+    "output": "/home/mxj/matiec/absyntax_utils/add_en_eno_param_decl.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-DHAVE_CONFIG_H",
+      "-I.",
+      "-I../config",
+      "-g",
+      "-Wall",
+      "-Wpointer-arith",
+      "-Wwrite-strings",
+      "-Wno-unused",
+      "-c",
+      "-o",
+      "decompose_var_instance_name.o",
+      "decompose_var_instance_name.cc"
+    ],
+    "directory": "/home/mxj/matiec/absyntax_utils",
+    "file": "/home/mxj/matiec/absyntax_utils/decompose_var_instance_name.cc",
+    "output": "/home/mxj/matiec/absyntax_utils/decompose_var_instance_name.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-DHAVE_CONFIG_H",
+      "-I.",
+      "-I../config",
+      "-g",
+      "-Wall",
+      "-Wpointer-arith",
+      "-Wwrite-strings",
+      "-Wno-unused",
+      "-c",
+      "-o",
+      "array_dimension_iterator.o",
+      "array_dimension_iterator.cc"
+    ],
+    "directory": "/home/mxj/matiec/absyntax_utils",
+    "file": "/home/mxj/matiec/absyntax_utils/array_dimension_iterator.cc",
+    "output": "/home/mxj/matiec/absyntax_utils/array_dimension_iterator.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-DHAVE_CONFIG_H",
+      "-I.",
+      "-I../config",
+      "-g",
+      "-Wall",
+      "-Wpointer-arith",
+      "-Wwrite-strings",
+      "-Wno-unused",
+      "-c",
+      "-o",
+      "case_element_iterator.o",
+      "case_element_iterator.cc"
+    ],
+    "directory": "/home/mxj/matiec/absyntax_utils",
+    "file": "/home/mxj/matiec/absyntax_utils/case_element_iterator.cc",
+    "output": "/home/mxj/matiec/absyntax_utils/case_element_iterator.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-DHAVE_CONFIG_H",
+      "-I.",
+      "-I../config",
+      "-g",
+      "-Wall",
+      "-Wpointer-arith",
+      "-Wwrite-strings",
+      "-Wno-unused",
+      "-c",
+      "-o",
+      "function_call_iterator.o",
+      "function_call_iterator.cc"
+    ],
+    "directory": "/home/mxj/matiec/absyntax_utils",
+    "file": "/home/mxj/matiec/absyntax_utils/function_call_iterator.cc",
+    "output": "/home/mxj/matiec/absyntax_utils/function_call_iterator.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-DHAVE_CONFIG_H",
+      "-I.",
+      "-I../config",
+      "-g",
+      "-Wall",
+      "-Wpointer-arith",
+      "-Wwrite-strings",
+      "-Wno-unused",
+      "-c",
+      "-o",
+      "function_call_param_iterator.o",
+      "function_call_param_iterator.cc"
+    ],
+    "directory": "/home/mxj/matiec/absyntax_utils",
+    "file": "/home/mxj/matiec/absyntax_utils/function_call_param_iterator.cc",
+    "output": "/home/mxj/matiec/absyntax_utils/function_call_param_iterator.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-DHAVE_CONFIG_H",
+      "-I.",
+      "-I../config",
+      "-g",
+      "-Wall",
+      "-Wpointer-arith",
+      "-Wwrite-strings",
+      "-Wno-unused",
+      "-c",
+      "-o",
+      "function_param_iterator.o",
+      "function_param_iterator.cc"
+    ],
+    "directory": "/home/mxj/matiec/absyntax_utils",
+    "file": "/home/mxj/matiec/absyntax_utils/function_param_iterator.cc",
+    "output": "/home/mxj/matiec/absyntax_utils/function_param_iterator.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-DHAVE_CONFIG_H",
+      "-I.",
+      "-I../config",
+      "-g",
+      "-Wall",
+      "-Wpointer-arith",
+      "-Wwrite-strings",
+      "-Wno-unused",
+      "-c",
+      "-o",
+      "get_sizeof_datatype.o",
+      "get_sizeof_datatype.cc"
+    ],
+    "directory": "/home/mxj/matiec/absyntax_utils",
+    "file": "/home/mxj/matiec/absyntax_utils/get_sizeof_datatype.cc",
+    "output": "/home/mxj/matiec/absyntax_utils/get_sizeof_datatype.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-DHAVE_CONFIG_H",
+      "-I.",
+      "-I../config",
+      "-g",
+      "-Wall",
+      "-Wpointer-arith",
+      "-Wwrite-strings",
+      "-Wno-unused",
+      "-c",
+      "-o",
+      "get_var_name.o",
+      "get_var_name.cc"
+    ],
+    "directory": "/home/mxj/matiec/absyntax_utils",
+    "file": "/home/mxj/matiec/absyntax_utils/get_var_name.cc",
+    "output": "/home/mxj/matiec/absyntax_utils/get_var_name.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-DHAVE_CONFIG_H",
+      "-I.",
+      "-I../config",
+      "-g",
+      "-Wall",
+      "-Wpointer-arith",
+      "-Wwrite-strings",
+      "-Wno-unused",
+      "-c",
+      "-o",
+      "search_il_label.o",
+      "search_il_label.cc"
+    ],
+    "directory": "/home/mxj/matiec/absyntax_utils",
+    "file": "/home/mxj/matiec/absyntax_utils/search_il_label.cc",
+    "output": "/home/mxj/matiec/absyntax_utils/search_il_label.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-DHAVE_CONFIG_H",
+      "-I.",
+      "-I../config",
+      "-g",
+      "-Wall",
+      "-Wpointer-arith",
+      "-Wwrite-strings",
+      "-Wno-unused",
+      "-c",
+      "-o",
+      "search_base_type.o",
+      "search_base_type.cc"
+    ],
+    "directory": "/home/mxj/matiec/absyntax_utils",
+    "file": "/home/mxj/matiec/absyntax_utils/search_base_type.cc",
+    "output": "/home/mxj/matiec/absyntax_utils/search_base_type.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-DHAVE_CONFIG_H",
+      "-I.",
+      "-I../config",
+      "-g",
+      "-Wall",
+      "-Wpointer-arith",
+      "-Wwrite-strings",
+      "-Wno-unused",
+      "-c",
+      "-o",
+      "search_fb_instance_decl.o",
+      "search_fb_instance_decl.cc"
+    ],
+    "directory": "/home/mxj/matiec/absyntax_utils",
+    "file": "/home/mxj/matiec/absyntax_utils/search_fb_instance_decl.cc",
+    "output": "/home/mxj/matiec/absyntax_utils/search_fb_instance_decl.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-DHAVE_CONFIG_H",
+      "-I.",
+      "-I../config",
+      "-g",
+      "-Wall",
+      "-Wpointer-arith",
+      "-Wwrite-strings",
+      "-Wno-unused",
+      "-c",
+      "-o",
+      "search_fb_typedecl.o",
+      "search_fb_typedecl.cc"
+    ],
+    "directory": "/home/mxj/matiec/absyntax_utils",
+    "file": "/home/mxj/matiec/absyntax_utils/search_fb_typedecl.cc",
+    "output": "/home/mxj/matiec/absyntax_utils/search_fb_typedecl.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-DHAVE_CONFIG_H",
+      "-I.",
+      "-I../config",
+      "-g",
+      "-Wall",
+      "-Wpointer-arith",
+      "-Wwrite-strings",
+      "-Wno-unused",
+      "-c",
+      "-o",
+      "search_varfb_instance_type.o",
+      "search_varfb_instance_type.cc"
+    ],
+    "directory": "/home/mxj/matiec/absyntax_utils",
+    "file": "/home/mxj/matiec/absyntax_utils/search_varfb_instance_type.cc",
+    "output": "/home/mxj/matiec/absyntax_utils/search_varfb_instance_type.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-DHAVE_CONFIG_H",
+      "-I.",
+      "-I../config",
+      "-g",
+      "-Wall",
+      "-Wpointer-arith",
+      "-Wwrite-strings",
+      "-Wno-unused",
+      "-c",
+      "-o",
+      "search_var_instance_decl.o",
+      "search_var_instance_decl.cc"
+    ],
+    "directory": "/home/mxj/matiec/absyntax_utils",
+    "file": "/home/mxj/matiec/absyntax_utils/search_var_instance_decl.cc",
+    "output": "/home/mxj/matiec/absyntax_utils/search_var_instance_decl.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-DHAVE_CONFIG_H",
+      "-I.",
+      "-I../config",
+      "-g",
+      "-Wall",
+      "-Wpointer-arith",
+      "-Wwrite-strings",
+      "-Wno-unused",
+      "-c",
+      "-o",
+      "spec_init_separator.o",
+      "spec_init_separator.cc"
+    ],
+    "directory": "/home/mxj/matiec/absyntax_utils",
+    "file": "/home/mxj/matiec/absyntax_utils/spec_init_separator.cc",
+    "output": "/home/mxj/matiec/absyntax_utils/spec_init_separator.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-DHAVE_CONFIG_H",
+      "-I.",
+      "-I../config",
+      "-g",
+      "-Wall",
+      "-Wpointer-arith",
+      "-Wwrite-strings",
+      "-Wno-unused",
+      "-c",
+      "-o",
+      "type_initial_value.o",
+      "type_initial_value.cc"
+    ],
+    "directory": "/home/mxj/matiec/absyntax_utils",
+    "file": "/home/mxj/matiec/absyntax_utils/type_initial_value.cc",
+    "output": "/home/mxj/matiec/absyntax_utils/type_initial_value.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-DHAVE_CONFIG_H",
+      "-I.",
+      "-I../config",
+      "-g",
+      "-Wall",
+      "-Wpointer-arith",
+      "-Wwrite-strings",
+      "-Wno-unused",
+      "-c",
+      "-o",
+      "debug_ast.o",
+      "debug_ast.cc"
+    ],
+    "directory": "/home/mxj/matiec/absyntax_utils",
+    "file": "/home/mxj/matiec/absyntax_utils/debug_ast.cc",
+    "output": "/home/mxj/matiec/absyntax_utils/debug_ast.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-DHAVE_CONFIG_H",
+      "-I.",
+      "-I../config",
+      "-g",
+      "-Wall",
+      "-Wpointer-arith",
+      "-Wwrite-strings",
+      "-Wno-unused",
+      "-c",
+      "-o",
+      "get_datatype_info.o",
+      "get_datatype_info.cc"
+    ],
+    "directory": "/home/mxj/matiec/absyntax_utils",
+    "file": "/home/mxj/matiec/absyntax_utils/get_datatype_info.cc",
+    "output": "/home/mxj/matiec/absyntax_utils/get_datatype_info.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-DHAVE_CONFIG_H",
+      "-I.",
+      "-I../config",
+      "-DDEFAULT_LIBDIR=\"lib\"",
+      "-I../../absyntax",
+      "-DYY_BUF_SIZE=65536",
+      "-fpermissive",
+      "-g",
+      "-Wall",
+      "-Wpointer-arith",
+      "-Wwrite-strings",
+      "-Wno-unused",
+      "-c",
+      "-o",
+      "libstage1_2_a-iec_flex.o",
+      "iec_flex.cc"
+    ],
+    "directory": "/home/mxj/matiec/stage1_2",
+    "file": "/home/mxj/matiec/stage1_2/iec_flex.cc",
+    "output": "/home/mxj/matiec/stage1_2/libstage1_2_a-iec_flex.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-DHAVE_CONFIG_H",
+      "-I.",
+      "-I../config",
+      "-DDEFAULT_LIBDIR=\"lib\"",
+      "-I../../absyntax",
+      "-DYY_BUF_SIZE=65536",
+      "-fpermissive",
+      "-g",
+      "-Wall",
+      "-Wpointer-arith",
+      "-Wwrite-strings",
+      "-Wno-unused",
+      "-c",
+      "-o",
+      "libstage1_2_a-iec_bison.o",
+      "iec_bison.cc"
+    ],
+    "directory": "/home/mxj/matiec/stage1_2",
+    "file": "/home/mxj/matiec/stage1_2/iec_bison.cc",
+    "output": "/home/mxj/matiec/stage1_2/libstage1_2_a-iec_bison.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-DHAVE_CONFIG_H",
+      "-I.",
+      "-I../config",
+      "-DDEFAULT_LIBDIR=\"lib\"",
+      "-I../../absyntax",
+      "-DYY_BUF_SIZE=65536",
+      "-fpermissive",
+      "-g",
+      "-Wall",
+      "-Wpointer-arith",
+      "-Wwrite-strings",
+      "-Wno-unused",
+      "-c",
+      "-o",
+      "libstage1_2_a-create_enumtype_conversion_functions.o",
+      "create_enumtype_conversion_functions.cc"
+    ],
+    "directory": "/home/mxj/matiec/stage1_2",
+    "file": "/home/mxj/matiec/stage1_2/create_enumtype_conversion_functions.cc",
+    "output": "/home/mxj/matiec/stage1_2/libstage1_2_a-create_enumtype_conversion_functions.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-DHAVE_CONFIG_H",
+      "-I.",
+      "-I../config",
+      "-DDEFAULT_LIBDIR=\"lib\"",
+      "-I../../absyntax",
+      "-DYY_BUF_SIZE=65536",
+      "-fpermissive",
+      "-g",
+      "-Wall",
+      "-Wpointer-arith",
+      "-Wwrite-strings",
+      "-Wno-unused",
+      "-c",
+      "-o",
+      "libstage1_2_a-stage1_2.o",
+      "stage1_2.cc"
+    ],
+    "directory": "/home/mxj/matiec/stage1_2",
+    "file": "/home/mxj/matiec/stage1_2/stage1_2.cc",
+    "output": "/home/mxj/matiec/stage1_2/libstage1_2_a-stage1_2.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-DHAVE_CONFIG_H",
+      "-I.",
+      "-I../config",
+      "-g",
+      "-Wall",
+      "-Wpointer-arith",
+      "-Wwrite-strings",
+      "-Wno-unused",
+      "-c",
+      "-o",
+      "stage3.o",
+      "stage3.cc"
+    ],
+    "directory": "/home/mxj/matiec/stage3",
+    "file": "/home/mxj/matiec/stage3/stage3.cc",
+    "output": "/home/mxj/matiec/stage3/stage3.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-DHAVE_CONFIG_H",
+      "-I.",
+      "-I../config",
+      "-g",
+      "-Wall",
+      "-Wpointer-arith",
+      "-Wwrite-strings",
+      "-Wno-unused",
+      "-c",
+      "-o",
+      "flow_control_analysis.o",
+      "flow_control_analysis.cc"
+    ],
+    "directory": "/home/mxj/matiec/stage3",
+    "file": "/home/mxj/matiec/stage3/flow_control_analysis.cc",
+    "output": "/home/mxj/matiec/stage3/flow_control_analysis.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-DHAVE_CONFIG_H",
+      "-I.",
+      "-I../config",
+      "-g",
+      "-Wall",
+      "-Wpointer-arith",
+      "-Wwrite-strings",
+      "-Wno-unused",
+      "-c",
+      "-o",
+      "fill_candidate_datatypes.o",
+      "fill_candidate_datatypes.cc"
+    ],
+    "directory": "/home/mxj/matiec/stage3",
+    "file": "/home/mxj/matiec/stage3/fill_candidate_datatypes.cc",
+    "output": "/home/mxj/matiec/stage3/fill_candidate_datatypes.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-DHAVE_CONFIG_H",
+      "-I.",
+      "-I../config",
+      "-g",
+      "-Wall",
+      "-Wpointer-arith",
+      "-Wwrite-strings",
+      "-Wno-unused",
+      "-c",
+      "-o",
+      "narrow_candidate_datatypes.o",
+      "narrow_candidate_datatypes.cc"
+    ],
+    "directory": "/home/mxj/matiec/stage3",
+    "file": "/home/mxj/matiec/stage3/narrow_candidate_datatypes.cc",
+    "output": "/home/mxj/matiec/stage3/narrow_candidate_datatypes.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-DHAVE_CONFIG_H",
+      "-I.",
+      "-I../config",
+      "-g",
+      "-Wall",
+      "-Wpointer-arith",
+      "-Wwrite-strings",
+      "-Wno-unused",
+      "-c",
+      "-o",
+      "forced_narrow_candidate_datatypes.o",
+      "forced_narrow_candidate_datatypes.cc"
+    ],
+    "directory": "/home/mxj/matiec/stage3",
+    "file": "/home/mxj/matiec/stage3/forced_narrow_candidate_datatypes.cc",
+    "output": "/home/mxj/matiec/stage3/forced_narrow_candidate_datatypes.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-DHAVE_CONFIG_H",
+      "-I.",
+      "-I../config",
+      "-g",
+      "-Wall",
+      "-Wpointer-arith",
+      "-Wwrite-strings",
+      "-Wno-unused",
+      "-c",
+      "-o",
+      "print_datatypes_error.o",
+      "print_datatypes_error.cc"
+    ],
+    "directory": "/home/mxj/matiec/stage3",
+    "file": "/home/mxj/matiec/stage3/print_datatypes_error.cc",
+    "output": "/home/mxj/matiec/stage3/print_datatypes_error.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-DHAVE_CONFIG_H",
+      "-I.",
+      "-I../config",
+      "-g",
+      "-Wall",
+      "-Wpointer-arith",
+      "-Wwrite-strings",
+      "-Wno-unused",
+      "-c",
+      "-o",
+      "datatype_functions.o",
+      "datatype_functions.cc"
+    ],
+    "directory": "/home/mxj/matiec/stage3",
+    "file": "/home/mxj/matiec/stage3/datatype_functions.cc",
+    "output": "/home/mxj/matiec/stage3/datatype_functions.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-DHAVE_CONFIG_H",
+      "-I.",
+      "-I../config",
+      "-g",
+      "-Wall",
+      "-Wpointer-arith",
+      "-Wwrite-strings",
+      "-Wno-unused",
+      "-c",
+      "-o",
+      "lvalue_check.o",
+      "lvalue_check.cc"
+    ],
+    "directory": "/home/mxj/matiec/stage3",
+    "file": "/home/mxj/matiec/stage3/lvalue_check.cc",
+    "output": "/home/mxj/matiec/stage3/lvalue_check.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-DHAVE_CONFIG_H",
+      "-I.",
+      "-I../config",
+      "-g",
+      "-Wall",
+      "-Wpointer-arith",
+      "-Wwrite-strings",
+      "-Wno-unused",
+      "-c",
+      "-o",
+      "array_range_check.o",
+      "array_range_check.cc"
+    ],
+    "directory": "/home/mxj/matiec/stage3",
+    "file": "/home/mxj/matiec/stage3/array_range_check.cc",
+    "output": "/home/mxj/matiec/stage3/array_range_check.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-DHAVE_CONFIG_H",
+      "-I.",
+      "-I../config",
+      "-g",
+      "-Wall",
+      "-Wpointer-arith",
+      "-Wwrite-strings",
+      "-Wno-unused",
+      "-c",
+      "-o",
+      "case_elements_check.o",
+      "case_elements_check.cc"
+    ],
+    "directory": "/home/mxj/matiec/stage3",
+    "file": "/home/mxj/matiec/stage3/case_elements_check.cc",
+    "output": "/home/mxj/matiec/stage3/case_elements_check.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-DHAVE_CONFIG_H",
+      "-I.",
+      "-I../config",
+      "-g",
+      "-Wall",
+      "-Wpointer-arith",
+      "-Wwrite-strings",
+      "-Wno-unused",
+      "-c",
+      "-o",
+      "constant_folding.o",
+      "constant_folding.cc"
+    ],
+    "directory": "/home/mxj/matiec/stage3",
+    "file": "/home/mxj/matiec/stage3/constant_folding.cc",
+    "output": "/home/mxj/matiec/stage3/constant_folding.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-DHAVE_CONFIG_H",
+      "-I.",
+      "-I../config",
+      "-g",
+      "-Wall",
+      "-Wpointer-arith",
+      "-Wwrite-strings",
+      "-Wno-unused",
+      "-c",
+      "-o",
+      "declaration_check.o",
+      "declaration_check.cc"
+    ],
+    "directory": "/home/mxj/matiec/stage3",
+    "file": "/home/mxj/matiec/stage3/declaration_check.cc",
+    "output": "/home/mxj/matiec/stage3/declaration_check.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-DHAVE_CONFIG_H",
+      "-I.",
+      "-I../config",
+      "-g",
+      "-Wall",
+      "-Wpointer-arith",
+      "-Wwrite-strings",
+      "-Wno-unused",
+      "-c",
+      "-o",
+      "enum_declaration_check.o",
+      "enum_declaration_check.cc"
+    ],
+    "directory": "/home/mxj/matiec/stage3",
+    "file": "/home/mxj/matiec/stage3/enum_declaration_check.cc",
+    "output": "/home/mxj/matiec/stage3/enum_declaration_check.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-DHAVE_CONFIG_H",
+      "-I.",
+      "-I../config",
+      "-g",
+      "-Wall",
+      "-Wpointer-arith",
+      "-Wwrite-strings",
+      "-Wno-unused",
+      "-c",
+      "-o",
+      "remove_forward_dependencies.o",
+      "remove_forward_dependencies.cc"
+    ],
+    "directory": "/home/mxj/matiec/stage3",
+    "file": "/home/mxj/matiec/stage3/remove_forward_dependencies.cc",
+    "output": "/home/mxj/matiec/stage3/remove_forward_dependencies.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-DHAVE_CONFIG_H",
+      "-I.",
+      "-I../../config",
+      "-I../../../absyntax",
+      "-g",
+      "-Wall",
+      "-Wpointer-arith",
+      "-Wwrite-strings",
+      "-Wno-unused",
+      "-c",
+      "-o",
+      "libstage4_c_a-generate_c.o",
+      "generate_c.cc"
+    ],
+    "directory": "/home/mxj/matiec/stage4/generate_c",
+    "file": "/home/mxj/matiec/stage4/generate_c/generate_c.cc",
+    "output": "/home/mxj/matiec/stage4/generate_c/libstage4_c_a-generate_c.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-DHAVE_CONFIG_H",
+      "-I.",
+      "-I../../config",
+      "-g",
+      "-Wall",
+      "-Wpointer-arith",
+      "-Wwrite-strings",
+      "-Wno-unused",
+      "-c",
+      "-o",
+      "../stage4.o",
+      "../stage4.cc"
+    ],
+    "directory": "/home/mxj/matiec/stage4/generate_c",
+    "file": "/home/mxj/matiec/stage4/stage4.cc",
+    "output": "/home/mxj/matiec/stage4/stage4.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-DHAVE_CONFIG_H",
+      "-I.",
+      "-I../../config",
+      "-I../../../absyntax",
+      "-g",
+      "-Wall",
+      "-Wpointer-arith",
+      "-Wwrite-strings",
+      "-Wno-unused",
+      "-c",
+      "-o",
+      "libstage4_iec_a-generate_iec.o",
+      "generate_iec.cc"
+    ],
+    "directory": "/home/mxj/matiec/stage4/generate_iec",
+    "file": "/home/mxj/matiec/stage4/generate_iec/generate_iec.cc",
+    "output": "/home/mxj/matiec/stage4/generate_iec/libstage4_iec_a-generate_iec.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-DHAVE_CONFIG_H",
+      "-I.",
+      "-I./config",
+      "-g",
+      "-Wall",
+      "-Wpointer-arith",
+      "-Wwrite-strings",
+      "-Wno-unused",
+      "-DHGVERSION=\"\"",
+      "-c",
+      "-o",
+      "main.o",
+      "main.cc"
+    ],
+    "directory": "/home/mxj/matiec",
+    "file": "/home/mxj/matiec/main.cc",
+    "output": "/home/mxj/matiec/main.o"
+  }
+]
