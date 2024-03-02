@@ -1584,9 +1584,11 @@ void *fill_candidate_datatypes_c::visit(program_declaration_c *symbol) {
 	if (debug) printf("Filling candidate data types list in program %s\n", ((token_c *)(symbol->program_type_name))->value);
 	local_enumerated_value_symtable.reset();
 	current_scope = symbol;	
+	if(symbol->var_declarations)
 	symbol->var_declarations->accept(populate_enumvalue_symtable);
 	
 	search_var_instance_decl = new search_var_instance_decl_c(symbol);
+	if(symbol->var_declarations)
 	symbol->var_declarations->accept(*this);
 	symbol->function_block_body->accept(*this);
 	delete search_var_instance_decl;

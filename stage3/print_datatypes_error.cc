@@ -688,6 +688,7 @@ void *print_datatypes_error_c::visit(function_block_declaration_c *symbol) {
 /**********************/
 void *print_datatypes_error_c::visit(program_declaration_c *symbol) {
 	search_varfb_instance_type = new search_varfb_instance_type_c(symbol);
+	if(symbol->var_declarations)
 	symbol->var_declarations->accept(*this);
 	if (debug) printf("Print error data types list in body of program %s\n", ((token_c *)(symbol->program_type_name))->value);
 	il_parenthesis_level = 0;

@@ -910,6 +910,7 @@ class generate_var_list_c: protected generate_c_base_and_typeid_c {
 /**********************/
     void *visit(program_declaration_c *symbol) {
       if (current_declarationtype == variables_dt && configuration_defined) {
+        if(symbol->var_declarations)
         symbol->var_declarations->accept(*this);
         symbol->function_block_body->accept(*this);
       }

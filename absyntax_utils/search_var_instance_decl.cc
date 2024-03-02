@@ -523,7 +523,9 @@ void *search_var_instance_decl_c::visit(function_block_declaration_c *symbol) {
 // SYM_REF3(program_declaration_c, program_type_name, var_declarations, function_block_body)
 void *search_var_instance_decl_c::visit(program_declaration_c *symbol) {
   /* visit the variable declarations...! */
-  void *res = symbol->var_declarations->accept(*this);
+  void *res = NULL;
+  if(symbol->var_declarations)
+  res = symbol->var_declarations->accept(*this);
   if (NULL != res)
     return res;
   

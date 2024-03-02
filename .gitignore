@@ -14,3 +14,4 @@ config/*
 stage1_2/*.cc
 stage1_2/*.hh
 PLCOPEN/*
+output/*

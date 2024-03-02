@@ -1280,6 +1280,7 @@ class generate_c_pous_c {
                                            generate_c_vardecl_c::input_vt  |
                                            generate_c_vardecl_c::output_vt |
                                            generate_c_vardecl_c::inoutput_vt);
+        if(symbol->var_declarations)
         vardecl->print(symbol->var_declarations);
         delete vardecl;
         s4o.print("\n");
@@ -1292,6 +1293,7 @@ class generate_c_pous_c {
                       generate_c_vardecl_c::private_vt |
                       generate_c_vardecl_c::located_vt |
                       generate_c_vardecl_c::external_vt);
+        if(symbol->var_declarations)
         vardecl->print(symbol->var_declarations);
         delete vardecl;
       
@@ -1344,6 +1346,7 @@ class generate_c_pous_c {
                                            generate_c_vardecl_c::private_vt  |
                                            generate_c_vardecl_c::located_vt  |
                                            generate_c_vardecl_c::external_vt);
+        if(symbol->var_declarations)
         vardecl->print(symbol->var_declarations, NULL,  FB_FUNCTION_PARAM"->");
         delete vardecl;
         s4o.print("\n");
@@ -1393,6 +1396,7 @@ class generate_c_pous_c {
         vardecl = new generate_c_vardecl_c(&s4o,
                                            generate_c_vardecl_c::init_vf,
                                            generate_c_vardecl_c::temp_vt);
+        if(symbol->var_declarations)
         vardecl->print(symbol->var_declarations, NULL,  FB_FUNCTION_PARAM"->");
         delete vardecl;
         s4o.print("\n");

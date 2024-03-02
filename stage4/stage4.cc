@@ -136,23 +136,24 @@ void stage4out_c::indent_left(void) {
     indent_spaces.erase();
 }
 
-void *stage4out_c::print(           std::string value) {if (!allow_output) return NULL; *out << value; return NULL;}
-void *stage4out_c::print(           const char *value) {if (!allow_output) return NULL; *out << value; return NULL;}
-//void *stage4out_c::print(               int64_t value) {if (!allow_output) return NULL; *out << value; return NULL;}
-//void *stage4out_c::print(              uint64_t value) {if (!allow_output) return NULL; *out << value; return NULL;}
-void *stage4out_c::print(              real64_t value) {if (!allow_output) return NULL; *out << value; return NULL;}
-void *stage4out_c::print(                   int value) {if (!allow_output) return NULL; *out << value; return NULL;}
-void *stage4out_c::print(              long int value) {if (!allow_output) return NULL; *out << value; return NULL;}
-void *stage4out_c::print(         long long int value) {if (!allow_output) return NULL; *out << value; return NULL;}
-void *stage4out_c::print(unsigned           int value) {if (!allow_output) return NULL; *out << value; return NULL;}
-void *stage4out_c::print(unsigned      long int value) {if (!allow_output) return NULL; *out << value; return NULL;}
-void *stage4out_c::print(unsigned long long int value) {if (!allow_output) return NULL; *out << value; return NULL;}
+void *stage4out_c::print(           std::string value) {if (!allow_output) return NULL; *out << value; flush(); return NULL;}
+void *stage4out_c::print(           const char *value) {if (!allow_output) return NULL; *out << value; flush(); return NULL;}
+//void *stage4out_c::print(               int64_t value) {if (!allow_output) return NULL; *out << value; flush(); return NULL;}
+//void *stage4out_c::print(              uint64_t value) {if (!allow_output) return NULL; *out << value; flush(); return NULL;}
+void *stage4out_c::print(              real64_t value) {if (!allow_output) return NULL; *out << value; flush(); return NULL;}
+void *stage4out_c::print(                   int value) {if (!allow_output) return NULL; *out << value; flush(); return NULL;}
+void *stage4out_c::print(              long int value) {if (!allow_output) return NULL; *out << value; flush(); return NULL;}
+void *stage4out_c::print(         long long int value) {if (!allow_output) return NULL; *out << value; flush(); return NULL;}
+void *stage4out_c::print(unsigned           int value) {if (!allow_output) return NULL; *out << value; flush(); return NULL;}
+void *stage4out_c::print(unsigned      long int value) {if (!allow_output) return NULL; *out << value; flush(); return NULL;}
+void *stage4out_c::print(unsigned long long int value) {if (!allow_output) return NULL; *out << value; flush(); return NULL;}
 
 
 void *stage4out_c::print_long_integer(unsigned long l_integer, bool suffix) {
   if (!allow_output) return NULL;
   *out << l_integer;
   if (suffix) *out << "UL";
+  this->flush();
   return NULL;
 }
 
@@ -160,6 +161,7 @@ void *stage4out_c::print_long_long_integer(unsigned long long ll_integer, bool s
   if (!allow_output) return NULL;
   *out << ll_integer;
   if (suffix) *out << "ULL";
+  this->flush();
   return NULL;
 }
 
@@ -168,6 +170,7 @@ void *stage4out_c::printupper(const char *str) {
   if (!allow_output) return NULL;
   for (int i = 0; str[i] != '\0'; i++)
     *out << (unsigned char)toupper(str[i]);
+  this->flush();
   return NULL;
 }
 
@@ -179,6 +182,7 @@ void *stage4out_c::printlocation(const char *str) {
       *out << '_';
     else
       *out << (unsigned char)toupper(str[i]);
+  this->flush();
   return NULL;
 }
 
@@ -193,6 +197,7 @@ void *stage4out_c::printlocation_comasep(const char *str) {
       *out << ',';
     else
       *out << (unsigned char)toupper(str[i]);
+  this->flush();
   return NULL;
 }
 
@@ -211,6 +216,7 @@ void *stage4out_c::printupper(std::string str) {
   /* Or more simply... */
     printupper(str.c_str());
 #endif
+  this->flush();
   return NULL;
 }
 

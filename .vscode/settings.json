@@ -59,7 +59,7 @@
     "code-runner.saveAllFilesBeforeRun": true,
     "editor.codeLensFontSize": 3,
     "tabnine.experimentalAutoImports": true,
-    "editor.formatOnPaste": true,
+    "editor.formatOnPaste": false,
     "cmake.configureOnOpen": true,
     "C_Cpp.default.cppStandard": "c++17",
     "C_Cpp.default.cStandard": "c11",
@@ -99,7 +99,7 @@
         "strings": "on",
         "other": "on"
     },
-    "editor.formatOnSave": true,
+    "editor.formatOnSave": false,
     "html.format.contentUnformatted": "",
     "C_Cpp.default.systemIncludePath": [],
     "editor.codeActionsOnSave": {
@@ -111,7 +111,7 @@
     "clang-format.language.cpp.fallbackStyle": "WebKit",
     "clang-format.style": "WebKit",
     "clang-format.language.javascript.fallbackStyle": "WebKit",
-    "editor.formatOnType": true,
+    "editor.formatOnType": false,
     "clang-format.assumeFilename": "true",
     "[c]": {
         "editor.defaultFormatter": "ms-vscode.cpptools"
@@ -183,7 +183,8 @@
     "todo-tree.general.tags": [
         "TODO:",
         "FIXME:",
-        "?"
+        "ADDNEW",
+        "COMMENT"
     ],
     "todo-tree.highlights.defaultHighlight": {
         "gutterIcon": true
@@ -196,21 +197,18 @@
         },
         "FIXME:": {
             "foreground": "#fff",
-            "background": "#f06292",
-            "icon": "flame",
-            "iconColour": "#f06292"
+            "background": "#ffbd2a",
+            "iconColour": "#ffbd2a"
         },
         "ADDNEW:": {
             "foreground": "#fff",
             "background": "#ffbd2a",
-            "icon": "flame",
             "iconColour": "#ffbd2a"
         },
         "COMMENT:": {
-            "foreground": "#ffffff83",
-            "background": "#f06292",
-            "icon": "flame",
-            "iconColour": "#f06292"
+            "foreground": "#fff",
+            "background": "#ffbd2a",
+            "iconColour": "#ffbd2a"
         }
     },
     "workbench.editor.enablePreview": false,

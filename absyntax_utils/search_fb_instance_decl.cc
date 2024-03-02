@@ -139,5 +139,7 @@ void *search_fb_instance_decl_c::visit(program_declaration_c *symbol) {
   /* no need to search through all the body, so we only
    * visit the variable declarations...!
    */
+  if(symbol->var_declarations)
   return symbol->var_declarations->accept(*this);
+  return NULL;
 }

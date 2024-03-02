@@ -676,7 +676,7 @@ void *function_param_iterator_c::visit(non_retentive_var_decls_c *symbol) {TRACE
 /**********************/
 /*  PROGRAM program_type_name program_var_declarations_list function_block_body END_PROGRAM */
 // SYM_REF4(program_declaration_c, program_type_name, var_declarations, function_block_body, unused)
-void *function_param_iterator_c::visit(program_declaration_c *symbol) {TRACE("program_declaration_c"); return symbol->var_declarations->accept(*this);}
+void *function_param_iterator_c::visit(program_declaration_c *symbol) {TRACE("program_declaration_c"); if(symbol->var_declarations) return symbol->var_declarations->accept(*this); return NULL;}
 
 /* intermediate helper symbol for program_declaration_c */
 /*  { io_var_declarations | other_var_declarations }   */

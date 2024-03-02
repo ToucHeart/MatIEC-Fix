@@ -333,6 +333,7 @@ void *array_range_check_c::visit(function_block_declaration_c *symbol) {
 /**********************/
 // SYM_REF3(program_declaration_c, program_type_name, var_declarations, function_block_body)
 void *array_range_check_c::visit(program_declaration_c *symbol) {
+	if(symbol->var_declarations)
 	symbol->var_declarations->accept(*this); // required for visiting subrange_c
 	search_varfb_instance_type = new search_varfb_instance_type_c(symbol);
 	// search_var_instance_decl = new search_var_instance_decl_c(symbol);

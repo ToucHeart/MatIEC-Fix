@@ -1159,6 +1159,7 @@ class generate_c_implicit_typedecl_c: public iterator_visitor_c {
     /**********************/    
     void *visit(program_declaration_c *symbol) {
       prefix = symbol->program_type_name;
+      if(symbol->var_declarations)
       symbol->var_declarations->accept(*this); //--> always calls var_declarations_list_c
       prefix = NULL;
       return NULL;

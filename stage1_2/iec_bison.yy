@@ -5448,6 +5448,7 @@ program_declaration:
 	 variable_name_symtable.pop();
 	 direct_variable_symtable.pop();
 	}
+/*ADDNEW: add a production rule with no program_var_declarations_list defined */
 | PROGRAM program_type_name {library_element_symtable.insert($2, prev_declared_program_type_name_token);} function_block_body END_PROGRAM
 	{$$ = new program_declaration_c($2,NULL, $4, locloc(@$));
 	 /* Clear the variable_name_symtable. Since we have finished parsing the program declaration,
@@ -7889,6 +7890,7 @@ function_invocation:
 /* B 3.2 Statements */
 /********************/
 statement_list:
+/*ADDNEW: add a rule to support a single ';' in statement_list */
   ';'
 	{$$ = new statement_list_c(locloc(@$));}
 | statement ';'
@@ -7899,6 +7901,9 @@ statement_list:
 	{$$ = $1; $$->add_element($2);}
 | statement_list any_pragma
 	{$$ = $1; $$->add_element($2);}
+/*ADDNEW: add a rule to support multiple ';' in statement_list */
+| statement_list ';'
+	{$$ = $1;}
 /* ERROR_CHECK_BEGIN */
 | statement error
 	{$$ = new statement_list_c(locloc(@$)); print_err_msg(locl(@1), locf(@2), "';' missing at the end of statement in ST statement."); yyerrok;}
@@ -7906,8 +7911,6 @@ statement_list:
 	{$$ = $1; print_err_msg(locl(@2), locf(@3), "';' missing at the end of statement in ST statement."); yyerrok;}
 | statement_list error ';'
 	{$$ = $1; print_err_msg(locf(@2), locl(@2), "invalid statement in ST statement."); yyerrok;}
-| statement_list ';'
-	{$$ = $1; print_err_msg(locf(@2), locl(@2), "unexpected ';' after statement in ST statement."); yynerrs++;}
 /* ERROR_CHECK_END */
 ;
 

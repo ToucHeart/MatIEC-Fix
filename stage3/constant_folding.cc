@@ -1820,6 +1820,7 @@ void *constant_propagation_c::visit(program_declaration_c *symbol) {
 
 	/* Add initial value of all declared variables into Values map. */
 	function_pou_ = false;
+	if(symbol->var_declarations)
 	symbol->var_declarations->accept(*this);
 	symbol->function_block_body->accept(*this);
 
