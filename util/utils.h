@@ -36,7 +36,7 @@
 #define ANSI_NONE       "\33[0m"
 
 #define Info_Print(_fmt,...) \
-if(INFO_PRINT){\
+if(DEBUG_INFO_PRINT){\
   fprintf(stdout,ANSI_BG_RED _fmt ANSI_NONE,##__VA_ARGS__);\
 }
 

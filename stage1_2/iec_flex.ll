@@ -121,8 +121,8 @@
 #define DEFAULT_LIBDIR "just_testing"
 #endif
 
-/*ADDNEW debug information, to print information */
-#define INFO_PRINT 0
+/*ADDNEW：Debug Control */
+#define DEBUG_INFO_PRINT 0
 
 
 /* Required for strdup() */

@@ -106,16 +106,22 @@ extern void error_exit(const char *file_name, int line_no, const char *errmsg = 
 
 #include <float.h>
 #if    (LDBL_MANT_DIG == 53) /* NOTE: 64 bit IEC559 real has 53 bits for mantissa! */
-  #define real64_tX long_double /* so we can later use #if (real64_t == long_double) directives in the code! */
-  #define real64_t  long double /* NOTE: no underscore '_' between 'long' and 'double' */
+  //#define real64_tX long_double /* so we can later use #if (real64_t == long_double) directives in the code! */
+  //#define real64_t  long double /* NOTE: no underscore '_' between 'long' and 'double' */
+  typedef long double real64_tX
+  typedef long double real64_t
   #define REAL64_MAX  LDBL_MAX
 #elif  ( DBL_MANT_DIG == 53) /* NOTE: 64 bit IEC559 real has 53 bits for mantissa! */
-  #define real64_tX double
-  #define real64_t  double
+  // #define real64_tX double
+  // #define real64_t  double
+  typedef double real64_tX;
+  typedef double real64_t;
   #define REAL64_MAX  DBL_MAX
 #elif  ( FLT_MANT_DIG == 53) /* NOTE: 64 bit IEC559 real has 53 bits for mantissa! */
-  #define real64_tX float
-  #define real64_t  float
+  // #define real64_tX float
+  // #define real64_t  float
+  typedef float real64_tX
+  typedef float real64_t
   #define REAL64_MAX  FLT_MAX
 #else 
   #error Could not find a 64 bit floating point data type on this platform. Aborting...

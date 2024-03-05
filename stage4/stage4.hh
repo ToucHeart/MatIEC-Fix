@@ -40,7 +40,8 @@
 #define _STAGE4_HH
 
 #include "../absyntax/absyntax.hh"
-
+/*ADDNEW：Debug Control */
+#define DEBUG_FLUSH 1
 
 void stage4err(const char *stage4_generator_id, symbol_c *symbol1, symbol_c *symbol2, const char *errmsg, ...);
 

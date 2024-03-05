@@ -307,7 +307,13 @@
         "standard_function_names.c": "cpp",
         "iec_types_all.h": "c",
         "iec_std_functions.h": "c",
-        "iec_std_lib.h": "c"
+        "iec_std_lib.h": "c",
+        "array": "cpp",
+        "compare": "cpp",
+        "functional": "cpp",
+        "tuple": "cpp",
+        "type_traits": "cpp",
+        "utility": "cpp"
     },
     "C_Cpp.vcFormat.indent.braces": true,
     "C_Cpp.vcFormat.indent.caseContentsWhenBlock": true,

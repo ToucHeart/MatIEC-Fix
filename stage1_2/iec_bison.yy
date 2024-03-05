@@ -89,6 +89,7 @@ void yyerror (const char *error_msg);
  * Printing of debug info must then be activated by setting
  * the variable yydebug to 1.
  */
+/*ADDNEW：Debug Control */
 #define YYDEBUG 1
 
 
