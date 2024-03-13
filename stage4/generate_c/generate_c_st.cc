@@ -83,6 +83,8 @@ class generate_c_st_c: public generate_c_base_and_typeid_c {
     bool first_subrange_case_list;
 
     variablegeneration_t wanted_variablegeneration;
+    //ADDNEW：add a flag to indicate within a outermost iteration
+    bool within_iteration;
 
   public:
     generate_c_st_c(stage4out_c *s4o_ptr, symbol_c *name, symbol_c *scope, const char *variable_prefix = NULL)
@@ -98,6 +100,7 @@ class generate_c_st_c: public generate_c_base_and_typeid_c {
       fcall_number = 0;
       fbname = name;
       wanted_variablegeneration = expression_vg;
+      within_iteration = false;
     }
 
     virtual ~generate_c_st_c(void) {
@@ -1241,7 +1244,13 @@ void *visit(case_list_c *symbol) {
 /********************************/
 /* B 3.2.4 Iteration Statements */
 /********************************/
+/*ADDNEW: add exit location check in 'for' 'while' 'repeat' statements */
 void *visit(for_statement_c *symbol) {
+  bool is_outermost_iteration = false;
+  if(!within_iteration){
+    within_iteration=true;
+    is_outermost_iteration=true;
+  }
   /* Due to the way the GET/SET_GLOBAL accessor macros access VAR_GLOBAL variables,
    * these varibles cannot be used within a C for(;;) loop.
    * We must therefore implemnt the FOR END_FOR loop as a C while() loop
@@ -1322,10 +1331,18 @@ void *visit(for_statement_c *symbol) {
   
   s4o.indent_left();
   s4o.print(";\n" + s4o.indent_spaces + "} /* END_FOR */");
+  if(is_outermost_iteration){
+    within_iteration=false;
+  }
   return NULL;
 }
 
 void *visit(while_statement_c *symbol) {
+  bool is_outermost_iteration = false;
+  if(!within_iteration){
+    within_iteration=true;
+    is_outermost_iteration=true;
+  }
   s4o.print("while (");
   symbol->expression->accept(*this);
   s4o.print(") {\n");
@@ -1333,10 +1350,18 @@ void *visit(while_statement_c *symbol) {
   symbol->statement_list->accept(*this);
   s4o.indent_left();
   s4o.print(s4o.indent_spaces); s4o.print("}");
+  if(is_outermost_iteration){
+    within_iteration=false;
+  }
   return NULL;
 }
 
 void *visit(repeat_statement_c *symbol) {
+  bool is_outermost_iteration = false;
+  if(!within_iteration){
+    within_iteration=true;
+    is_outermost_iteration=true;
+  }
   s4o.print("do {\n");
   s4o.indent_right();
   symbol->statement_list->accept(*this);
@@ -1344,10 +1369,17 @@ void *visit(repeat_statement_c *symbol) {
   s4o.print(s4o.indent_spaces); s4o.print("} while(!(");
   symbol->expression->accept(*this);
   s4o.print("))");
+  if(is_outermost_iteration){
+    within_iteration=false;
+  }
   return NULL;
 }
 
 void *visit(exit_statement_c *symbol) {
+  if(!within_iteration){
+    fprintf(stderr,"\nexit can only be used in iteration statements, at line %d\n",symbol->first_line);
+    exit(EXIT_FAILURE);
+  }
   s4o.print("break");
   return NULL;
 }

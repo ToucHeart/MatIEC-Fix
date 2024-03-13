@@ -899,6 +899,9 @@ class generate_c_base_and_typeid_c: public generate_c_base_c {
 /********************************/
 /* B 1.3.3 - Derived data types */
 /********************************/
+/*ADDNEW:when we meet this ,just return the string type ,otherwise will print undefined type like STRING10 */
+/*   STRING ['[' integer ']'] */
+void *visit(single_byte_limited_len_string_spec_c*symbol)   {return symbol->string_type_name->accept(*this);}
 
 /*  subrange_type_name ':' subrange_spec_init */
 void *visit(subrange_type_declaration_c *symbol) {return symbol->subrange_type_name->accept(*this);}

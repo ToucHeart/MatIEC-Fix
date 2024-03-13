@@ -159,6 +159,10 @@ class populate_enumvalue_symtable_c: public iterator_visitor_c {
     enumvalue_symtable->insert(std::pair<const char *, symbol_c *>(value_str, current_enumerated_type));
     return NULL;
   }
+  /*ADDNEW: there is no need to check it */
+  void *visit(structure_element_initialization_list_c* symbol){
+    return NULL;
+  }
 }; // class populate_enumvalue_symtable_c
 
 

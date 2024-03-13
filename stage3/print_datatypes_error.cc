@@ -541,6 +541,14 @@ void *print_datatypes_error_c::visit(simple_spec_init_c *symbol) {
 void *print_datatypes_error_c::visit(enumerated_value_c *symbol) {
 	if (symbol->candidate_datatypes.size() == 0)
 		STAGE3_ERROR(0, symbol, symbol, "Ambiguous enumerate value or Variable not declared in this scope.");
+	/*ADDNEW: report this error */
+	/* to be checked
+	if(!get_datatype_info_c::is_type_valid(symbol->datatype))
+	{
+		STAGE3_ERROR(0, symbol, symbol, "Initialization element identifier (%s) is not the same type with the declared type of the variable.", 
+			                        symbol->value->token->value);
+	}
+	*/
 	return NULL;
 }
 

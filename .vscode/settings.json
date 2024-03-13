@@ -184,7 +184,8 @@
         "TODO:",
         "FIXME:",
         "ADDNEW",
-        "COMMENT"
+        "COMMENT",
+        "CHANGE"
     ],
     "todo-tree.highlights.defaultHighlight": {
         "gutterIcon": true
@@ -202,14 +203,19 @@
         },
         "ADDNEW:": {
             "foreground": "#fff",
-            "background": "#ffbd2a",
-            "iconColour": "#ffbd2a"
+            "background": "#2aff78",
+            "iconColour": "#ff2ad4"
         },
         "COMMENT:": {
             "foreground": "#fff",
             "background": "#ffbd2a",
             "iconColour": "#ffbd2a"
-        }
+        },
+        "CHANGE:": {
+            "foreground": "#fff",
+            "background": "#27a829",
+            "iconColour": "#5c2aff"
+        },
     },
     "workbench.editor.enablePreview": false,
     "vscode-office.viewAbsoluteLocal": true,
@@ -313,7 +319,8 @@
         "functional": "cpp",
         "tuple": "cpp",
         "type_traits": "cpp",
-        "utility": "cpp"
+        "utility": "cpp",
+        "system_error": "cpp"
     },
     "C_Cpp.vcFormat.indent.braces": true,
     "C_Cpp.vcFormat.indent.caseContentsWhenBlock": true,

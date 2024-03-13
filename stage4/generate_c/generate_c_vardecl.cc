@@ -246,7 +246,10 @@ class generate_c_array_initialization_c: public generate_c_base_and_typeid_c {
           for (int i = 0; i < symbol->n; i++) {
             if (current_initialization_count >= defined_values_count) {
               if (defined_values_count >= array_size)
-                ERROR;
+              /*CHANGE：break here since if the initial value of the array 
+              is greater than the number of items in the array, 
+              the extra value should be ignored*/
+                break;
               if (defined_values_count > 0)
                 s4o.print(",");
               symbol->get_element(i)->accept(*this);
@@ -2276,6 +2279,13 @@ void *visit(falling_edge_option_c *symbol) {
   return NULL;
 }
 
+void *visit(single_byte_string_var_declaration_c *symbol){
+  TRACE("single_byte_string_var_declaration_c");
+  update_type_init(symbol->single_byte_string_spec);
+  symbol->var1_list->accept(*this);
+  void_type_init();
+  return NULL;
+}
 
 void *visit(var1_init_decl_c *symbol) {
   TRACE("var1_init_decl_c");

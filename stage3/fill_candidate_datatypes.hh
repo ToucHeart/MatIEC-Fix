@@ -160,6 +160,8 @@ class fill_candidate_datatypes_c: public iterator_visitor_c {
     void *visit(boolean_literal_c *symbol);
     void *visit(boolean_true_c *symbol);
     void *visit(boolean_false_c *symbol);
+    /*ADDNEW:*/
+    void *visit(single_byte_string_spec_c*symbol);
 
     /*******************************/
     /* B.1.2.2   Character Strings */
@@ -173,6 +175,10 @@ class fill_candidate_datatypes_c: public iterator_visitor_c {
     /************************/
     /* B 1.2.3.1 - Duration */
     /************************/
+    /*ADDNEW: add check functions for daytime and date literals */
+    void *visit(date_literal_c*date_literal);
+    void *visit(daytime_c*daytime);
+
     void *visit(duration_c *symbol);
 
     /************************************/
@@ -213,7 +219,8 @@ class fill_candidate_datatypes_c: public iterator_visitor_c {
 //  void *visit(structure_element_declaration_c *symbol);
     void *visit(structure_element_initialization_list_c *symbol);
     void *visit(structure_element_initialization_c *symbol);
-//  void *visit(string_type_declaration_c *symbol);
+    /*ADDNEW: add init string length check here */
+    void *visit(string_type_declaration_c *symbol);
     void *visit(fb_spec_init_c *symbol);
       
     void *visit(ref_spec_c *symbol);      // Defined in IEC 61131-3 v3
@@ -253,7 +260,7 @@ class fill_candidate_datatypes_c: public iterator_visitor_c {
     void *visit(external_declaration_c       *symbol);
     void *visit(global_var_decl_c            *symbol);
     void *visit(incompl_located_var_decl_c   *symbol);
-    //void *visit(single_byte_string_var_declaration_c *symbol);
+    void *visit(single_byte_string_var_declaration_c *symbol);
     //void *visit(double_byte_string_var_declaration_c *symbol);
 
     /**************************************/

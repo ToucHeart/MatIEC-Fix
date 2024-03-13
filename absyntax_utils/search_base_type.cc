@@ -225,6 +225,14 @@ void *search_base_type_c::visit(generic_type_any_c *symbol)       {return (void 
 /********************************/
 /* B 1.3.3 - Derived data types */
 /********************************/
+/*ADDNEW:*/
+void *search_base_type_c::visit(single_byte_limited_len_string_spec_c*symbol){
+  return (void*)symbol;
+}
+
+void *search_base_type_c::visit(single_byte_string_spec_c*symbol){
+  return symbol->string_spec->accept(*this);
+}
 /*  simple_type_name ':' simple_spec_init */
 void *search_base_type_c::visit(simple_type_declaration_c *symbol) {
   return symbol->simple_spec_init->accept(*this);

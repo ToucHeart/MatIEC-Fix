@@ -549,6 +549,10 @@ void *narrow_candidate_datatypes_c::narrow_type_decl(symbol_c *symbol, symbol_c 
 }
 
 
+void *narrow_candidate_datatypes_c::visit(single_byte_string_spec_c*symbol){
+	return narrow_spec_init(symbol, symbol->string_spec, symbol->single_byte_character_string);	
+}
+
 /*  TYPE type_declaration_list END_TYPE */
 // SYM_REF1(data_type_declaration_c, type_declaration_list)
 /* NOTE: Not required. already handled by iterator_visitor_c base class */
@@ -854,7 +858,7 @@ void *narrow_candidate_datatypes_c::visit(structured_var_declaration_c *symbol) 
 void *narrow_candidate_datatypes_c::visit(external_declaration_c       *symbol) {return narrow_var_declaration(symbol->specification);}
 void *narrow_candidate_datatypes_c::visit(global_var_decl_c            *symbol) {return narrow_var_declaration(symbol->type_specification);}
 void *narrow_candidate_datatypes_c::visit(incompl_located_var_decl_c   *symbol) {return narrow_var_declaration(symbol->var_spec);}
-//void *narrow_candidate_datatypes_c::visit(single_byte_string_var_declaration_c *symbol) {return handle_var_declaration(symbol->single_byte_string_spec);}
+void *narrow_candidate_datatypes_c::visit(single_byte_string_var_declaration_c *symbol) {return narrow_var_declaration(symbol->single_byte_string_spec);}
 //void *narrow_candidate_datatypes_c::visit(double_byte_string_var_declaration_c *symbol) {return handle_var_declaration(symbol->double_byte_string_spec);}
 
 

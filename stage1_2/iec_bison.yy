@@ -3610,7 +3610,12 @@ variable_name: identifier;
 /********************************************/
 /* B.1.4.1   Directly Represented Variables */
 /********************************************/
-prev_declared_direct_variable: prev_declared_direct_variable_token	{$$ = new direct_variable_c($1, locloc(@$));};
+prev_declared_direct_variable: 
+  prev_declared_direct_variable_token
+  	{$$ = new direct_variable_c($1, locloc(@$));};
+| direct_variable_token
+  	{$$ = new direct_variable_c($1, locloc(@$));};
+;
 
 
 

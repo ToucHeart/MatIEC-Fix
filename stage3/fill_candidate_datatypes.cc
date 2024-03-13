@@ -896,9 +896,44 @@ void *fill_candidate_datatypes_c::visit(duration_c *symbol) {
 /************************************/
 /* B 1.2.3.2 - Time of day and Date */
 /************************************/
-void *fill_candidate_datatypes_c::visit(time_of_day_c   *symbol) {add_datatype_to_candidate_list(symbol, symbol->type_name); return NULL;}
-void *fill_candidate_datatypes_c::visit(date_c          *symbol) {add_datatype_to_candidate_list(symbol, symbol->type_name); return NULL;}
-void *fill_candidate_datatypes_c::visit(date_and_time_c *symbol) {add_datatype_to_candidate_list(symbol, symbol->type_name); return NULL;}
+
+/*ADDNEW: add check functions for daytime and date literals */
+static int month_days_[2][13]={
+	{0,31,28,31,30,31,30,31,31,30,31,30,31},
+	{0,31,29,31,30,31,30,31,31,30,31,30,31},
+};
+
+static bool is_leap_year(int year){
+	if((year % 4 == 0 && year % 100 != 0) || year % 400 == 0)
+		return true;
+	return false;
+}
+
+void *fill_candidate_datatypes_c::visit(date_literal_c*date_literal){
+	int year=atoi(date_literal->year->token->value);
+	int month = atoi(date_literal->month->token->value);
+	int day= atoi(date_literal->day->token->value);
+	if(month<1||month>12||day<1||day > month_days_[is_leap_year(year)][month]){
+		fprintf(stderr,"\ndate literal illegal in file %s at line %d\n",date_literal->first_file, date_literal->first_line);
+		exit(EXIT_FAILURE);
+	}
+	return NULL;
+}
+
+void *fill_candidate_datatypes_c::visit(daytime_c*daytime){
+	int hour=atoi(daytime->day_hour->token->value);
+	int minute = atoi(daytime->day_minute->token->value);
+	int second= atoi(daytime->day_second->token->value);
+	if(hour<0||hour>23||minute<0||minute>59||second<0||second>59){
+		fprintf(stderr,"\ndaytime literal illegal in file %s at line %d\n",daytime->first_file, daytime->first_line);
+		exit(EXIT_FAILURE);
+	}
+	return NULL;
+}
+
+void *fill_candidate_datatypes_c::visit(time_of_day_c   *symbol) {symbol->daytime->accept(*this);     add_datatype_to_candidate_list(symbol, symbol->type_name); return NULL;}
+void *fill_candidate_datatypes_c::visit(date_c          *symbol) {symbol->date_literal->accept(*this);add_datatype_to_candidate_list(symbol, symbol->type_name); return NULL;}
+void *fill_candidate_datatypes_c::visit(date_and_time_c *symbol) {symbol->date_literal->accept(*this);symbol->daytime->accept(*this);add_datatype_to_candidate_list(symbol, symbol->type_name); return NULL;}
 
 /**********************/
 /* B 1.3 - Data types */
@@ -976,7 +1011,26 @@ void *fill_candidate_datatypes_c::fill_spec_init(symbol_c *symbol, symbol_c *typ
 	return NULL;
 }
 
+/*ADDNEW：*/
+void check_str_len(symbol_c* spec, symbol_c* str){
+		single_byte_limited_len_string_spec_c* spec_ = dynamic_cast<single_byte_limited_len_string_spec_c*>(spec);
+		single_byte_character_string_c*str_ = dynamic_cast<single_byte_character_string_c*>(str);
+		if(spec_&&str_){
+			const char * size_str = spec_->character_string_len->token->value;
+			const char* str_literal = str_->token->value;
+			int arr_size = atoi(size_str);
+			int str_size = strlen(str_literal)-2;//remove the first char and last char;
+			if(str_size > arr_size){
+				fprintf(stderr,"\ncharacter string literal %s is longer than the max array size %d\n",str_literal,arr_size);
+				exit(EXIT_FAILURE);
+			}
+		}
+}
 
+void *fill_candidate_datatypes_c::visit(single_byte_string_spec_c* symbol) {
+	check_str_len(symbol->string_spec,symbol->single_byte_character_string);
+	return fill_spec_init(symbol,symbol->string_spec,symbol->single_byte_character_string);
+}
 /*  TYPE type_declaration_list END_TYPE */
 // SYM_REF1(data_type_declaration_c, type_declaration_list)
 /* NOTE: Not required. already handled by iterator_visitor_c base class */
@@ -1224,7 +1278,24 @@ void *fill_candidate_datatypes_c::visit(structure_element_initialization_c *symb
 
 /*  string_type_name ':' elementary_string_type_name string_type_declaration_size string_type_declaration_init */
 // SYM_REF4(string_type_declaration_c, string_type_name, elementary_string_type_name, string_type_declaration_size, string_type_declaration_init/* may be == NULL! */) 
-
+/*ADDNEW: add init string length check here */
+void *fill_candidate_datatypes_c::visit(string_type_declaration_c *symbol) {
+	if(symbol->string_type_declaration_init){
+		const char * size_str = symbol->string_type_declaration_size->token->value;
+		const char* str_literal = symbol->string_type_declaration_init->token->value;
+		int arr_size = atoi(size_str);
+		int str_size = strlen(str_literal)-2;//remove the first char and last char;
+		if(str_size > arr_size){
+			fprintf(stderr,"\ncharacter string literal %s is longer than the max array size %d\n",str_literal,arr_size);
+			exit(EXIT_FAILURE);
+		}
+	}
+	symbol->string_type_name->accept(*this);
+	symbol->elementary_string_type_name->accept(*this);
+	symbol->string_type_declaration_size->accept(*this);
+	if(symbol->string_type_declaration_init) symbol->string_type_declaration_init->accept(*this);
+	return NULL;
+}
 
 /*  function_block_type_name ASSIGN structure_initialization */
 /* structure_initialization -> may be NULL ! */
@@ -1417,7 +1488,10 @@ void *fill_candidate_datatypes_c::visit(structured_var_declaration_c *symbol) {r
 void *fill_candidate_datatypes_c::visit(external_declaration_c       *symbol) {return fill_var_declaration(symbol->global_var_name, symbol->specification);}
 void *fill_candidate_datatypes_c::visit(global_var_decl_c            *symbol) {return fill_var_declaration(symbol->global_var_spec, symbol->type_specification);}
 void *fill_candidate_datatypes_c::visit(incompl_located_var_decl_c   *symbol) {return fill_var_declaration(symbol->variable_name,   symbol->var_spec);}
-//void *fill_candidate_datatypes_c::visit(single_byte_string_var_declaration_c *symbol) {return handle_var_declaration(symbol->single_byte_string_spec);}
+/*ADDNEW:*/
+void *fill_candidate_datatypes_c::visit(single_byte_string_var_declaration_c *symbol) {
+	return fill_var_declaration(symbol->var1_list,symbol->single_byte_string_spec);
+}
 //void *fill_candidate_datatypes_c::visit(double_byte_string_var_declaration_c *symbol) {return handle_var_declaration(symbol->double_byte_string_spec);}
 
 

@@ -184,6 +184,13 @@ void *type_initial_value_c::visit(safewstring_type_name_c *symbol)  {return (voi
 /********************************/
 /* B 1.3.3 - Derived data types */
 /********************************/
+
+/*ADDNEW:just return the string_0 in this case */
+/* STRING ['[' integer ']'] */
+void *type_initial_value_c::visit(single_byte_limited_len_string_spec_c*symbol){
+  return (void *)string_0;
+}
+
 /*  simple_type_name ':' simple_spec_init */
 void *type_initial_value_c::visit(simple_type_declaration_c *symbol) {
   return symbol->simple_spec_init->accept(*this);

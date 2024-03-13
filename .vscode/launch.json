@@ -12,7 +12,7 @@
             "args": [
                 "tests/c.txt",
                 "-T",
-                "output"
+                "testoutput"
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/",

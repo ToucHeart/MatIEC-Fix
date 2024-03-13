@@ -14,5 +14,5 @@ config/*
 stage1_2/*.cc
 stage1_2/*.hh
 PLCOPEN/*
-output/*
+testoutput/*
 testcases_output/*

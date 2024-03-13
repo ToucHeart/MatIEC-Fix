@@ -105,11 +105,12 @@ extern void error_exit(const char *file_name, int line_no, const char *errmsg = 
  */
 
 #include <float.h>
+/*CHANGE:use typedef to replace #define */
 #if    (LDBL_MANT_DIG == 53) /* NOTE: 64 bit IEC559 real has 53 bits for mantissa! */
   //#define real64_tX long_double /* so we can later use #if (real64_t == long_double) directives in the code! */
   //#define real64_t  long double /* NOTE: no underscore '_' between 'long' and 'double' */
-  typedef long double real64_tX
-  typedef long double real64_t
+  typedef long double real64_tX;
+  typedef long double real64_t;
   #define REAL64_MAX  LDBL_MAX
 #elif  ( DBL_MANT_DIG == 53) /* NOTE: 64 bit IEC559 real has 53 bits for mantissa! */
   // #define real64_tX double
@@ -120,8 +121,8 @@ extern void error_exit(const char *file_name, int line_no, const char *errmsg = 
 #elif  ( FLT_MANT_DIG == 53) /* NOTE: 64 bit IEC559 real has 53 bits for mantissa! */
   // #define real64_tX float
   // #define real64_t  float
-  typedef float real64_tX
-  typedef float real64_t
+  typedef float real64_tX;
+  typedef float real64_t;
   #define REAL64_MAX  FLT_MAX
 #else 
   #error Could not find a 64 bit floating point data type on this platform. Aborting...
@@ -129,16 +130,22 @@ extern void error_exit(const char *file_name, int line_no, const char *errmsg = 
 
 
 #if    (LDBL_MANT_DIG == 24) /* NOTE: 32 bit IEC559 real has 24 bits for mantissa! */
-  #define real32_tX long_double /* so we can later use #if (real32_t == long_double) directives in the code! */
-  #define real32_t  long double /* NOTE: no underscore '_' between 'long' and 'double' */
+  // #define real32_tX long_double /* so we can later use #if (real32_t == long_double) directives in the code! */
+  // #define real32_t  long double /* NOTE: no underscore '_' between 'long' and 'double' */
+  typedef long double real32_tX;
+  typedef long double real32_t;
   #define REAL32_MAX  LDBL_MAX
 #elif  ( DBL_MANT_DIG == 24) /* NOTE: 32 bit IEC559 real has 24 bits for mantissa! */
-  #define real32_tX double
-  #define real32_t  double
+  // #define real32_tX double
+  // #define real32_t  double
+  typedef double real32_tX;
+  typedef double real32_t;
   #define REAL32_MAX  DBL_MAX
 #elif  ( FLT_MANT_DIG == 24) /* NOTE: 32 bit IEC559 real has 24 bits for mantissa! */
-  #define real32_tX float
-  #define real32_t  float
+  // #define real32_tX float
+  // #define real32_t  float
+  typedef float real32_tX;
+  typedef float real32_t;
   #define REAL32_MAX  FLT_MAX
 #else 
   #error Could not find a 32 bit floating point data type on this platform. Aborting...
