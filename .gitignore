@@ -16,3 +16,4 @@ stage1_2/*.hh
 PLCOPEN/*
 testoutput/*
 testcases_output/*
+tests/c.txt
