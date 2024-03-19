@@ -1,6 +1,6 @@
 /*
  * (c) 2000 Jiri Baum
- *          Mario de Sousa
+ *          
  *
  * Offered to the public under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2 of the

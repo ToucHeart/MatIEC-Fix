@@ -805,7 +805,7 @@ void *visit(structure_element_initialization_c *symbol) {
  * the most sense. Unfortunately the construct 'simple_spec_init'
  * shows up multiple times in other rules, so changing this construct
  * would also mean changing all the rules in which it appears.
- * I (Mario) therefore chose to remove route 2 instead. This means
+ * I () therefore chose to remove route 2 instead. This means
  * that the above declaration gets stored in a
  * simple_type_declaration_c, and not in a string_type_declaration_c
  * as would be expected!

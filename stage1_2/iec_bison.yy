@@ -1727,7 +1727,7 @@ library_element_declaration:
  *
  *
  * NOTE 2:
- *         I (Mario) find it strange that the writers of the spec really want
+ *         I () find it strange that the writers of the spec really want
  *         names previously used for function names, data type names or function
  *         block names, to become full fledged keywords. I understand that they
  *         do not want these names being used as variable names, but how about
@@ -1932,7 +1932,7 @@ ref_value_null_literal:
  *      The decision on how to reduce it would need to be done by
  *      ther lexical analyser (i.e. flex). But flex cannot do this
  *      sort of thing.
- *      The solution I (Mario) adopted is to have flex return
+ *      The solution I () adopted is to have flex return
  *      a real_token on (notice that exponent is no longer optional)
  *        integer '.' integer exponent
  *      and to return a fixed_point_token when it finds
@@ -3384,7 +3384,7 @@ string_type_declaration_init:
  *       We have therefore explicitly added the "REF_TO function_block_type_name" to this rule!
  * NOTE: the REF_TO ANY is a non-standard extension to the standard. This is basically equivalent to a (void *)
  */
-ref_spec_non_recursive: /* helper symbol, used to remove a reduce/reduce conflict in a non-standard syntax I (Mario) have added!! */
+ref_spec_non_recursive: /* helper symbol, used to remove a reduce/reduce conflict in a non-standard syntax I () have added!! */
   REF_TO non_generic_type_name
 	{$$ = new ref_spec_c($2, locloc(@$));}
 | REF_TO function_block_type_name
@@ -3413,7 +3413,7 @@ ref_spec: /* defined in IEC 61131-3 v3 */
  * Note that the above syntax it is not possible to define a REF_TO datatype as 
  * an alias to an already previously declared REF_TO datatype.
  *
- * I (Mario) believe that this is probably a bug in the IEC 61131-3 syntax, and I have therefore
+ * I () believe that this is probably a bug in the IEC 61131-3 syntax, and I have therefore
  * changed that standard definition to...
  *
  *  Ref_Type_Decl: Ref_Type_Name ':' Ref_Spec_Init;
@@ -3511,7 +3511,7 @@ ref_type_decl:  /* defined in IEC 61131-3 v3 */
  *              From this point onwards these tokens are then considered a previously_declared_variable,
  *              since flex will first check for this before even checking for tokens.
  *
- *              I (Mario) cuurretnly (2011) believe the cleanest method of achieving this goal
+ *              I () cuurretnly (2011) believe the cleanest method of achieving this goal
  *              is to use option (iii)
  *              However, considering that:
  *                - I have already previously implemented option (ii);
@@ -4883,7 +4883,7 @@ function_name_no_NOT_clashes: prev_declared_derived_function_name | standard_fun
  * NOTE: The IL language is ambiguous, since using NOT, AND, ...
  *       may be interpreted as either an IL operator, or
  *       as a standard function call!
- *       I (Mario) opted to interpret it as an IL operator.
+ *       I () opted to interpret it as an IL operator.
  *       This requires changing the syntax for IL language
  *       function   calling, to exclude all function with
  *       names that clash with IL operators. I therefore
@@ -5326,7 +5326,7 @@ io_OR_other_var_declarations_list:
  *   | incompl_located_var_declarations
  *
  *  Nvertheless, the symbol non_retentive_var_declarations
- *  is not defined in the spec. This seems to me (Mario)
+ *  is not defined in the spec. This seems to me ()
  *  to be a typo, so non_retentive_var_declarations
  *  has been replaced with non_retentive_var_decls
  *  in the following rule!
@@ -6571,7 +6571,7 @@ fb_task:
 
 /* NOTE:
  *  The semantics of configuring a program are rather confusing, so here is
- *  my (Mario) understanding on the issue...
+ *  my () understanding on the issue...
  *
  *  A function/program may have as its input variables a simple variable
  *  (BYTE, WORD, etc...), an array (ARRAY [1 .. 3] OF BYTE, ...) , or a structure.
@@ -6803,7 +6803,7 @@ il_simple_operation:
  *       without any operands, could be reduced to either an operator or a
  *       function call. 
  *
- *       I (Mario) have chosen to reduce it to an operator.
+ *       I () have chosen to reduce it to an operator.
  *       In order to do this, we must remove from the syntax that defines
  *       function calls all the functions whose names clash with the IL operators.
  *
@@ -6823,7 +6823,7 @@ il_simple_operation:
  *       function. This means that (MOD, AND,...) could be interpret as a function name
  *       or as an IL operator! This would lead us to a reduce/reduce conflict!
  *
- *       I (Mario) have chosen to reduce it to an operand, rather than a function call.
+ *       I () have chosen to reduce it to an operand, rather than a function call.
  *       In order to do this, we must remove from the syntax that defines
  *       function calls all the functions whose names clash with the IL operators.
  *
@@ -6999,7 +6999,7 @@ il_formal_funct_call:
  *
  *       In summary: 'MOD' '(' eol_list ')', and all other functions whose
  *       names clash with expressions may be interpreted by the syntax by
- *       two different routes. I (Mario) chose to interpret them
+ *       two different routes. I () chose to interpret them
  *       as operators, rather than as function calls!
  *       (AND MOD OR XOR ADD DIV EQ GT GE LT LE MUL NE SUB)
  */
@@ -7247,7 +7247,7 @@ sendto_identifier: sendto_identifier_token {$$ = new identifier_c($1, locloc(@$)
  * Note that EQ is followed by a space.
  * I am considering this a typo, and defining the operator
  * as 'EQ'
- * (Mario)
+ * ()
  */
 LD_operator: 		LD 	{$$ = new LD_operator_c(locloc(@$));};
 LDN_operator: 		LDN 	{$$ = new LDN_operator_c(locloc(@$));};
@@ -7838,7 +7838,7 @@ primary_expression:
  *       may be parsed as either a function_invocation, or a
  *       unary_expression.
  *
- *       I (Mario) have opted to remove the possible reduction
+ *       I () have opted to remove the possible reduction
  *       to function invocation, which means replacing the rule
  *           function_name '(' param_assignment_list ')'
  *       with
@@ -8046,7 +8046,7 @@ param_assignment_nonformal_list:
  *        (b) or implement the syntax in iec.y correctly, not allowing 
  *            the mixing of formal and non-formal invocation syntaxes.
  *       Considering that this is a syntax issue, and not semantic issue,
- *       I (Mario) have decided to go with alternative (a).
+ *       I () have decided to go with alternative (a).
  *       In other words, in iec.y we do not follow the syntax as defined in
  *       Annex B of the IEC 61131-3 standard, but rather implement
  *       the syntax also taking into account the textual part of the standard too.
@@ -8628,7 +8628,7 @@ identifier_c *token_2_identifier_c(char *value, ) {
   if (ptr != NULL) name = str; \
 }
 
-/* NOTE: this code is very ugly and un-eficient, but I (Mario) have many
+/* NOTE: this code is very ugly and un-eficient, but I () have many
  *       more things to worry about right now, so just let it be...
  */
 poutype_identifier_c *il_operator_c_2_poutype_identifier_c(symbol_c *il_operator) {

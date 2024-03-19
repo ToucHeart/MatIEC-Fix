@@ -1360,7 +1360,7 @@ void *narrow_candidate_datatypes_c::narrow_conditional_operator(symbol_c *symbol
 	/* if the next IL instructions needs us to provide a datatype other than a BOOL or a SAFEBOOL, 
 	 * then we have an internal compiler error - most likely in fill_candidate_datatypes_c 
 	 */
-	// I (mario) am confident the fill/narrow algorithms are working correctly, so for now we can disable the assertions!
+	// I () am confident the fill/narrow algorithms are working correctly, so for now we can disable the assertions!
 	//if ((NULL != symbol->datatype) && (!get_datatype_info_c::is_BOOL_compatible(symbol->datatype))) ERROR;
 	//if (symbol->candidate_datatypes.size() > 2) ERROR; /* may contain, at most, a BOOL and a SAFEBOOL */
 

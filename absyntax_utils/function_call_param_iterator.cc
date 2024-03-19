@@ -314,7 +314,7 @@ SYM_REF2(fb_task_c, fb_name, task_name)
 void *function_call_param_iterator_c::visit(prog_cnxn_assign_c *symbol) {
   TRACE("prog_cnxn_assign_c");
 
-  /* NOTE: symbolic_variable may be something other than a symbolic_variable_c, but I (Mario)
+  /* NOTE: symbolic_variable may be something other than a symbolic_variable_c, but I ()
    *       do not understand the semantics that should be implmeneted if it is not a
    *        symbolic_variable, so for the moment we simply give up!
    */
@@ -331,7 +331,7 @@ void *function_call_param_iterator_c::visit(prog_cnxn_assign_c *symbol) {
 void *function_call_param_iterator_c::visit(prog_cnxn_sendto_c *symbol) {
   TRACE("prog_cnxn_sendto_c");
 
-  /* NOTE: symbolic_variable may be something other than a symbolic_variable_c, but I (Mario)
+  /* NOTE: symbolic_variable may be something other than a symbolic_variable_c, but I ()
    *       do not understand the semantics that should be implmeneted if it is not a
    *        symbolic_variable, so for the moment we simply give up!
    */

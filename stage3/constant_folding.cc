@@ -103,7 +103,7 @@
  *
  * NOTE 3
  *    Constant Folding class is extended with a implementation constant propagation algorithm
- *    by Mario de Sousa.
+ *    by .
  *    Main idea is not to implement a general constant propagation algorithm but to reinterpret it
  *    for visitor classes.
  *    We declared a hash map, it contains a variables list linked with current constant values.
@@ -229,7 +229,7 @@
    * so we cannot call strtoll() and strtoull() in extract_int64() and extract_uint64().
    *
    * So, we create our own strtouint64() and strtoint64() functions.
-   * (We actually call them matiec_strtoint64() so they will not clash with any function
+   * (We actually call them st2c_strtoint64() so they will not clash with any function
    *  that may be added to the standard library in the future).
    * We actually create several of each, and let the compiler choose which is the correct one,
    * by having it resolve the call to the overloaded function. For the C++ compiler to be able
@@ -238,14 +238,14 @@
    * TODO: support platforms (where the compiler will run) in which int64_t is mapped onto int !!
    *       Is this really needed?
    *       Currently, when trying to compile  on sych a platform, the C++ compiler will not
-   *       find any apropriate matiec_strtoint64() to call, so  will not be able to be compiled.
+   *       find any apropriate st2c_strtoint64() to call, so  will not be able to be compiled.
    *       If you need this, you are welcome to fix it yourself...
    */
-static  int64_t matiec_strtoint64 (         long      int *dummy, const char *nptr, char **endptr, int base) {return strtol  (nptr, endptr, base);}
-static  int64_t matiec_strtoint64 (         long long int *dummy, const char *nptr, char **endptr, int base) {return strtoll (nptr, endptr, base);}
+static  int64_t st2c_strtoint64 (         long      int *dummy, const char *nptr, char **endptr, int base) {return strtol  (nptr, endptr, base);}
+static  int64_t st2c_strtoint64 (         long long int *dummy, const char *nptr, char **endptr, int base) {return strtoll (nptr, endptr, base);}
   
-static uint64_t matiec_strtouint64(unsigned long      int *dummy, const char *nptr, char **endptr, int base) {return strtoul (nptr, endptr, base);}
-static uint64_t matiec_strtouint64(unsigned long long int *dummy, const char *nptr, char **endptr, int base) {return strtoull(nptr, endptr, base);}
+static uint64_t st2c_strtouint64(unsigned long      int *dummy, const char *nptr, char **endptr, int base) {return strtoul (nptr, endptr, base);}
+static uint64_t st2c_strtouint64(unsigned long long int *dummy, const char *nptr, char **endptr, int base) {return strtoull(nptr, endptr, base);}
 
 
 /* extract the value of an integer from an integer_c object !! */
@@ -275,7 +275,7 @@ int64_t extract_int64_value(symbol_c *sym, bool *overflow) {
     if (value[i] != '_')  str += value[i];
 
   errno = 0; // since strtoXX() may legally return 0, we must set errno to 0 to detect errors correctly!
-  ret = matiec_strtoint64((int64_t *)NULL, str.c_str(), &endptr, base);
+  ret = st2c_strtoint64((int64_t *)NULL, str.c_str(), &endptr, base);
   if (overflow != NULL)
     *overflow = (errno == ERANGE);
   if (((errno != 0) && (errno != ERANGE)) || (*endptr != '\0'))
@@ -307,7 +307,7 @@ uint64_t extract_uint64_value(symbol_c *sym, bool *overflow) {
     if (value[i] != '_')  str += value[i];
 
   errno = 0; // since strtoXX() may legally return 0, we must set errno to 0 to detect errors correctly!
-  ret = matiec_strtouint64((uint64_t *)NULL, str.c_str(), &endptr, base);
+  ret = st2c_strtouint64((uint64_t *)NULL, str.c_str(), &endptr, base);
   if (overflow != NULL)
     *overflow = (errno == ERANGE);
   if (((errno != 0) && (errno != ERANGE)) || (*endptr != '\0'))

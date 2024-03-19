@@ -1321,7 +1321,7 @@ void *fill_candidate_datatypes_c::visit(symbolic_variable_c *symbol) {
 /* B 1.4.1 - Directly Represented Variables */
 /********************************************/
 void *fill_candidate_datatypes_c::visit(direct_variable_c *symbol) {
-	/* Comment added by mario:
+	/* Comment added by :
 	 * The following code is safe, actually, as the lexical parser guarantees the correct IEC61131-3 syntax was used.
 	 */
 	/* However, we should probably add an assertion in case we later change the lexical parser! */

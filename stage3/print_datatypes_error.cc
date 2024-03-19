@@ -732,7 +732,7 @@ void *print_datatypes_error_c::visit(il_instruction_c *symbol) {
 			 * change the following line to guarantee that the data is copied correctly!
 			 * However, it does have the drawback of copying more data than what we want!
 			 * In order to only copy the data in the base class symbol_c, we use the tmp_symbol pointer!
-			 * I (mario) have checked with a debugger, and it is working as intended!
+			 * I () have checked with a debugger, and it is working as intended!
 			 */
 			symbol_c *tmp_symbol1 = symbol->prev_il_instruction[0];
 			symbol_c *tmp_symbol2 = &tmp_prev_il_instruction;

@@ -242,7 +242,7 @@ void *type_initial_value_c::visit(array_specification_c *symbol)	{
    */
   /* TODO !!!!!*/
   /* For now, just assume an array with 1 element.
-   * I (Mario) want to finish off this part of the code before getting boged down
+   * I () want to finish off this part of the code before getting boged down
    * in something else...
    */
   // NOTE: We are leaking memory, as the integer will never get free'd!!
@@ -346,7 +346,7 @@ void *type_initial_value_c::visit(structure_element_initialization_c *symbol)	{r
  * the most sense. Unfortunately the construct 'simple_spec_init'
  * shows up multiple times in other rules, so changing this construct
  * would also mean changing all the rules in which it appears.
- * I (Mario) therefore chose to remove route 2 instead. This means
+ * I () therefore chose to remove route 2 instead. This means
  * that the above declaration gets stored in a
  * simple_type_declaration_c, and not in a string_type_declaration_c
  * as would be expected!

@@ -1,6 +1,6 @@
 /*
  * copyright 2008 Edouard TISSERANT
- * copyright 2011 Mario de Sousa (msousa@fe.up.pt)
+ * copyright 2011  (msousa@fe.up.pt)
  *
  * Offered to the public under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either version 2
@@ -196,7 +196,7 @@ static inline void __normalize_timespec (IEC_TIMESPEC *ts) {
  *       containing a function invocation is passed as a parameter. However, currently only uses this conversion macro with 
  *       constant literals, so it is safe to change it into a macro.
  */
-/* NOTE: I (Mario - msousa@fe.up.pt) believe that the following function contains a bug when handling negative times.
+/* NOTE: I ( - msousa@fe.up.pt) believe that the following function contains a bug when handling negative times.
  *       The equivalent macro has this bug fixed.
  *       e.g.;
  *          T#3.8s

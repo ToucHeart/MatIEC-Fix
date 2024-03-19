@@ -1,6 +1,6 @@
 /*
  * copyright 2008 Edouard TISSERANT
- * copyright 2011 Mario de Sousa (msousa@fe.up.pt)
+ * copyright 2011  (msousa@fe.up.pt)
  *
  * Offered to the public under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either version 2

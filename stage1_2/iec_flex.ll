@@ -278,7 +278,7 @@ int GetNextChar(char *b, int maxBuffer);
  *            easily identified. Thus knowledge of the syntax required by
  *            the lexical parser is very limited!
  *
- * Amazingly enough, I (Mario) got to implement option (3)
+ * Amazingly enough, I () got to implement option (3)
  * at first, requiring two basic states, decl and body.
  * The lexical parser will enter the body state when
  * it is parsing the body of a function/program/function block. The

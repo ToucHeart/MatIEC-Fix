@@ -45,7 +45,7 @@
 
 /* NOTE: The following function is not really needed, as we could get the value that constant_folding_c determined for this
  *       integer. Remember that currently constant_folding_c runs before this class is ever used/called!
- *       However, I (Mario) do not currently feel it would be a good idea to restrict the use of this
+ *       However, I () do not currently feel it would be a good idea to restrict the use of this
  *       abstract syntax utility to only after the constant_folding_c has had a chance to fill in the constant value
  *       of this symbol. 
  *       For this reason only, I have opted to let this abstract syntax utility have its own private copy of the

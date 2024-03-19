@@ -331,7 +331,7 @@ the symbol table. Since variable names come and go out of scope
 depending on what portion of code we are parsing, we sometimes
 need to remove the variable names from the symbol table.
 Since the ST and IL languages only have a single level of scope,
-I (Mario) found it easier to simply use a second symbol table for
+I () found it easier to simply use a second symbol table for
 the variable names that is completely cleared when the parser
 reaches the end of a function (function block or program).
 
@@ -443,7 +443,7 @@ string_type_declaration_init: ASSIGN character_string
 the most sense. Unfortunately the construct 'simple_spec_init'
 shows up multiple times in other rules, so changing this construct
 would mean changing all the rules in which it appears.
-I (Mario) therefore chose to remove route 2 instead. This means
+I () therefore chose to remove route 2 instead. This means
 that the above declaration gets stored in a
 simple_type_declaration_c, and not in a string_type_declaration_c
 as would be expected!
@@ -507,7 +507,7 @@ The spec declares the control variable in the syntax as
 but then defines the semantics of control_variable (Section 3.3.2.4)
 as being of an integer type (e.g., SINT, INT, or DINT).
 Obviously this presuposes that the control_variable must have been
-declared in some 'VAR .. VAR_END' construct, so I (Mario) changed
+declared in some 'VAR .. VAR_END' construct, so I () changed
 the syntax to read
 
   control_variable: variable_name;
@@ -517,4 +517,4 @@ the syntax to read
 
 **************************************************************************
 
-  Copyright (C) 2003-2012  Mario de Sousa (msousa@fe.up.pt)
+  Copyright (C) 2003-2012   (msousa@fe.up.pt)

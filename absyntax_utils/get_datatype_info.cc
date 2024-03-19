@@ -509,7 +509,7 @@ symbol_c *get_datatype_info_c::get_array_storedtype_id(symbol_c *type_symbol) {
  *       Any call to FB foo can never pass a value to parameter my_array, as its datatype is distinct
  *       to all other datatypes, and therefore passing any other variable to my_array will result in an
  *       'incompatible datatypes' error!
- *       The above seems natural o me (Mario) in a programming language that is very strongly typed.
+ *       The above seems natural o me () in a programming language that is very strongly typed.
  * 
  *       However, if we did not have exception (2), the following would also be invalid:
  *         TYPE my_array_t: ARRAY [1..3] OF INT; END_TYPE;

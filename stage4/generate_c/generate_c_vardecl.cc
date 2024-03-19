@@ -2314,7 +2314,7 @@ void *visit(var1_init_decl_c *symbol) {
    * The visitor to var1_list_c would then use the references in the global
    * variables.
    *
-   * I (Mario) have chosen to use 3).
+   * I () have chosen to use 3).
    */
 
   /* Start off by setting the current_var_type_symbol and
@@ -2684,7 +2684,7 @@ void *visit(fb_task_c *symbol) {
    *       We do not support allocating specific function blocks declared
    *       inside a program to be executed by a different task from the one
    *       already executing the program itself.
-   *       This is mostly because I (Mario) simply do not understand the
+   *       This is mostly because I () simply do not understand the
    *       semantics the standard expects us to implement in this case. It is all
    *       very confusing, and very poorly defined in the standard!
    */
