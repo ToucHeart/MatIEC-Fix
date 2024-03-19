@@ -4637,9 +4637,13 @@ single_byte_string_spec:
 /*
 | STRING ASSIGN single_byte_character_string
 	{$$ = new single_byte_string_spec_c($1, NULL, $3, locloc(@$));}
+| STRING ASSIGN STRING_POUND single_byte_character_string
+	{$$ = new single_byte_string_spec_c($1, NULL, $4, locloc(@$));}
 */
 | STRING '[' integer ']' ASSIGN single_byte_character_string
 	{$$ = new single_byte_string_spec_c(new single_byte_limited_len_string_spec_c(new string_type_name_c(locloc(@1)), $3, locloc(@$)), $6, locloc(@$));}
+| STRING '[' integer ']' ASSIGN STRING_POUND single_byte_character_string
+	{$$ = new single_byte_string_spec_c(new single_byte_limited_len_string_spec_c(new string_type_name_c(locloc(@1)), $3, locloc(@$)), $7, locloc(@$));}
 /* ERROR_CHECK_BEGIN */
 | STRING '[' error ']'
 	{$$ = NULL; print_err_msg(locf(@3), locl(@3), "invalid length value for limited string type specification."); yyerrok;}
@@ -4682,9 +4686,13 @@ double_byte_string_spec:
 /*
 | WSTRING ASSIGN double_byte_character_string
 	{$$ = new double_byte_string_spec_c($1, NULL, $3, locloc(@$));}
+| WSTRING ASSIGN WSTRING_POUND double_byte_character_string
+	{$$ = new double_byte_string_spec_c($1, NULL, $4, locloc(@$));}
 */
 | WSTRING '[' integer ']' ASSIGN double_byte_character_string
 	{$$ = new double_byte_string_spec_c(new double_byte_limited_len_string_spec_c(new wstring_type_name_c(locloc(@1)), $3, locloc(@$)), $6, locloc(@$));}
+| WSTRING '[' integer ']' ASSIGN WSTRING_POUND double_byte_character_string
+	{$$ = new double_byte_string_spec_c(new double_byte_limited_len_string_spec_c(new wstring_type_name_c(locloc(@1)), $3, locloc(@$)), $7, locloc(@$));}
 /* ERROR_CHECK_BEGIN */
 | WSTRING '[' error ']'
 	{$$ = NULL; print_err_msg(locf(@3), locl(@3), "invalid length value for limited double byte string type specification."); yyerrok;}
