@@ -1404,12 +1404,14 @@ TIME# 	return TIME_POUND;
 	/************************************/
 TIME_OF_DAY	return TIME_OF_DAY;	/* Keyword (Data Type) */
 TOD		return TIME_OF_DAY;	/* Keyword (Data Type) */
+TOD# 	return TIME_OF_DAY_POUND;
 DATE		return DATE;		/* Keyword (Data Type) */
 DATE# 	return DATE_POUND;
 d#		return D_SHARP;		/* Delimiter */
 D#		return D_SHARP;		/* Delimiter */
 DATE_AND_TIME	return DATE_AND_TIME;	/* Keyword (Data Type) */
 DT		return DATE_AND_TIME;	/* Keyword (Data Type) */
+DT#		return DATE_AND_TIME_POUND;
 
 
 	/***********************************/
@@ -1445,7 +1447,9 @@ TIME#		return TIME_POUND;
 DATE		return DATE;		/* Keyword (Data Type) */
 DATE# 		return DATE_POUND;
 DT		return DT;		/* Keyword (Data Type) */
+DT#		return DATE_AND_TIME_POUND;
 TOD		return TOD;		/* Keyword (Data Type) */
+TOD# 	return TIME_OF_DAY_POUND;
 DATE_AND_TIME	return DATE_AND_TIME;	/* Keyword (Data Type) */
 DATE_AND_TIME#  return DATE_AND_TIME_POUND;
 TIME_OF_DAY	return TIME_OF_DAY;	/* Keyword (Data Type) */
