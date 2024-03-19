@@ -41,14 +41,14 @@ install: build
 	dh_clean -k 
 	dh_installdirs
 
-	# Add here commands to install the package into debian/matiec.
-	#$(MAKE) INSTALL_PREDIR=$(CURDIR)/debian/matiec/usr INSTALL_BINDIR=/bin IECLIBDIR=/lib install	
+	# Add here commands to install the package into debian/st2c.
+	#$(MAKE) INSTALL_PREDIR=$(CURDIR)/debian/st2c/usr INSTALL_BINDIR=/bin IECLIBDIR=/lib install	
 	
 	# Add here commands to install the package into debian/beremiz.
-	mkdir -p $(CURDIR)/debian/matiec/usr/share/matiec
+	mkdir -p $(CURDIR)/debian/st2c/usr/share/st2c
 	
-	cp -a lib $(CURDIR)/debian/matiec/usr/share/matiec
-	cp iec2c $(CURDIR)/debian/matiec/usr/share/matiec
+	cp -a lib $(CURDIR)/debian/st2c/usr/share/st2c
+	cp iec2c $(CURDIR)/debian/st2c/usr/share/st2c
 
 # Build architecture-independent files here.
 binary-indep: build install

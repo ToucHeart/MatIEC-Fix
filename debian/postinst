@@ -20,8 +20,8 @@ set -e
 
 case "$1" in
     configure)
-	ln -sf /usr/share/matiec/iec2c /usr/bin/iec2c
-	chmod 755 /usr/share/matiec/iec2c
+	ln -sf /usr/share/st2c/iec2c /usr/bin/iec2c
+	chmod 755 /usr/share/st2c/iec2c
 	;;
 	
     abort-upgrade|abort-remove|abort-deconfigure)

@@ -5,13 +5,13 @@
 
 set -e
 
-MATIEC=/usr/bin/iec2c
+ST2C=/usr/bin/iec2c
 
 case "$1" in
     purge|remove|upgrade|failed-upgrade|abort-install|abort-upgrade|disappear)
 	
-	if [ -f "$MATIEC" ]; then
-		rm $MATIEC
+	if [ -f "$ST2C" ]; then
+		rm $ST2C
 	fi
 	;;
 

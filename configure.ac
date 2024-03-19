@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.61])
-AC_INIT([matiec], [0.1], [])
+AC_INIT([st2c], [0.1], [])
 AC_CONFIG_HEADERS([config/config.h])
 AC_CONFIG_AUX_DIR(config)
 
