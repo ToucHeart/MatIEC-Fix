@@ -1,27 +1,3 @@
-/*
- *  matiec - a compiler for the programming languages defined in IEC 61131-3
- *
- *  Copyright (C) 2003-2011  Mario de Sousa (msousa@fe.up.pt)
- *  Copyright (C) 2007-2011  Laurent Bessard and Edouard Tisserant
- *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- *
- * This code is made available on the understanding that it will not be
- * used in safety-critical situations without a full and competent review.
- */
-
 #include <string>
 #include <iostream>
 #include <sstream>
@@ -496,7 +472,16 @@ class analyse_variable_c: public search_visitor_c {
       last_fb = symbol;
       return NULL;
     }
-    
+    /*ADDNEW:add visit direct_variable_c type symbol */
+    void*visit(direct_variable_c*symbol){
+      if (!get_datatype_info_c::is_type_valid    (symbol->datatype)) ERROR;
+      if (!get_datatype_info_c::is_function_block(symbol->datatype)) {
+         first_non_fb_identifier = symbol; 
+         return (void *)symbol;
+      }
+      last_fb = symbol;
+      return NULL;
+    } 
     /*************************************/
     /* B.1.4.2   Multi-element Variables */
     /*************************************/
@@ -930,7 +915,7 @@ class generate_c_pous_c {
     
       /* (B.2) Temporary variable for function's return value */
       /* It will have the same name as the function itself! */
-      /* NOTE: matiec supports a non-standard syntax, in which functions do not return a value
+      /* NOTE: supports a non-standard syntax, in which functions do not return a value
        *       (declared as returning the special non-standard datatype VOID)
        *       e.g.:   FUNCTION foo: VOID
        *                ...
@@ -943,7 +928,7 @@ class generate_c_pous_c {
        *                ...
        *                 foo := 42;
        *               END_FUNCTION
-       *       will always return a datatype incompatilibiyt error in stage 3 of matiec, 
+       *       will always return a datatype incompatilibiyt error in stage 3 of the project , 
        *       so it is safe for stage 4 to assume that this return variable will never be needed
        *       if the function's return type is VOID.
        */
@@ -2382,7 +2367,7 @@ private:
  * configuration, and call the backup/restore functions of each embedded resource to do
  * the same for the global variables declared inside each resource.
  *
- *   The matiec compiler will now generate two additional functions which 
+ *   The compiler will now generate two additional functions which 
  *   will backup and restore the PLC internal state to a void *buffer.
  *       config_backup__(void **buffer, int *maxsize)
  *       config_restore__(void **buffer, int *maxsize)

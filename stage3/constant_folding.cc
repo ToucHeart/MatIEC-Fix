@@ -1,28 +1,4 @@
 /*
- *  matiec - a compiler for the programming languages defined in IEC 61131-3
- *
- *  Copyright (C) 2003-2011  Mario de Sousa (msousa@fe.up.pt)
- *  Copyright (C) 2012       Manuele Conti (conti.ma@alice.it)
- *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- *
- * This code is made available on the understanding that it will not be
- * used in safety-critical situations without a full and competent review.
- */
-
-/*
  * An IEC 61131-3 compiler.
  *
  * Based on the
@@ -261,8 +237,8 @@
    *
    * TODO: support platforms (where the compiler will run) in which int64_t is mapped onto int !!
    *       Is this really needed?
-   *       Currently, when trying to compile matiec on sych a platform, the C++ compiler will not
-   *       find any apropriate matiec_strtoint64() to call, so matiec will not be able to be compiled.
+   *       Currently, when trying to compile  on sych a platform, the C++ compiler will not
+   *       find any apropriate matiec_strtoint64() to call, so  will not be able to be compiled.
    *       If you need this, you are welcome to fix it yourself...
    */
 static  int64_t matiec_strtoint64 (         long      int *dummy, const char *nptr, char **endptr, int base) {return strtol  (nptr, endptr, base);}
@@ -1313,7 +1289,7 @@ static constant_propagation_c::map_values_t inner_left_join_values(constant_prop
    *  all global variables (including the 'constant') as non-constant - this actually makes
    *  the algorithm much easier!).
    * 
-   *  However, matiec has implemented an extension where we allow arrays whose size may be 
+   *  However, has implemented an extension where we allow arrays whose size may be 
    *  defined using symbolic variables, whose value can be determined at compile time 
    *  (typically VAR CONSTANT variables). To really become usefull, this extension must allow
    *  the same var_global constant to be used in declaring arrays in both configuration as

@@ -1,29 +1,4 @@
 /*
- *  matiec - a compiler for the programming languages defined in IEC 61131-3
- *
- *  Copyright (C) 2003-2012  Mario de Sousa (msousa@fe.up.pt)
- *  Copyright (C) 2007-2011  Laurent Bessard and Edouard Tisserant
- *  Copyright (C) 2012       Manuele Conti  (conti.ma@alice.it)
- *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- *
- * This code is made available on the understanding that it will not be
- * used in safety-critical situations without a full and competent review.
- */
-
-/*
  * An IEC 61131-3 compiler.
  *
  * Based on the
@@ -476,13 +451,13 @@ symbol_c *get_datatype_info_c::get_array_storedtype_id(symbol_c *type_symbol) {
  *       this function will currently only return true if the dataypes are identicial.
  */
 
-/* NOTE: matiec supports a strict and a relaxed data type model. Which datatype model to use is chosen
+/* NOTE: supports a strict and a relaxed data type model. Which datatype model to use is chosen
  *       as a command line option.
  * 
  * 
  *       The Strict Datatype Model
  *       =========================
- *       The strict datatype model used by matiec considers any implicitly defined datatype
+ *       The strict datatype model used by considers any implicitly defined datatype
  *       (e.g. an array datatype defined in the variable declaration itself, instead of inside a TYPE ... END_TYPE
  *       construct) to be different (i.e. not the same datatype, and therefore not compatible) to any other
  *       datatype, including with datatypes declared identically to the implicit datatype.
@@ -577,7 +552,7 @@ symbol_c *get_datatype_info_c::get_array_storedtype_id(symbol_c *type_symbol) {
  *       same datatype.
  *      
  *       Note that the strict datatype model currently actually uses a relaxed datatype model for 
- *       REF_TO datatypes, so in both the relaxed and strict datatype models matiec currently uses a 
+ *       REF_TO datatypes, so in both the relaxed and strict datatype models currently uses a 
  *       relaxed datatype equivalince for REF_TO datatypes.
  */
 bool get_datatype_info_c::is_type_equal(symbol_c *first_type, symbol_c *second_type) {
@@ -628,7 +603,7 @@ bool get_datatype_info_c::is_type_equal(symbol_c *first_type, symbol_c *second_t
  *    -8_2 -> -82
  *   -082  -> -82
  * 
- * NOTE: since matiec supports arrays with a variable size (a non compliant IEC 61131-3 extension)
+ * NOTE: since  supports arrays with a variable size (a non compliant IEC 61131-3 extension)
  *        (e.g.: ARRAY [1..max] of INT, where max must be a constant variable)
  *       the symbol passed to this function may also be a symbolic_variable
  *       (or more correctly, a symbolic_constant_c).

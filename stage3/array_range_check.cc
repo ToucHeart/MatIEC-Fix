@@ -1,27 +1,3 @@
-/*
- *  matiec - a compiler for the programming languages defined in IEC 61131-3
- *
- *  Copyright (C) 2009-2012  Mario de Sousa (msousa@fe.up.pt)
- *  Copyright (C) 2012       Manuele Conti  (conti.ma@alice.it)
- *
- *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- *
- * This code is made available on the understanding that it will not be
- * used in safety-critical situations without a full and competent review.
- */
 
 /*
  * An IEC 61131-3 compiler.
@@ -233,9 +209,9 @@ void *array_range_check_c::visit(subrange_c *symbol) {
 		// set dimension to largest possible value so we do not get any further related error messages.
 		dimension = std::numeric_limits< unsigned long long int >::max() - 1; // -1 because it will be incremented at the end of this function!! 
 		/* NOTE: Note that both the "subrange *** limit is not a constant value" error messages are only necessary due to an extension
-		 *       that matiec supports by allowing non-literals in subrange declarations (currently only subranges in array declarations).
+		 *       that supports by allowing non-literals in subrange declarations (currently only subranges in array declarations).
 		 *         e.g.:  array_var: ARRAY [1..max] of INT;   <--- illegal according to IEC 61131-1 due to the 'max' non literal
-		 *       Matiec will allow the above syntax, as long as the 'max' variable can be determined to be constant throughout
+		 *       will allow the above syntax, as long as the 'max' variable can be determined to be constant throughout
 		 *       the program execution at runtime (and not only constant when program initiates) - for example, a VAR CONSTANT
 		 *       variable.
 		 *       These two checks will verify if we were able to fold the variable into a constant value, or not.

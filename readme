@@ -1,16 +1,3 @@
-
-
-
-  MATIEC - IEC 61131-3 compiler
-
-
-  The following compiler has been based on the
-  FINAL DRAFT - IEC 61131-3, 2nd Ed. (2001-12-10)
-
-
-  Copyright (C) 2003-2012  Mario de Sousa (msousa@fe.up.pt)
-
-
 ****************************************************************
 ****************************************************************
 ****************************************************************
@@ -48,7 +35,7 @@ domain, to program PLCs (Programmable Logic Controllers).
 It is these 3 languages that we target, and we currently support all three, as long as they are
 expressed in the textual format as defined in the standard.
 
- Currently the matiec project generates two compilers (more correctly, code translaters, but we like
+ Currently the  project generates two compilers (more correctly, code translaters, but we like
 to call them compilers :-O ): iec2c, and iec2iec
 
  Both compilers accept the same input: a text file with ST, IL and/or SFC code.
@@ -57,7 +44,7 @@ to call them compilers :-O ): iec2c, and iec2iec
 
  The iec2iec compiler generates IEC61131-3 code which is equivalent to the IEC 61131-3 code expressed in the input file.
 This last compiler should generate and output file which should be almost identical to the input file (some formating 
-may change, as well as the case of letters, etc.). This 'compiler' is mostly used by the matiec project contributors
+may change, as well as the case of letters, etc.). This 'compiler' is mostly used by the project contributors
 to help debug the lexical and syntax portions of the compilers.
 
 
@@ -89,7 +76,7 @@ $./configure; make
  Stage 3    - Semantics analyser     - currently does type checking only
  Stage 4    - Code generator         - generates ANSI C code
 
- Stage 5    - Binary code generator - gcc, javac, etc... (Not integrated into matiec compiler. Must be called explicitly by the user.)
+ Stage 5    - Binary code generator - gcc, javac, etc... (Not integrated into compiler. Must be called explicitly by the user.)
 
 
 

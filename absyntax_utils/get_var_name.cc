@@ -1,27 +1,4 @@
 /*
- *  matiec - a compiler for the programming languages defined in IEC 61131-3
- *
- *  Copyright (C) 2012  Mario de Sousa (msousa@fe.up.pt)
- *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- *
- * This code is made available on the understanding that it will not be
- * used in safety-critical situations without a full and competent review.
- */
-
-/*
  * An IEC 61131-3 compiler.
  *
  * Based on the
@@ -114,7 +91,8 @@ void *get_var_name_c::visit(symbolic_variable_c *symbol) {return symbol->var_nam
 /* B.1.4.1   Directly Represented Variables */
 /********************************************/
 // SYM_TOKEN(direct_variable_c)
-
+/*ADDNEW:when we meet the direct_variable_c symbol ,just return it for later string compare */
+void*get_var_name_c::visit(direct_variable_c*symbol) {return (void*)symbol;}
 /*************************************/
 /* B.1.4.2   Multi-element Variables */
 /*************************************/

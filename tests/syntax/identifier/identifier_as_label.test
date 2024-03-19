@@ -19,7 +19,7 @@
 #Task_initialisers PRIORITY SINGLE INTERVAL
 *)
 
-(* NOTE: Currently the matiec compiler does not yet support
+(* NOTE: Currently the compiler does not yet support
  *       the use of identifiers identical to IL operators
  *       in IL code. In ther words, in IL code we cannot use 
  *       identifiers identical to IL operators to identify variables,

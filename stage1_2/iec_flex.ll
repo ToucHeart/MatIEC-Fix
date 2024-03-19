@@ -1,27 +1,4 @@
 /*
- *  matiec - a compiler for the programming languages defined in IEC 61131-3
- *
- *  Copyright (C) 2003-2011  Mario de Sousa (msousa@fe.up.pt)
- *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of thest_whitespaceLicense, or
- *  (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- *
- * This code is made available on the understanding that it will not be
- * used in safety-critical situations without a full and competent review.
- */
-
-/*
  * An IEC 61131-3 compiler.
  *
  * Based on the
@@ -1143,7 +1120,7 @@ END_CONFIGURATION		unput_text(0); BEGIN(INITIAL);
 	 *       continue in the <vardecl_state> state, until the end of the FUNCTION, FUNCTION_BLOCK
 	 *       or PROGAM.
 	 * 
-	 * WARNING: From 2016-05 (May 2016) onwards, matiec supports a non-standard option in which a Function
+	 * WARNING: From 2016-05 (May 2016) onwards, supports a non-standard option in which a Function
 	 *          may be declared with no Input, Output or IN_OUT variables. This means that the above 
 	 *          assumption is no longer valid.
 	 * 
@@ -1345,7 +1322,7 @@ END_CONFIGURATION	BEGIN(INITIAL); return END_CONFIGURATION;
 	 *       We solve this by NOT testing for function names here, and
 	 *       handling this function and keyword clash in bison!
 	 */
-	/* NOTE: The following code has been commented out as most users do not want matiec
+	/* NOTE: The following code has been commented out as most users do not want 
 	 *       to allow the use of 'R1', 'IN' ... IL operators as identifiers, 
 	 *       even though a literal reading of the standard allows this.
 	 *       We could add this as a commadnd line option, but it is not yet done.
@@ -1419,6 +1396,7 @@ SAFEBOOL#FALSE	{if (get_opt_safe_extensions()) {return safeboolean_false_literal
 t#		return T_SHARP;		/* Delimiter */
 T#		return T_SHARP;		/* Delimiter */
 TIME		return TIME;		/* Keyword (Data Type) */
+TIME# 	return TIME_POUND;
 
 
 	/************************************/
@@ -1427,6 +1405,7 @@ TIME		return TIME;		/* Keyword (Data Type) */
 TIME_OF_DAY	return TIME_OF_DAY;	/* Keyword (Data Type) */
 TOD		return TIME_OF_DAY;	/* Keyword (Data Type) */
 DATE		return DATE;		/* Keyword (Data Type) */
+DATE# 	return DATE_POUND;
 d#		return D_SHARP;		/* Delimiter */
 D#		return D_SHARP;		/* Delimiter */
 DATE_AND_TIME	return DATE_AND_TIME;	/* Keyword (Data Type) */
@@ -1457,14 +1436,20 @@ REAL		return REAL;		/* Keyword (Data Type) */
 LREAL		return LREAL;		/* Keyword (Data Type) */
 
 WSTRING		return WSTRING;		/* Keyword (Data Type) */
+WSTRING# 	return WSTRING_POUND;
 STRING		return STRING;		/* Keyword (Data Type) */
+STRING# 	return STRING_POUND;
 
 TIME		return TIME;		/* Keyword (Data Type) */
+TIME#		return TIME_POUND;
 DATE		return DATE;		/* Keyword (Data Type) */
+DATE# 		return DATE_POUND;
 DT		return DT;		/* Keyword (Data Type) */
 TOD		return TOD;		/* Keyword (Data Type) */
 DATE_AND_TIME	return DATE_AND_TIME;	/* Keyword (Data Type) */
+DATE_AND_TIME#  return DATE_AND_TIME_POUND;
 TIME_OF_DAY	return TIME_OF_DAY;	/* Keyword (Data Type) */
+TIME_OF_DAY#  	return TIME_OF_DAY_POUND;
 
 					/* A non-standard extension! */
 VOID		{if (runtime_options.allow_void_datatype) {return VOID;}          else {REJECT;}} 

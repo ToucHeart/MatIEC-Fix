@@ -193,7 +193,7 @@ static inline void __normalize_timespec (IEC_TIMESPEC *ts) {
 /**********************************************/
 /* NOTE: The following function was turned into a macro, so it could be used to initialize the initial value of TIME variables.
  *       Since each macro parameter is evaluated several times, the macro may result in multiple function invocations if an expression
- *       containing a function invocation is passed as a parameter. However, currently matiec only uses this conversion macro with 
+ *       containing a function invocation is passed as a parameter. However, currently only uses this conversion macro with 
  *       constant literals, so it is safe to change it into a macro.
  */
 /* NOTE: I (Mario - msousa@fe.up.pt) believe that the following function contains a bug when handling negative times.

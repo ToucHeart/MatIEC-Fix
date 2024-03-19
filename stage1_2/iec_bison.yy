@@ -1,28 +1,4 @@
 /*
- *  matiec - a compiler for the programming languages defined in IEC 61131-3
- *
- *  Copyright (C) 2003-2011  Mario de Sousa (msousa@fe.up.pt)
- *  Copyright (C) 2007-2011  Laurent Bessard and Edouard Tisserant
- *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- *
- * This code is made available on the understanding that it will not be
- * used in safety-critical situations without a full and competent review.
- */
-
-/*
  * An IEC 61131-3 compiler.
  *
  * Based on the
@@ -375,7 +351,7 @@ typedef struct YYLTYPE {
 %type  <leaf>	prev_declared_program_type_name
 
 /* Tokens used to help resolve a reduce/reduce conflict */
-/* The mentioned conflict only arises due to a non-standard feature added to matiec.
+/* The mentioned conflict only arises due to a non-standard feature added to .
  * Namely, the permission to call functions returning VOID as an ST statement.
  *   e.g.:   FUNCTION foo: VOID
  *             VAR_INPUT i: INT; END_VAR;
@@ -667,14 +643,20 @@ typedef struct YYLTYPE {
 %token ULINT
 
 %token WSTRING
+%token WSTRING_POUND
 %token STRING
+%token STRING_POUND
 %token BOOL
 
 %token TIME
+%token TIME_POUND
 %token DATE
+%token DATE_POUND
 %token DATE_AND_TIME
+%token DATE_AND_TIME_POUND
 %token DT
 %token TIME_OF_DAY
+%token TIME_OF_DAY_POUND
 %token TOD
 
 /* A non-standard extension! */
@@ -2204,10 +2186,10 @@ duration:
  *       We therefore have flex returning the token T_SHARP
  *       when it comes across 'T#'
  */
-  TIME '#' interval
-	{$$ = new duration_c(new time_type_name_c(locloc(@1)), NULL, $3, locloc(@$));}
-| TIME '#' '-' interval
-	{$$ = new duration_c(new time_type_name_c(locloc(@1)), new neg_time_c(locloc(@$)), $4, locloc(@$));}
+  TIME_POUND interval
+	{$$ = new duration_c(new time_type_name_c(locloc(@1)), NULL, $2, locloc(@$));}
+| TIME_POUND '-' interval
+	{$$ = new duration_c(new time_type_name_c(locloc(@1)), new neg_time_c(locloc(@$)), $3, locloc(@$));}
 | T_SHARP interval
 	{$$ = new duration_c(new time_type_name_c(locloc(@1)), NULL, $2, locloc(@$));}
 | T_SHARP '-' interval
@@ -2217,6 +2199,10 @@ duration:
 | SAFETIME '#' '-' interval
 	{$$ = new duration_c(new safetime_type_name_c(locloc(@1)), new neg_time_c(locloc(@$)), $4, locloc(@$));}
 /* ERROR_CHECK_BEGIN */
+| TIME '#' interval
+	{$$ = NULL; print_err_msg(locf(@1), locl(@1), "There are extra spaces between 'TIME' and '#' in duration."); yynerrs++;}
+| TIME '#' '-' interval
+	{$$ = NULL; print_err_msg(locf(@1), locl(@1), "There are extra spaces between 'TIME' and '#' in duration."); yynerrs++;}
 | TIME interval
 	{$$ = NULL; print_err_msg(locl(@1), locf(@2), "'#' missing between 'TIME' and interval in duration."); yynerrs++;}
 | TIME '-' interval
@@ -2279,13 +2265,15 @@ milliseconds: /*  fixed_point ('ms') */
 /* B 1.2.3.2 - Time of day and Date */
 /************************************/
 time_of_day:
-  TIME_OF_DAY '#' daytime
-	{$$ = new time_of_day_c(new tod_type_name_c(locloc(@1)), $3, locloc(@$));}
+  TIME_OF_DAY_POUND daytime
+	{$$ = new time_of_day_c(new tod_type_name_c(locloc(@1)), $2, locloc(@$));}
 | SAFETIME_OF_DAY '#' daytime
 	{$$ = new time_of_day_c(new safetod_type_name_c(locloc(@1)), $3, locloc(@$));}
 /* ERROR_CHECK_BEGIN */
 | TIME_OF_DAY daytime
 	{$$ = NULL; print_err_msg(locl(@1), locf(@2), "'#' missing between 'TIME_OF_DAY' and daytime in time of day."); yynerrs++;}
+| TIME_OF_DAY '#' daytime
+	{$$ = NULL; print_err_msg(locl(@1), locf(@2), "There are extra spaces between 'TIME_OF_DAY' and '#' in time of day."); yynerrs++;}
 | TIME_OF_DAY '#' error
 	{$$ = NULL;
 	 if (is_current_syntax_token()) {print_err_msg(locl(@2), locf(@3), "no value defined for time of day.");}
@@ -2328,8 +2316,8 @@ day_second: fixed_point;
 
 
 date:
-  DATE '#' date_literal
-	{$$ = new date_c(new date_type_name_c(locloc(@1)), $3, locloc(@$));}
+  DATE_POUND date_literal
+	{$$ = new date_c(new date_type_name_c(locloc(@1)), $2, locloc(@$));}
 | D_SHARP date_literal
 	{$$ = new date_c(new date_type_name_c(locloc(@1)), $2, locloc(@$));}
 | SAFEDATE '#' date_literal
@@ -2349,6 +2337,8 @@ date:
 	 else {print_err_msg(locf(@2), locl(@2), "invalid value for date."); yyclearin;}
 	 yyerrok;
 	}
+| DATE '#' date_literal
+	{$$ = NULL; print_err_msg(locl(@1), locf(@2), "There are extra spaces between 'DATE' and '#'"); yynerrs++;}
 /* ERROR_CHECK_END */
 ;
 
@@ -2383,11 +2373,13 @@ day: integer;
 
 
 date_and_time:
-  DATE_AND_TIME '#' date_literal '-' daytime
-	{$$ = new date_and_time_c(new dt_type_name_c(locloc(@1)), $3, $5, locloc(@$));}
+  DATE_AND_TIME_POUND date_literal '-' daytime
+	{$$ = new date_and_time_c(new dt_type_name_c(locloc(@1)), $2, $4, locloc(@$));}
 | SAFEDATE_AND_TIME '#' date_literal '-' daytime
 	{$$ = new date_and_time_c(new safedt_type_name_c(locloc(@1)), $3, $5, locloc(@$));}
 /* ERROR_CHECK_BEGIN */
+| DATE_AND_TIME '#' date_literal '-' daytime
+	{$$ = NULL; print_err_msg(locl(@1), locf(@2), "There are extra spaces between 'DATE_AND_TIME' and '#' in date and time."); yynerrs++;}
 | DATE_AND_TIME date_literal '-' daytime
 	{$$ = NULL; print_err_msg(locl(@1), locf(@2), "'#' missing between 'DATE_AND_TIME' and date literal in date and time."); yynerrs++;}
 | DATE_AND_TIME '#' '-' daytime
@@ -5401,12 +5393,12 @@ function_block_body:
   /* NOTE: start_ST_body_token is a dummy token generated by flex when it determines it is starting to parse a POU body in ST
    *       start_IL_body_token is a dummy token generated by flex when it determines it is starting to parse a POU body in IL
    *     These tokens help remove a reduce/reduce conflict in bison, between a formal function invocation in IL, and a
-   *     function invocation used as a statement (a non-standard extension added to matiec) 
+   *     function invocation used as a statement (a non-standard extension added to ) 
    *       e.g: FUNCTION_BLOCK foo
    *            VAR ... END_VAR
    *              func_returning_void(in1 := 3        
    *                                 );               --> only the presence or absence of ';' will determine whether this is a IL or ST 
-   *                                                      function invocation. (In standard ST this would be ilegal, in matiec we allow it 
+   *                                                      function invocation. (In standard ST this would be ilegal, in we allow it 
    *                                                      when activated by a command line option)
    *            END_FUNCTION
    */

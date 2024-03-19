@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.61])
-AC_INIT([matiec], [0.1], [msousa@fe.up.pt, beremiz-devel@lists.sourceforge.net])
+AC_INIT([matiec], [0.1], [])
 AC_CONFIG_HEADERS([config/config.h])
 AC_CONFIG_AUX_DIR(config)
 
@@ -27,7 +27,7 @@ AC_PROG_MAKE_SET
 AC_PROG_RANLIB
 AC_PROG_AWK
 
-# Check bison version, we need a version great or equal than 2.4 to build matiec.
+# Check bison version, we need a version great or equal than 2.4 to build .
 version_bison="$(bison --version | sed q | cut -d' ' -f4 | cut -d'.' -f1,2 )"
 
 AS_IF([awk -v ver="$version_bison" 'BEGIN { if (ver < 2.4) exit 1; }'],
