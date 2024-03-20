@@ -203,10 +203,18 @@ void *search_base_type_c::visit(generic_type_any_c *symbol)       {return (void 
 /********************************/
 /*ADDNEW:*/
 void *search_base_type_c::visit(single_byte_limited_len_string_spec_c*symbol){
-  return (void*)symbol->string_type_name;
+  return (void*)symbol;
+}
+
+void *search_base_type_c::visit(double_byte_limited_len_string_spec_c*symbol){
+  return (void*)symbol;
 }
 
 void *search_base_type_c::visit(single_byte_string_spec_c*symbol){
+  return symbol->string_spec->accept(*this);
+}
+
+void *search_base_type_c::visit(double_byte_string_spec_c*symbol){
   return symbol->string_spec->accept(*this);
 }
 /*  simple_type_name ':' simple_spec_init */

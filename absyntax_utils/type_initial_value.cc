@@ -167,6 +167,10 @@ void *type_initial_value_c::visit(single_byte_limited_len_string_spec_c*symbol){
   return (void *)string_0;
 }
 
+void *type_initial_value_c::visit(double_byte_limited_len_string_spec_c*symbol){
+  return (void *)wstring_0;
+}
+
 /*  simple_type_name ':' simple_spec_init */
 void *type_initial_value_c::visit(simple_type_declaration_c *symbol) {
   return symbol->simple_spec_init->accept(*this);

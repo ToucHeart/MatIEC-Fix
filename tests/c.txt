@@ -3,9 +3,9 @@
 PROGRAM PRGTEST
 	(*符号变量自动分配位置 *)
 	VAR
-		MYSTR: STRING[10] := 'ok123456789';
+		MYSTR: WSTRING[10] := "ok123456789";
 	END_VAR
- {{}}
+ MYSTR:="ok123456789";
 END_PROGRAM
 
 

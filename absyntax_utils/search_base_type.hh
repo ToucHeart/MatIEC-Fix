@@ -159,7 +159,8 @@ class search_base_type_c: public null_visitor_c {
   /*ADDNEW:*/
   void *visit(single_byte_limited_len_string_spec_c*symbol);
   void *visit(single_byte_string_spec_c*symbol);
-
+  void *visit(double_byte_limited_len_string_spec_c*symbol);
+  void *visit(double_byte_string_spec_c*symbol);
   /*  simple_type_name ':' simple_spec_init */
     void *visit(simple_type_declaration_c *symbol);
   /* simple_specification ASSIGN constant */

@@ -404,9 +404,51 @@ class generate_c_base_c: public iterator_visitor_c {
 /* B.1.2.2   Character Strings */
 /*******************************/
     void *visit(double_byte_character_string_c *symbol) {
-      // TO DO ...
-      ERROR;
-      return print_token(symbol);
+      std::string str="\"";
+      unsigned int count = 0;
+      for (unsigned int i = 1; i < strlen(symbol->value) - 1; i++) {
+        char c= symbol->value[i];
+        if (c == '\\'||c == '\'')
+          {str += '\\'; str += c; count ++; continue;}
+        if (c != '$')
+          {str += c; count++; continue;}
+        c = symbol->value[++i];
+        switch (c) {
+          case '"':
+            {str += '\\'; str += c; count ++; continue;}
+          case '$':
+            {str += c; count++; continue;}
+          case 'L':
+          case 'l':
+            {str += "\\x0A"; /* LF */; count++; continue;}
+          case 'N':
+          case 'n':
+            {str += "\\x0A"; /* NL */; count++; continue;}
+          case 'P':
+          case 'p':
+            {str += "\\f"; /* FF */; count++; continue;}
+          case 'R':
+          case 'r':
+            {str += "\\r"; /* CR */; count++; continue;}
+          case 'T':
+          case 't':
+            {str += "\\t"; /* tab */; count++; continue;}
+          default: {
+            //TODO:handle four hex digit 
+            ERROR;
+          }
+          /* otherwise we have an invalid string!! */
+          /* This should not have got through the syntax parser! */
+          ERROR;
+        } /* switch() */
+      }
+      str += '"';
+      s4o.print("__STRING_LITERAL(");
+      s4o.print(count); 
+      s4o.print(",");
+      s4o.print(str);
+      s4o.print(")");
+      return NULL;
     }
 
     void *visit(single_byte_character_string_c *symbol) {
@@ -428,7 +470,7 @@ class generate_c_base_c: public iterator_visitor_c {
             {str += c; count++; continue;}
           case 'L':
           case 'l':
-            {str += "\x0A"; /* LF */; count++; continue;}
+            {str += "\\x0A"; /* LF */; count++; continue;}
           case 'N':
           case 'n':
             {str += "\\x0A"; /* NL */; count++; continue;}

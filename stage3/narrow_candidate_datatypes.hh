@@ -143,7 +143,9 @@ class narrow_candidate_datatypes_c: public iterator_visitor_c {
     /********************************/
 //  void *visit(data_type_declaration_c *symbol);   /* Not required. already handled by iterator_visitor_c base class */
 //  void *visit(type_declaration_list_c *symbol);   /* Not required. already handled by iterator_visitor_c base class */
+    /*ADDNEW:add **_byte_string_spec visit */
     void *visit(single_byte_string_spec_c*symbol);
+    void *visit(double_byte_string_spec_c*symbol);
     void *visit(simple_type_declaration_c *symbol); /* Not required. already handled by iterator_visitor_c base class */
     void *visit(simple_spec_init_c *symbol);
     void *visit(subrange_type_declaration_c *symbol);

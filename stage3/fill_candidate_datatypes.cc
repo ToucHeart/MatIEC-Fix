@@ -990,13 +990,25 @@ void *fill_candidate_datatypes_c::fill_spec_init(symbol_c *symbol, symbol_c *typ
 void check_str_len(symbol_c* spec, symbol_c* str){
 		single_byte_limited_len_string_spec_c* spec_ = dynamic_cast<single_byte_limited_len_string_spec_c*>(spec);
 		single_byte_character_string_c*str_ = dynamic_cast<single_byte_character_string_c*>(str);
+		double_byte_limited_len_string_spec_c* spec_2 = dynamic_cast<double_byte_limited_len_string_spec_c*>(spec);
+		double_byte_character_string_c*str_2 = dynamic_cast<double_byte_character_string_c*>(str);
 		if(spec_&&str_){
 			const char * size_str = spec_->character_string_len->token->value;
 			const char* str_literal = str_->token->value;
 			int arr_size = atoi(size_str);
 			int str_size = strlen(str_literal)-2;//remove the first char and last char;
 			if(str_size > arr_size){
-				fprintf(stderr,"\ncharacter string literal %s is longer than the max array size %d\n",str_literal,arr_size);
+				fprintf(stderr,"\ncharacter string literal %s is longer than the max array size %d at line %d\n",str_literal,arr_size,str->first_line);
+				exit(EXIT_FAILURE);
+			}
+		}
+		if(spec_2&&str_2){
+			const char * size_str = spec_2->character_string_len->token->value;
+			const char* str_literal = str_2->token->value;
+			int arr_size = atoi(size_str);
+			int str_size = strlen(str_literal)-2;//remove the first char and last char;
+			if(str_size > arr_size){
+				fprintf(stderr,"\ncharacter string literal %s is longer than the max array size %d at line %d\n",str_literal,arr_size,str->first_line);
 				exit(EXIT_FAILURE);
 			}
 		}
@@ -1005,6 +1017,11 @@ void check_str_len(symbol_c* spec, symbol_c* str){
 void *fill_candidate_datatypes_c::visit(single_byte_string_spec_c* symbol) {
 	check_str_len(symbol->string_spec,symbol->single_byte_character_string);
 	return fill_spec_init(symbol,symbol->string_spec,symbol->single_byte_character_string);
+}
+
+void *fill_candidate_datatypes_c::visit(double_byte_string_spec_c* symbol) {
+	check_str_len(symbol->string_spec,symbol->double_byte_character_string);
+	return fill_spec_init(symbol,symbol->string_spec,symbol->double_byte_character_string);
 }
 /*  TYPE type_declaration_list END_TYPE */
 // SYM_REF1(data_type_declaration_c, type_declaration_list)
@@ -1467,7 +1484,9 @@ void *fill_candidate_datatypes_c::visit(incompl_located_var_decl_c   *symbol) {r
 void *fill_candidate_datatypes_c::visit(single_byte_string_var_declaration_c *symbol) {
 	return fill_var_declaration(symbol->var1_list,symbol->single_byte_string_spec);
 }
-//void *fill_candidate_datatypes_c::visit(double_byte_string_var_declaration_c *symbol) {return handle_var_declaration(symbol->double_byte_string_spec);}
+void *fill_candidate_datatypes_c::visit(double_byte_string_var_declaration_c *symbol) {
+	return fill_var_declaration(symbol->var1_list,symbol->double_byte_string_spec);
+}
 
 
 
@@ -2314,6 +2333,16 @@ void *fill_candidate_datatypes_c::visit(assignment_statement_c *symbol) {
 	symbol_c *left_type, *right_type;
 	symbol->l_exp->accept(*this);
 	symbol->r_exp->accept(*this);
+	single_byte_limited_len_string_spec_c*sym = dynamic_cast<single_byte_limited_len_string_spec_c*>(symbol->l_exp->candidate_datatypes[0]);
+	double_byte_limited_len_string_spec_c*sym2= dynamic_cast<double_byte_limited_len_string_spec_c*>(symbol->l_exp->candidate_datatypes[0]);
+	if(sym){
+		check_str_len(sym,symbol->r_exp);
+		add_datatype_to_candidate_list(symbol->l_exp,sym->string_type_name);
+	}
+	if(sym2){
+		check_str_len(sym2,symbol->r_exp);
+		add_datatype_to_candidate_list(symbol->l_exp,sym->string_type_name);
+	}
 	for (unsigned int i = 0; i < symbol->l_exp->candidate_datatypes.size(); i++) {
 		for(unsigned int j = 0; j < symbol->r_exp->candidate_datatypes.size(); j++) {
 			left_type = symbol->l_exp->candidate_datatypes[i];

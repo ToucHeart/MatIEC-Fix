@@ -523,9 +523,13 @@ void *narrow_candidate_datatypes_c::narrow_type_decl(symbol_c *symbol, symbol_c 
 	return NULL;
 }
 
-
+/*ADDNEW:add **_byte_string_spec visit */
 void *narrow_candidate_datatypes_c::visit(single_byte_string_spec_c*symbol){
 	return narrow_spec_init(symbol, symbol->string_spec, symbol->single_byte_character_string);	
+}
+
+void *narrow_candidate_datatypes_c::visit(double_byte_string_spec_c*symbol){
+	return narrow_spec_init(symbol, symbol->string_spec, symbol->double_byte_character_string);	
 }
 
 /*  TYPE type_declaration_list END_TYPE */

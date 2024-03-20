@@ -136,7 +136,7 @@ class fill_candidate_datatypes_c: public iterator_visitor_c {
     void *visit(boolean_false_c *symbol);
     /*ADDNEW:*/
     void *visit(single_byte_string_spec_c*symbol);
-
+    void *visit(double_byte_string_spec_c*symbol);
     /*******************************/
     /* B.1.2.2   Character Strings */
     /*******************************/
@@ -235,7 +235,7 @@ class fill_candidate_datatypes_c: public iterator_visitor_c {
     void *visit(global_var_decl_c            *symbol);
     void *visit(incompl_located_var_decl_c   *symbol);
     void *visit(single_byte_string_var_declaration_c *symbol);
-    //void *visit(double_byte_string_var_declaration_c *symbol);
+    void *visit(double_byte_string_var_declaration_c *symbol);
 
     /**************************************/
     /* B 1.5 - Program organization units */

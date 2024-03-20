@@ -226,7 +226,10 @@ class generate_c_array_initialization_c: public generate_c_base_and_typeid_c {
               /*CHANGE：break here since if the initial value of the array 
               is greater than the number of items in the array, 
               the extra value should be ignored*/
+              {
+                fprintf(stderr, "\nWARNING! Number of initialized values exceeds the max size in ARRAY, and extra values will be ignored\n"); 
                 break;
+              }
               if (defined_values_count > 0)
                 s4o.print(",");
               symbol->get_element(i)->accept(*this);
@@ -279,8 +282,10 @@ class generate_c_array_initialization_c: public generate_c_base_and_typeid_c {
           }
           else
             current_initialization_count += initial_element_count - 1;
-          if (defined_values_count + initial_element_count > array_size)
-            ERROR;
+          if (defined_values_count + initial_element_count > array_size){
+            initial_element_count  = array_size - defined_values_count;
+            fprintf(stderr, "\nWARNING! Number of initialized values exceeds the max size in ARRAY, and extra values will be ignored\n");
+          }
           for (unsigned long long int i = 0; i < initial_element_count; i++) {
             if (i > 0)
               s4o.print(",");
@@ -2259,6 +2264,14 @@ void *visit(falling_edge_option_c *symbol) {
 void *visit(single_byte_string_var_declaration_c *symbol){
   TRACE("single_byte_string_var_declaration_c");
   update_type_init(symbol->single_byte_string_spec);
+  symbol->var1_list->accept(*this);
+  void_type_init();
+  return NULL;
+}
+
+void *visit(double_byte_string_var_declaration_c *symbol){
+  TRACE("double_byte_string_var_declaration_c");
+  update_type_init(symbol->double_byte_string_spec);
   symbol->var1_list->accept(*this);
   void_type_init();
   return NULL;
