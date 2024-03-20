@@ -2341,7 +2341,7 @@ void *fill_candidate_datatypes_c::visit(assignment_statement_c *symbol) {
 	}
 	if(sym2){
 		check_str_len(sym2,symbol->r_exp);
-		add_datatype_to_candidate_list(symbol->l_exp,sym->string_type_name);
+		add_datatype_to_candidate_list(symbol->l_exp,sym2->string_type_name);
 	}
 	for (unsigned int i = 0; i < symbol->l_exp->candidate_datatypes.size(); i++) {
 		for(unsigned int j = 0; j < symbol->r_exp->candidate_datatypes.size(); j++) {
