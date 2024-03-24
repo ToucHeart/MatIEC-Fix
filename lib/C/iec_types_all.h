@@ -103,6 +103,8 @@ typedef struct {\
   IEC_BYTE flags;\
 } __IEC_##type##_p;
 
+#define __DECLARE_CHAR_ARRAY_TYPE(type,size)  __DECLARE_DERIVED_TYPE(type,STRING)
+
 #define __DECLARE_ENUMERATED_TYPE(type, ...)\
 typedef enum {\
   __VA_ARGS__\

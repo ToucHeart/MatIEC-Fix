@@ -42,7 +42,8 @@
 #include <string>
 #include <string.h>
 #include <strings.h>
-
+#include <unordered_map>
+#include <cstring>
 
 #define GET_CVALUE(dtype, symbol)             ((symbol)->const_value._##dtype.get())
 #define VALID_CVALUE(dtype, symbol)           ((symbol)->const_value._##dtype.is_valid())
@@ -1176,7 +1177,11 @@ void *fill_candidate_datatypes_c::visit(array_type_declaration_c *symbol) {retur
 /* array_specification [ASSIGN array_initialization} */
 /* array_initialization may be NULL ! */
 // SYM_REF2(array_spec_init_c, array_specification, array_initialization)
-void *fill_candidate_datatypes_c::visit(array_spec_init_c *symbol) {return fill_spec_init(symbol, symbol->array_specification, symbol->array_initialization);}
+void *fill_candidate_datatypes_c::visit(array_spec_init_c *symbol) {
+	if(symbol->array_initialization != NULL)
+		symbol->array_initialization->candidate_datatypes = symbol->candidate_datatypes; 
+	return fill_spec_init(symbol, symbol->array_specification, symbol->array_initialization);
+}
 
 /* ARRAY '[' array_subrange_list ']' OF non_generic_type_name */
 // SYM_REF2(array_specification_c, array_subrange_list, non_generic_type_name)
@@ -1191,7 +1196,77 @@ void *fill_candidate_datatypes_c::visit(array_spec_init_c *symbol) {return fill_
 /* helper symbol for array_initialization */
 /* array_initial_elements_list ',' array_initial_elements */
 // SYM_LIST(array_initial_elements_list_c)
+/*ADDNEW:add type check for array initial elements, if elememt type doesn’t same with declared type, error */
+void *fill_candidate_datatypes_c::visit(array_initial_elements_list_c *symbol) {
+  array_specification_c*sym=dynamic_cast<array_specification_c*>(symbol->candidate_datatypes[0]);
+  if(sym){
+	symbol->candidate_datatypes.erase(symbol->candidate_datatypes.begin());
+	symbol->candidate_datatypes.push_back(base_type(sym->non_generic_type_name));
+  }
 
+  for (int i = 0; i < symbol->n; ++i) {
+    symbol_c *elem = symbol->get_element(i);
+	array_initial_elements_c*elem_type = dynamic_cast<array_initial_elements_c*>(elem);
+	if(elem_type){
+		elem->candidate_datatypes.push_back(base_type(sym->non_generic_type_name));
+  		elem->accept(*this);
+	}
+	else{
+		elem->accept(*this);
+		for (auto iter = elem->candidate_datatypes.begin(); iter != elem->candidate_datatypes.end();) {
+			symbol_c *elem_type = *iter;
+			bool need_remove = true;
+			for (unsigned int j = 0; j < symbol->candidate_datatypes.size(); j++) {
+				symbol_c *symbol_type = symbol->candidate_datatypes[j];
+				if (get_datatype_info_c::is_type_equal(symbol_type, elem_type)){
+					need_remove = false;
+				}
+			}
+			if(need_remove){
+				iter = elem->candidate_datatypes.erase(iter);
+			}else{
+				++iter;
+			}
+		}
+		if (elem->candidate_datatypes.empty()) {
+			fprintf(stderr,"\nvalue type of %s is incompatible of ARRAY type at line %d!\n",elem->token->value,elem->first_line);
+			exit(EXIT_FAILURE);
+		}
+	}
+  }
+  return NULL;
+}
+
+void *fill_candidate_datatypes_c::visit(array_initial_elements_c*symbol) {
+	if(symbol->array_initial_element_list == NULL)
+		return NULL;
+	symbol->integer->accept(*this);
+	array_initial_element_list_c* init_elem_list = dynamic_cast<array_initial_element_list_c*>(symbol->array_initial_element_list);
+	for(int i=0;i<init_elem_list->n;++i) {
+		symbol_c *elem = init_elem_list->get_element(i);
+		elem->accept(*this);
+		for (auto iter = elem->candidate_datatypes.begin(); iter != elem->candidate_datatypes.end();) {
+			symbol_c *elem_type = *iter;
+			bool need_remove = true;
+			for (unsigned int j = 0; j < symbol->candidate_datatypes.size(); j++) {
+				symbol_c *symbol_type = symbol->candidate_datatypes[j];
+				if (get_datatype_info_c::is_type_equal(symbol_type, elem_type)){
+					need_remove = false;
+				}
+			}
+			if(need_remove){
+				iter = elem->candidate_datatypes.erase(iter);
+			}else{
+				++iter;
+			}
+		}
+		if (elem->candidate_datatypes.empty()) {
+			fprintf(stderr,"\nvalue type of %s is incompatible of ARRAY type at line %d!\n",elem->token->value,elem->first_line);
+			exit(EXIT_FAILURE);
+		}
+	}
+	return NULL;
+}
 /* integer '(' [array_initial_element] ')' */
 /* array_initial_element may be NULL ! */
 // SYM_REF2(array_initial_elements_c, integer, array_initial_element)
@@ -2292,6 +2367,131 @@ void *fill_candidate_datatypes_c::visit(not_expression_c *symbol) {
 	return NULL;
 }
 
+using std::string;
+using std::unordered_map;
+using std::to_string;
+
+void check_ROLR_SHLR(unordered_map<string,symbol_c*>&param_val, bool formal) {
+  symbol_c *sym = NULL;
+  sym = formal ? param_val["N"] : param_val["1"];
+  if(sym&&sym->const_value.is_const()){
+	if(sym->const_value._int64.get()<0){
+		fprintf(stderr,"\nincorrect value %ld of parameter N\n",sym->const_value._int64.get());
+		exit(EXIT_FAILURE);
+	}
+  }
+}
+
+void check_MUX(unordered_map<string,symbol_c*>&param_val, bool formal){
+  symbol_c *sym = NULL;
+  sym = formal ? param_val["IN0"] : param_val["0"];
+  if(sym&&sym->const_value.is_const()){
+	if(sym->const_value._int64.get() < 0 || (size_t)sym->const_value._int64.get() >= param_val.size() -1){
+		fprintf(stderr,"\nincorrect value %ld of parameter K\n",sym->const_value._int64.get());
+		exit(EXIT_FAILURE);
+	}
+  }
+}
+
+void check_LEFT_RIGHT(unordered_map<string,symbol_c*>&param_val, bool formal){
+  symbol_c *sym = NULL;
+  sym = formal ? param_val["L"] : param_val["1"];
+  if(sym&&sym->const_value.is_const()){
+	if(sym->const_value._int64.get()<0){
+		fprintf(stderr,"\nincorrect value %ld of parameter L\n",sym->const_value._int64.get());
+		exit(EXIT_FAILURE);
+	}
+  }
+}
+
+void check_MID_DELETE(unordered_map<string,symbol_c*>&param_val, bool formal){
+  symbol_c *sym = NULL;
+  sym = formal ? param_val["L"] : param_val["1"];
+  if(sym&&sym->const_value.is_const()){
+	if(sym->const_value._int64.get()<0){
+		fprintf(stderr,"\nincorrect value %ld of parameter L\n",sym->const_value._int64.get());
+		exit(EXIT_FAILURE);
+	}
+  }
+  int len=sym->const_value._int64.get();
+  sym = formal ? param_val["P"] : param_val["2"];
+  if(sym&&sym->const_value.is_const()){
+	if(sym->const_value._int64.get()<0){
+		fprintf(stderr,"\nincorrect value %ld of parameter P\n",sym->const_value._int64.get());
+		exit(EXIT_FAILURE);
+	}
+  }
+  int pos=sym->const_value._int64.get();
+  sym = formal ? param_val["IN"] : param_val["0"];
+  if(pos <=0 || (size_t)pos > strlen(sym->token->value)-2 ||(size_t)len+pos-1>strlen(sym->token->value)-2){
+	fprintf(stderr,"\nincorrect value %d of parameter P\n",pos);
+	exit(EXIT_FAILURE);
+  }
+}
+
+void check_INSERT(unordered_map<string,symbol_c*>&param_val, bool formal){
+  symbol_c*sym = NULL;
+  sym = formal ? param_val["P"] : param_val["2"];
+  int pos = sym->const_value._int64.get();
+  sym = formal ? param_val["IN1"] : param_val["0"];
+  if(pos <=0 || (size_t)pos > strlen(sym->token->value)-2){
+	fprintf(stderr,"\nincorrect value %d of parameter P\n",pos);
+	exit(EXIT_FAILURE);
+  }
+}
+
+void check_REPLACE(unordered_map<string,symbol_c*>&param_val, bool formal){
+  symbol_c *sym = NULL;
+  sym = formal ? param_val["L"] : param_val["2"];
+  if(sym&&sym->const_value.is_const()){
+	if(sym->const_value._int64.get()<0){
+		fprintf(stderr,"\nincorrect value %ld of parameter L\n",sym->const_value._int64.get());
+		exit(EXIT_FAILURE);
+	}
+  }
+  int len=sym->const_value._int64.get();
+  sym = formal ? param_val["P"] : param_val["3"];
+  if(sym&&sym->const_value.is_const()){
+	if(sym->const_value._int64.get()<0){
+		fprintf(stderr,"\nincorrect value %ld of parameter P\n",sym->const_value._int64.get());
+		exit(EXIT_FAILURE);
+	}
+  }
+  int pos=sym->const_value._int64.get();
+  sym = formal ? param_val["IN1"] : param_val["0"];
+  if(pos <=0 || (size_t)pos > strlen(sym->token->value)-2 || (size_t)len+pos-1>strlen(sym->token->value)-2){
+	fprintf(stderr,"\nincorrect value %d of parameter P\n",pos);
+	exit(EXIT_FAILURE);
+  }
+}
+
+using fp = void (*)(unordered_map<string,symbol_c*>&param_val, bool formal);
+unordered_map<string,fp> check_param_functions={
+	{"ROL",check_ROLR_SHLR},
+	{"ROR",check_ROLR_SHLR},
+	{"SHL",check_ROLR_SHLR},
+	{"SHR",check_ROLR_SHLR},
+	{"MUX",check_MUX},
+	{"LEFT",check_LEFT_RIGHT},
+	{"RIGHT",check_LEFT_RIGHT},
+	{"MID",check_MID_DELETE},
+	{"INSERT",check_INSERT},
+	{"DELETE",check_MID_DELETE},
+	{"REPLACE",check_REPLACE},
+};
+
+void prepare_param(symbol_c*para_list,unordered_map<string,symbol_c*>&param_val,bool formal) {
+	list_c*list = dynamic_cast<list_c*>(para_list);
+	for(int i=0;i<list->n;++i){
+		if(formal){
+			input_variable_param_assignment_c *sym =dynamic_cast<input_variable_param_assignment_c*>(list->get_element(i));
+			param_val[sym->variable_name->token->value] = sym->expression;
+		}else{
+			symbol_c*sym = list->get_element(i);
+			param_val[to_string(i)] = sym;
+		}
+	}
+}
 
 void *fill_candidate_datatypes_c::visit(function_invocation_c *symbol) {
 	if      (NULL != symbol->formal_param_list)        symbol->   formal_param_list->accept(*this);
@@ -2309,7 +2509,20 @@ void *fill_candidate_datatypes_c::visit(function_invocation_c *symbol) {
 	};
 
 	handle_function_call(symbol, fcall_param);
-
+	if(symbol->candidate_functions.size()){ //have matched functions
+		const char * f_name = symbol->function_name->token->value;
+		if(check_param_functions.find(f_name) != check_param_functions.end()){
+			unordered_map<string,symbol_c*> param_map;
+			if(symbol->formal_param_list){
+				prepare_param(symbol->formal_param_list,param_map,true);
+				check_param_functions[f_name](param_map,true);
+			}
+			else if(symbol->nonformal_param_list){
+				prepare_param(symbol->nonformal_param_list,param_map,false);
+				check_param_functions[f_name](param_map,false);
+			}
+		}
+	}
 	if (debug) std::cout << "function_invocation_c [" << symbol->candidate_datatypes.size() << "] result.\n";
 	return NULL;
 }

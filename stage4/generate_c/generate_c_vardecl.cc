@@ -280,24 +280,39 @@ class generate_c_array_initialization_c: public generate_c_base_and_typeid_c {
               s4o.print(",");
             }
           }
-          else
-            current_initialization_count += initial_element_count - 1;
-          if (defined_values_count + initial_element_count > array_size){
-            initial_element_count  = array_size - defined_values_count;
-            fprintf(stderr, "\nWARNING! Number of initialized values exceeds the max size in ARRAY, and extra values will be ignored\n");
-          }
+          else{}
           for (unsigned long long int i = 0; i < initial_element_count; i++) {
+            if (defined_values_count >= array_size){
+              fprintf(stderr, "\nWARNING! Number of initialized values exceeds the max size in ARRAY, and extra values will be ignored\n"); 
+              break;
+            }
             if (i > 0)
               s4o.print(",");
-            if (symbol->array_initial_element != NULL) {
-              symbol->array_initial_element->accept(*this);
+            bool extra_values=false;
+            if (symbol->array_initial_element_list != NULL) {
+              array_initial_element_list_c*l = dynamic_cast<array_initial_element_list_c*>(symbol->array_initial_element_list);
+              for(int j = 0; j < l->n; ++j){
+                if (defined_values_count >= array_size){
+                  extra_values=true;
+                  fprintf(stderr, "\nWARNING! Number of initialized values exceeds the max size in ARRAY, and extra values will be ignored\n"); 
+                  break;
+                }
+                if (j > 0)
+                  s4o.print(",");
+                l->get_element(j)->accept(*this);
+                defined_values_count++;
+              }
             }
             else {
               array_default_value->accept(*this);
+              defined_values_count++;
             }
+            if(extra_values)
+              break;
           }
           if (initial_element_count > 1)
-            defined_values_count += initial_element_count - 1;
+            defined_values_count--;
+          current_initialization_count=defined_values_count;
           break;
         default:
           break;
@@ -2488,6 +2503,18 @@ void *visit(configuration_declaration_c *symbol) {
 }
 
 
+void *visit(program_declaration_c *symbol) {
+  TRACE("program_declaration_c");
+
+  var_declarations_list_c*var_list = dynamic_cast<var_declarations_list_c*>(symbol->var_declarations);
+  for(int i=0;i<var_list->n;++i) {
+    symbol_c*vars= dynamic_cast<global_var_declarations_c*>(var_list->get_element(i));
+    if(vars) {
+      vars->accept(*this);
+    }
+  }
+  return NULL;
+}
 /* helper symbol for configuration_declaration */
 // SYM_LIST(resource_declaration_list_c)
 void *visit(resource_declaration_list_c *symbol) {

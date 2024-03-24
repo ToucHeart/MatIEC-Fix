@@ -568,8 +568,8 @@ void *visit(array_initial_elements_list_c *symbol) {print_list(symbol, "[", ", "
 void *visit(array_initial_elements_c *symbol) {
   symbol->integer->accept(*this);
   s4o.print("(");
-  if (symbol->array_initial_element != NULL)
-    symbol->array_initial_element->accept(*this);
+  if (symbol->array_initial_element_list != NULL)
+    symbol->array_initial_element_list->accept(*this);
   s4o.print(")");
   return NULL;
 }
@@ -2122,6 +2122,9 @@ void *visit(exit_statement_c *symbol) {
   return NULL;
 }
 
+void *visit(array_initial_element_list_c*){
+  return NULL;
+}
 
 }; /* class generate_iec_c */
 

@@ -360,7 +360,7 @@ SYM_REF4(string_type_declaration_c,	string_type_name,
 					string_type_declaration_size,
 					string_type_declaration_init) // may be == NULL!
 */
-void *search_base_type_c::visit(string_type_declaration_c *symbol)            {return (void *)symbol;}
+void *search_base_type_c::visit(string_type_declaration_c *symbol)            {return (void *)symbol->elementary_string_type_name;}
 
 
 /*  function_block_type_name ASSIGN structure_initialization */

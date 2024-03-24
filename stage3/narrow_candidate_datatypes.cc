@@ -626,7 +626,32 @@ void *narrow_candidate_datatypes_c::visit(array_spec_init_c *symbol) {return nar
 /* array_initial_elements_list ',' array_initial_elements */
 // SYM_LIST(array_initial_elements_list_c)
 // Not needed ???
+void *narrow_candidate_datatypes_c::visit(array_initial_elements_list_c*symbol) {
+	symbol->datatype = symbol->candidate_datatypes[0];
+	for (int i = 0; i < symbol->n; ++i) {
+		symbol_c *elem = symbol->get_element(i);
+		array_initial_elements_c*elem_type = dynamic_cast<array_initial_elements_c*>(elem);
+		if(elem_type){
+			set_datatype(symbol->datatype,elem);
+			elem->accept(*this);
+		}
+		else{
+			set_datatype(symbol->datatype,elem);
+		}
+	}
+	return NULL;
+}
 
+void *narrow_candidate_datatypes_c::visit(array_initial_elements_c*symbol) {
+	if(symbol->array_initial_element_list == NULL)
+		return NULL;
+	array_initial_element_list_c* init_elem_list = dynamic_cast<array_initial_element_list_c*>(symbol->array_initial_element_list);
+	for(int i=0;i<init_elem_list->n;++i) {
+		symbol_c *elem = init_elem_list->get_element(i);
+		set_datatype(symbol->datatype,elem);
+	}
+	return NULL;
+}
 /* integer '(' [array_initial_element] ')' */
 /* array_initial_element may be NULL ! */
 // SYM_REF2(array_initial_elements_c, integer, array_initial_element)

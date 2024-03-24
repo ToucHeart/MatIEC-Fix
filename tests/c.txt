@@ -1,11 +1,12 @@
-
-
-PROGRAM PRGTEST
-	(*符号变量自动分配位置 *)
-	VAR
-		MYSTR: WSTRING[10] := "ok123456789";
+PROGRAM TEST_PRO
+	VAR 
+		X1 : INT; 
 	END_VAR
- MYSTR:="ok123456789";
+
+	VAR_GLOBAL CONSTANT (* 不应出现 VAR_GLOBAL *)
+	 X3 : BOOL;
+	END_VAR	 
+	
+	X1 := 1;
+	
 END_PROGRAM
-
-

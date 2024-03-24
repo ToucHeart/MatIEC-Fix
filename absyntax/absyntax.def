@@ -358,9 +358,10 @@ SYM_LIST(array_subrange_list_c)
 /* array_initial_elements_list ',' array_initial_elements */
 SYM_LIST(array_initial_elements_list_c)
 
+SYM_LIST(array_initial_element_list_c)
 /* integer '(' [array_initial_element] ')' */
 /* array_initial_element may be NULL ! */
-SYM_REF2(array_initial_elements_c, integer, array_initial_element)
+SYM_REF2(array_initial_elements_c, integer, array_initial_element_list)
 
 /*  structure_type_name ':' structure_specification */
 SYM_REF2(structure_type_declaration_c, structure_type_name, structure_specification)

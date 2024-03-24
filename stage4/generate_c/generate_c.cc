@@ -1250,7 +1250,14 @@ class generate_c_pous_c {
       TRACE("program_declaration_c");
     
       /* (A) Program data structure declaration... */
-      if (print_declaration) {      
+      if (print_declaration) {
+        vardecl = new generate_c_vardecl_c(&s4o,
+                                          generate_c_vardecl_c::globalprototype_vf,
+                                          generate_c_vardecl_c::global_vt);
+        vardecl->print(symbol);
+        delete vardecl;
+        s4o.print("\n");
+
         /* (A.1) Data structure declaration */
         s4o.print("// PROGRAM ");
         symbol->program_type_name->accept(print_base);
@@ -1301,7 +1308,13 @@ class generate_c_pous_c {
         symbol->function_block_body->accept(*inlinedecl);
         delete inlinedecl;
       }
-    
+      if(!print_declaration) {
+        vardecl = new generate_c_vardecl_c(&s4o,
+                                          generate_c_vardecl_c::local_vf,
+                                          generate_c_vardecl_c::global_vt);
+        vardecl->print(symbol);
+        delete vardecl;
+      }
       /* (B) Constructor */
       /* (B.1) Constructor name... */
       s4o.print(s4o.indent_spaces + "void ");
@@ -1330,7 +1343,8 @@ class generate_c_pous_c {
                                            generate_c_vardecl_c::inoutput_vt |
                                            generate_c_vardecl_c::private_vt  |
                                            generate_c_vardecl_c::located_vt  |
-                                           generate_c_vardecl_c::external_vt);
+                                           generate_c_vardecl_c::external_vt |
+                                           generate_c_vardecl_c::global_vt);
         if(symbol->var_declarations)
         vardecl->print(symbol->var_declarations, NULL,  FB_FUNCTION_PARAM"->");
         delete vardecl;

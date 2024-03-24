@@ -764,6 +764,7 @@ typedef struct YYLTYPE {
 %type  <leaf>	array_initialization
 /* helper symbol for array_initialization */
 %type  <list>	array_initial_elements_list
+%type  <list> 	array_initial_element_list
 %type  <leaf>	array_initial_elements
 %type  <leaf>	array_initial_element
 
@@ -3107,12 +3108,18 @@ array_initial_elements_list:
 /* ERROR_CHECK_END */
 ;
 
+array_initial_element_list:
+  array_initial_element
+	{$$ = new array_initial_element_list_c(locloc(@$)); $$->add_element($1);}
+| array_initial_element_list ',' array_initial_element
+	{$$ = $1; $$->add_element($3);}
+;
 
 array_initial_elements:
   array_initial_element
 | integer '(' ')'
 	{$$ = new array_initial_elements_c($1, NULL, locloc(@$));}
-| integer '(' array_initial_element ')'
+| integer '(' array_initial_element_list ')'
 	{$$ = new array_initial_elements_c($1, $3, locloc(@$));}
 /* ERROR_CHECK_BEGIN */
 | integer '(' error ')'
@@ -5497,19 +5504,25 @@ program_var_declarations_list:
 	{$$ = new var_declarations_list_c(locloc(@$)); $$->add_element($1);}
 | located_var_declarations
 	{$$ = new var_declarations_list_c(locloc(@$)); $$->add_element($1);}
+| global_var_declarations
+	{$$ = new var_declarations_list_c(locloc(@$)); $$->add_element($1);}
 | program_var_declarations_list io_var_declarations
 	{$$ = $1; $$->add_element($2);}
 | program_var_declarations_list other_var_declarations
 	{$$ = $1; $$->add_element($2);}
 | program_var_declarations_list located_var_declarations
 	{$$ = $1; $$->add_element($2);}
+| program_var_declarations_list global_var_declarations
+	{$$ = $1; $$->add_element($2);}
 /*
 | program_var_declarations_list program_access_decls
 	{$$ = $1; $$->add_element($2);}
 */
 /* ERROR_CHECK_BEGIN */
+/*
 | program_var_declarations_list global_var_declarations
 	{$$ = $1; print_err_msg(locf(@2), locl(@2), "unexpected global variable(s) declaration in function block declaration."); yynerrs++;}
+*/
 /*| program_var_declarations_list access_declarations
 	{$$ = $1; print_err_msg(locf(@2), locl(@2), "unexpected access variable(s) declaration in function block declaration."); yynerrs++;}*/
 | program_var_declarations_list instance_specific_initializations

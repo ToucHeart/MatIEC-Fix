@@ -251,7 +251,8 @@ class generate_c_typedecl_c: public generate_c_base_and_typeid_c {
       enumerated_td,
       subrange_td,
       array_td,
-      struct_td
+      struct_td,
+      string_td
     } typedefinition_t;
 
     typedefinition_t current_typedefinition;
@@ -260,7 +261,8 @@ class generate_c_typedecl_c: public generate_c_base_and_typeid_c {
       none_bd,
       subrangebasetype_bd,
       subrangetest_bd,
-      arraysubrange_bd
+      arraysubrange_bd,
+      string_bd
     } basetypedeclaration_t;
 
     basetypedeclaration_t current_basetypedeclaration;
@@ -342,6 +344,32 @@ class generate_c_typedecl_c: public generate_c_base_and_typeid_c {
 /********************************/
 /* B 1.3.3 - Derived data types */
 /********************************/
+/*
+SYM_REF4(string_type_declaration_c,	string_type_name,
+					elementary_string_type_name,
+					string_type_declaration_size,
+					string_type_declaration_init)
+*/
+void *visit(string_type_declaration_c*symbol){
+  current_typedefinition = string_td;
+  current_type_name = symbol->string_type_name;
+
+  s4o_incl.print("__DECLARE_CHAR_ARRAY_TYPE(");
+  current_type_name->accept(*generate_c_typeid);
+  s4o_incl.print(",");
+  current_basetypedeclaration = string_bd;
+  s4o_incl.print("[");
+  symbol->string_type_declaration_size->accept(*this); // always calls subrange_spec_init_c
+  s4o_incl.print("]");
+  current_basetypedeclaration = none_bd;
+  s4o_incl.print(")\n");
+  
+  current_type_name = NULL;
+  current_typedefinition = none_td;
+
+  return NULL;
+}
+
 /*  subrange_type_name ':' subrange_spec_init */
 void *visit(subrange_type_declaration_c *symbol) {
   TRACE("subrange_type_declaration_c");  
