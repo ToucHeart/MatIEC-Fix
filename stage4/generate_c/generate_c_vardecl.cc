@@ -1820,7 +1820,12 @@ void *visit(located_var_decl_c *symbol) {
         else
           symbol->location->accept(*this);
         s4o.print(",");
+        //增加 type , 为initial增加括号
+        this->current_var_type_symbol->accept(*this);
+        s4o.print(",");
+        s4o.print("(");
         this->current_var_init_symbol->accept(*this);
+        s4o.print(")");
         s4o.print(")");
       }
       break;
