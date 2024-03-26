@@ -1,6 +1,9 @@
 #ifndef __ACCESSOR_H
 #define __ACCESSOR_H
 
+#define UNWRAP_PAREN(x) _UNWRAP_PAREN x
+#define _UNWRAP_PAREN(...) __VA_ARGS__
+
 #define __INITIAL_VALUE(...) __VA_ARGS__
 
 // variable declaration macros
@@ -79,8 +82,8 @@
 		name.value = location;\
 		__INIT_RETAIN(name, retained)\
     }
-#define __INIT_LOCATED_VALUE(name, initial)\
-	*(name.value) = initial;
+#define __INIT_LOCATED_VALUE(name, type,initial)\
+	*(name.value) = (type)UNWRAP_PAREN(initial);
 
 
 // variable getting macros

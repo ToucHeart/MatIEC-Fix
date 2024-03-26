@@ -120,6 +120,10 @@ class generate_location_list_c: public iterator_visitor_c {
 /*  AT direct_variable */
 //SYM_REF2(location_c, direct_variable, unused)
     void *visit(location_c *symbol) {
+      array_specification_c*arr = dynamic_cast<array_specification_c*>(current_var_type_symbol);
+      if(arr){
+        current_var_type_symbol= arr->non_generic_type_name;
+      }
       if (test_location_type(symbol->direct_variable))
         symbol->direct_variable->accept(*this); 
       else

@@ -1198,6 +1198,9 @@ void *fill_candidate_datatypes_c::visit(array_spec_init_c *symbol) {
 // SYM_LIST(array_initial_elements_list_c)
 /*ADDNEW:add type check for array initial elements, if elememt type doesn’t same with declared type, error */
 void *fill_candidate_datatypes_c::visit(array_initial_elements_list_c *symbol) {
+  if(symbol->candidate_datatypes.size()==0){
+		symbol->candidate_datatypes=symbol->parent->candidate_datatypes;
+	}
   array_specification_c*sym=dynamic_cast<array_specification_c*>(symbol->candidate_datatypes[0]);
   if(sym){
 	symbol->candidate_datatypes.erase(symbol->candidate_datatypes.begin());
