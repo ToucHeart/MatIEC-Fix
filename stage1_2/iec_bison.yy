@@ -2150,13 +2150,25 @@ single_byte_character_string:
 	{$$ = new single_byte_character_string_c($1, locloc(@$));}
 | STRING_POUND single_byte_character_string_token
 	{$$ = new single_byte_character_string_c($2, locloc(@$));}
+| STRING_POUND double_byte_character_string_token
+	{$$ = NULL; print_err_msg(locl(@1), locf(@2), "There should be single quote in string literal."); yynerrs++;}
+| STRING '#' single_byte_character_string_token
+	{$$ = NULL; print_err_msg(locl(@1), locf(@2), "There are extra spaces between 'STRING' and '#' in string literal."); yynerrs++;}
+| STRING '#' double_byte_character_string_token
+	{$$ = NULL; print_err_msg(locl(@1), locf(@2), "There should be single quote in string literal."); yynerrs++;}
 ;
 
 double_byte_character_string:	
   double_byte_character_string_token
 	{$$ = new double_byte_character_string_c($1, locloc(@$));}
-| WSTRING_POUND double_byte_character_string_token
+| WSTRING_POUND single_byte_character_string_token
 	{$$ = new double_byte_character_string_c($2, locloc(@$));}
+| WSTRING_POUND double_byte_character_string_token
+	{$$ = NULL; print_err_msg(locl(@1), locf(@2), "There should be single quote in string literal."); yynerrs++;}
+| WSTRING '#' single_byte_character_string_token
+	{$$ = NULL; print_err_msg(locl(@1), locf(@2), "There are extra spaces between 'WSTRING' and '#' in string literal."); yynerrs++;}
+| WSTRING '#' double_byte_character_string_token
+	{$$ = NULL; print_err_msg(locl(@1), locf(@2), "There should be single quote in string literal."); yynerrs++;}
 ;
 
 
