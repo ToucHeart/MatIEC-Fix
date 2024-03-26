@@ -896,8 +896,14 @@ void *narrow_candidate_datatypes_c::visit(located_var_decl_c *symbol) {
   
   if (NULL != symbol->variable_name)
     set_datatype(symbol->located_var_spec_init->datatype, symbol->variable_name);
-    
-  set_datatype(symbol->located_var_spec_init->datatype, symbol->location);
+
+  array_specification_c*arr= dynamic_cast<array_specification_c*>(symbol->located_var_spec_init->datatype);
+  if(arr){
+	set_datatype(arr->non_generic_type_name,symbol->location);
+  }
+  else{
+	set_datatype(symbol->located_var_spec_init->datatype, symbol->location);
+  }
   symbol->location->accept(*this);
   return NULL;
 }
