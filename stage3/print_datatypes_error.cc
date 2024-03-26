@@ -444,6 +444,15 @@ void *print_datatypes_error_c::visit(single_byte_character_string_c *symbol) {
 	} else if (!get_datatype_info_c::is_type_valid(symbol->datatype)) {
 		STAGE3_ERROR(4, symbol, symbol, "STRING data type not valid in this location.");
 	}
+	if(NULL != symbol && NULL != symbol->token) {
+		std::string value(symbol->token->value);
+		if (value.find("(*") != std::string::npos && value.find("*)") != std::string::npos && value.find("(*") < value.find("*)") - 1){
+			STAGE3_ERROR(0, symbol, symbol, "Comments are not allowed within STRING data type");
+		}
+		if (value.find("{") != std::string::npos && value.find("}") != std::string::npos && value.find("{") < value.find("}")){
+			STAGE3_ERROR(0, symbol, symbol, "Pragmas are not allowed within STRING data type");
+		}
+	}
 	return NULL;
 }
 
@@ -499,6 +508,7 @@ void *print_datatypes_error_c::visit(date_and_time_c *symbol) {
 /* B 1.3.3 - Derived data types */
 /********************************/
 void *print_datatypes_error_c::visit(simple_spec_init_c *symbol) {
+	
 	if (!get_datatype_info_c::is_type_valid(symbol->simple_specification->datatype)) {
 		STAGE3_ERROR(0, symbol->simple_specification, symbol->simple_specification, "Invalid data type.");
 	} else if (NULL != symbol->constant) {
@@ -508,6 +518,15 @@ void *print_datatypes_error_c::visit(simple_spec_init_c *symbol) {
 		ERROR; /* If we have an error here, then we must also have an error in one of
 		        * the two previous tests. If we reach this point, some strange error is ocurring!
 			*/
+	}
+	if(NULL != symbol && NULL != symbol->constant && NULL != symbol->constant->token) {
+		std::string value(symbol->constant->token->value);
+		if (value.find("(*") != std::string::npos && value.find("*)") != std::string::npos && value.find("(*") < value.find("*)") - 1){
+			STAGE3_ERROR(0, symbol, symbol, "Comments are not allowed within STRING data type");
+		}
+		if (value.find("{") != std::string::npos && value.find("}") != std::string::npos && value.find("{") < value.find("}")){
+			STAGE3_ERROR(0, symbol, symbol, "Pragmas are not allowed within STRING data type");
+		}
 	}
 	return NULL;
 }
