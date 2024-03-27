@@ -1198,24 +1198,26 @@ void *fill_candidate_datatypes_c::visit(array_spec_init_c *symbol) {
 // SYM_LIST(array_initial_elements_list_c)
 /*ADDNEW:add type check for array initial elements, if elememt type doesn’t same with declared type, error */
 void *fill_candidate_datatypes_c::visit(array_initial_elements_list_c *symbol) {
-  if(symbol->candidate_datatypes.size()==0){
+	if(symbol->candidate_datatypes.size() == 0) {
 		symbol->candidate_datatypes=symbol->parent->candidate_datatypes;
 	}
-  array_specification_c*sym=dynamic_cast<array_specification_c*>(symbol->candidate_datatypes[0]);
-  if(sym){
-	symbol->candidate_datatypes.erase(symbol->candidate_datatypes.begin());
-	symbol->candidate_datatypes.push_back(base_type(sym->non_generic_type_name));
-  }
-
-  for (int i = 0; i < symbol->n; ++i) {
-    symbol_c *elem = symbol->get_element(i);
-	array_initial_elements_c*elem_type = dynamic_cast<array_initial_elements_c*>(elem);
-	if(elem_type){
-		elem->candidate_datatypes.push_back(base_type(sym->non_generic_type_name));
-  		elem->accept(*this);
+	array_specification_c*sym = NULL;
+	if(symbol->candidate_datatypes.size()) {
+		sym = dynamic_cast<array_specification_c*>(symbol->candidate_datatypes[0]);
+		if(sym){
+			// symbol->candidate_datatypes.erase(symbol->candidate_datatypes.begin());
+			symbol->candidate_datatypes.insert(symbol->candidate_datatypes.begin(),base_type(sym->non_generic_type_name));
+		}
 	}
-	else{
+
+	for (int i = 0; i < symbol->n; ++i) {
+		symbol_c *elem = symbol->get_element(i);
+		array_initial_elements_c*elem_type = dynamic_cast<array_initial_elements_c*>(elem);
+		if(sym){
+			elem->candidate_datatypes.push_back(base_type(sym->non_generic_type_name));
+		}
 		elem->accept(*this);
+		/*
 		for (auto iter = elem->candidate_datatypes.begin(); iter != elem->candidate_datatypes.end();) {
 			symbol_c *elem_type = *iter;
 			bool need_remove = true;
@@ -1235,19 +1237,23 @@ void *fill_candidate_datatypes_c::visit(array_initial_elements_list_c *symbol) {
 			fprintf(stderr,"\nvalue type of %s is incompatible of ARRAY type at line %d!\n",elem->token->value,elem->first_line);
 			exit(EXIT_FAILURE);
 		}
+		*/
 	}
-  }
-  return NULL;
+	return NULL;
 }
 
 void *fill_candidate_datatypes_c::visit(array_initial_elements_c*symbol) {
+	symbol->integer->accept(*this);
 	if(symbol->array_initial_element_list == NULL)
 		return NULL;
-	symbol->integer->accept(*this);
 	array_initial_element_list_c* init_elem_list = dynamic_cast<array_initial_element_list_c*>(symbol->array_initial_element_list);
+	for(auto i:symbol->candidate_datatypes){
+		init_elem_list->candidate_datatypes.push_back(i);
+	}
 	for(int i=0;i<init_elem_list->n;++i) {
 		symbol_c *elem = init_elem_list->get_element(i);
 		elem->accept(*this);
+		/* 
 		for (auto iter = elem->candidate_datatypes.begin(); iter != elem->candidate_datatypes.end();) {
 			symbol_c *elem_type = *iter;
 			bool need_remove = true;
@@ -1267,6 +1273,7 @@ void *fill_candidate_datatypes_c::visit(array_initial_elements_c*symbol) {
 			fprintf(stderr,"\nvalue type of %s is incompatible of ARRAY type at line %d!\n",elem->token->value,elem->first_line);
 			exit(EXIT_FAILURE);
 		}
+		*/
 	}
 	return NULL;
 }

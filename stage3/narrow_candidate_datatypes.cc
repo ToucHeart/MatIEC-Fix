@@ -627,17 +627,13 @@ void *narrow_candidate_datatypes_c::visit(array_spec_init_c *symbol) {return nar
 // SYM_LIST(array_initial_elements_list_c)
 // Not needed ???
 void *narrow_candidate_datatypes_c::visit(array_initial_elements_list_c*symbol) {
-	symbol->datatype = symbol->candidate_datatypes[0];
+	if(symbol->candidate_datatypes.size()){
+		symbol->datatype = symbol->candidate_datatypes[0];
+	}
 	for (int i = 0; i < symbol->n; ++i) {
 		symbol_c *elem = symbol->get_element(i);
-		array_initial_elements_c*elem_type = dynamic_cast<array_initial_elements_c*>(elem);
-		if(elem_type){
-			set_datatype(symbol->datatype,elem);
-			elem->accept(*this);
-		}
-		else{
-			set_datatype(symbol->datatype,elem);
-		}
+		set_datatype(symbol->datatype,elem);
+		elem->accept(*this);
 	}
 	return NULL;
 }
@@ -649,6 +645,7 @@ void *narrow_candidate_datatypes_c::visit(array_initial_elements_c*symbol) {
 	for(int i=0;i<init_elem_list->n;++i) {
 		symbol_c *elem = init_elem_list->get_element(i);
 		set_datatype(symbol->datatype,elem);
+		elem->accept(*this);
 	}
 	return NULL;
 }
