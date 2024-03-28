@@ -8788,7 +8788,7 @@ NULL
 
 extern const char *INCLUDE_DIRECTORIES[];
 
-
+extern bool DEBUG_INFO_PRINT;
 static int parse_files(const char *libfilename, const char *filename) {
   /* first parse the standard library file... */  
   /*   Do not debug the standard library, even if debug flag is set!
@@ -8831,6 +8831,7 @@ static int parse_files(const char *libfilename, const char *filename) {
   /* now parse the input file... */
   #if YYDEBUG
     yydebug = 1;
+	DEBUG_INFO_PRINT = true;
   #endif
   FILE *mainfile = NULL;
   if ((mainfile = parse_file(filename)) == NULL) {

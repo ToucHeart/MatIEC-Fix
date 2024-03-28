@@ -99,7 +99,7 @@
 #endif
 
 /*ADDNEW：Debug Control */
-#define DEBUG_INFO_PRINT 0
+bool DEBUG_INFO_PRINT;
 
 
 /* Required for strdup() */
