@@ -1217,27 +1217,6 @@ void *fill_candidate_datatypes_c::visit(array_initial_elements_list_c *symbol) {
 			elem->candidate_datatypes.push_back(base_type(sym->non_generic_type_name));
 		}
 		elem->accept(*this);
-		/*
-		for (auto iter = elem->candidate_datatypes.begin(); iter != elem->candidate_datatypes.end();) {
-			symbol_c *elem_type = *iter;
-			bool need_remove = true;
-			for (unsigned int j = 0; j < symbol->candidate_datatypes.size(); j++) {
-				symbol_c *symbol_type = symbol->candidate_datatypes[j];
-				if (get_datatype_info_c::is_type_equal(symbol_type, elem_type)){
-					need_remove = false;
-				}
-			}
-			if(need_remove){
-				iter = elem->candidate_datatypes.erase(iter);
-			}else{
-				++iter;
-			}
-		}
-		if (elem->candidate_datatypes.empty()) {
-			fprintf(stderr,"\nvalue type of %s is incompatible of ARRAY type at line %d!\n",elem->token->value,elem->first_line);
-			exit(EXIT_FAILURE);
-		}
-		*/
 	}
 	return NULL;
 }
@@ -1253,27 +1232,6 @@ void *fill_candidate_datatypes_c::visit(array_initial_elements_c*symbol) {
 	for(int i=0;i<init_elem_list->n;++i) {
 		symbol_c *elem = init_elem_list->get_element(i);
 		elem->accept(*this);
-		/* 
-		for (auto iter = elem->candidate_datatypes.begin(); iter != elem->candidate_datatypes.end();) {
-			symbol_c *elem_type = *iter;
-			bool need_remove = true;
-			for (unsigned int j = 0; j < symbol->candidate_datatypes.size(); j++) {
-				symbol_c *symbol_type = symbol->candidate_datatypes[j];
-				if (get_datatype_info_c::is_type_equal(symbol_type, elem_type)){
-					need_remove = false;
-				}
-			}
-			if(need_remove){
-				iter = elem->candidate_datatypes.erase(iter);
-			}else{
-				++iter;
-			}
-		}
-		if (elem->candidate_datatypes.empty()) {
-			fprintf(stderr,"\nvalue type of %s is incompatible of ARRAY type at line %d!\n",elem->token->value,elem->first_line);
-			exit(EXIT_FAILURE);
-		}
-		*/
 	}
 	return NULL;
 }
@@ -1333,6 +1291,7 @@ void *fill_candidate_datatypes_c::visit(structure_element_initialization_list_c 
 			}
 			if (search_in_candidate_datatype_list(type, struct_elem->candidate_datatypes) < 0) {
 				flag_all_elem_ok = 0; // the necessary datatype for structure init element is not a candidate_datatype of that element
+				break;
 			}
 		}
 		if (flag_all_elem_ok) {
