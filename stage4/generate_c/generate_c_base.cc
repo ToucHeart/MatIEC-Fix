@@ -434,8 +434,17 @@ class generate_c_base_c: public iterator_visitor_c {
           case 't':
             {str += "\\t"; /* tab */; count++; continue;}
           default: {
-            //TODO:handle four hex digit 
-            ERROR;
+            if (isxdigit(c)) {
+              char c2 = symbol->value[++i],c3=symbol->value[++i],c4=symbol->value[++i];
+              if (isxdigit(c2)) {
+                str += '\\'; str += 'x'; str += c; str += c2;
+                count++;
+              }
+              if(isxdigit(c3) && isxdigit(c4)) {
+                str += '\\'; str += 'x'; str += c3; str += c4;
+                count++; continue;
+              }
+            }
           }
           /* otherwise we have an invalid string!! */
           /* This should not have got through the syntax parser! */
