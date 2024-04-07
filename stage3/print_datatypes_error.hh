@@ -78,6 +78,8 @@ class print_datatypes_error_c: public iterator_visitor_c {
     void *print_binary_operator_errors  (const char *il_operator, symbol_c *symbol,                                     bool deprecated_operation = false);
     void *print_binary_expression_errors(const char *operation  , symbol_c *symbol, symbol_c *l_expr, symbol_c *r_expr, bool deprecated_operation = false);
 
+    //ADDNEW：add a flag to indicate within a outermost iteration
+    bool within_iteration; 
     
   public:
     print_datatypes_error_c(symbol_c *ignore);
@@ -313,7 +315,7 @@ class print_datatypes_error_c: public iterator_visitor_c {
     void *visit(for_statement_c *symbol);
     void *visit(while_statement_c *symbol);
     void *visit(repeat_statement_c *symbol);
-
+    void *visit(exit_statement_c *symbol);
 }; // print_datatypes_error_c
 
 

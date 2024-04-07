@@ -65,6 +65,7 @@ print_datatypes_error_c::print_datatypes_error_c(symbol_c *ignore) {
 	error_count = 0;
 	warning_found = false;
 	current_display_error_level = error_level_default;
+    within_iteration = false;
 }
 
 print_datatypes_error_c::~print_datatypes_error_c(void) {
@@ -1246,6 +1247,11 @@ void *print_datatypes_error_c::visit(case_statement_c *symbol) {
 /********************************/
 
 void *print_datatypes_error_c::visit(for_statement_c *symbol) {
+	bool is_outermost_iteration = false;
+	if(!within_iteration){
+		within_iteration=true;
+		is_outermost_iteration=true;
+	}
 	symbol->control_variable->accept(*this);
 	symbol->beg_expression->accept(*this);
 	symbol->end_expression->accept(*this);
@@ -1274,10 +1280,18 @@ void *print_datatypes_error_c::visit(for_statement_c *symbol) {
 	if (NULL != symbol->statement_list)
 		symbol->statement_list->accept(*this);
 
+	if(is_outermost_iteration){
+		within_iteration=false;
+	}
 	return NULL;
 }
 
 void *print_datatypes_error_c::visit(while_statement_c *symbol) {
+	bool is_outermost_iteration = false;
+	if(!within_iteration){
+		within_iteration=true;
+		is_outermost_iteration=true;
+	}
 	symbol->expression->accept(*this);
 	if (!get_datatype_info_c::is_type_valid(symbol->expression->datatype)) {
 		STAGE3_ERROR(0, symbol->expression, symbol->expression, "Invalid data type for 'WHILE' condition.");
@@ -1285,10 +1299,18 @@ void *print_datatypes_error_c::visit(while_statement_c *symbol) {
 	}
 	if (NULL != symbol->statement_list)
 		symbol->statement_list->accept(*this);
+	if(is_outermost_iteration){
+		within_iteration=false;
+	}
 	return NULL;
 }
 
 void *print_datatypes_error_c::visit(repeat_statement_c *symbol) {
+	bool is_outermost_iteration = false;
+	if(!within_iteration){
+		within_iteration=true;
+		is_outermost_iteration=true;
+	}
 	if (!get_datatype_info_c::is_type_valid(symbol->expression->datatype)) {
 		STAGE3_ERROR(0, symbol->expression, symbol->expression, "Invalid data type for 'REPEAT' condition.");
 		return NULL;
@@ -1296,9 +1318,19 @@ void *print_datatypes_error_c::visit(repeat_statement_c *symbol) {
 	if (NULL != symbol->statement_list)
 		symbol->statement_list->accept(*this);
 	symbol->expression->accept(*this);
+	if(is_outermost_iteration){
+		within_iteration=false;
+	}
 	return NULL;
 }
 
+void *print_datatypes_error_c::visit(exit_statement_c *symbol) {
+  if(!within_iteration){
+    fprintf(stderr,"\nerror:exit can only be used in iteration statements, at line %d\n",symbol->first_line);
+    exit(EXIT_FAILURE);
+  }
+  return NULL;
+}
 
 
 
