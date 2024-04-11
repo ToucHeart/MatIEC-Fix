@@ -5072,6 +5072,13 @@ function_declaration:
 	 direct_variable_symtable.pop();
 	 library_element_symtable.insert($1, prev_declared_derived_function_name_token);
 	}
+| function_name_declaration io_OR_function_var_declarations_list function_body END_FUNCTION
+	{$$ = new function_declaration_c($1, new void_type_name_c(locloc(@1)), $2, $3, locloc(@$));
+	 if (!runtime_options.disable_implicit_en_eno) add_en_eno_param_decl_c::add_to($$); /* add EN and ENO declarations, if not already there */
+	 variable_name_symtable.pop();
+	 direct_variable_symtable.pop();
+	 library_element_symtable.insert($1, prev_declared_derived_function_name_token);
+	}
 /* ERROR_CHECK_BEGIN */
 | function_name_declaration elementary_type_name io_OR_function_var_declarations_list function_body END_FUNCTION
 	{$$ = NULL; print_err_msg(locl(@1), locf(@2), "':' missing after function name in function declaration."); yynerrs++;}
