@@ -753,10 +753,10 @@ integer_0_23    {integer_0_19}|{integer_20_23}
 integer_0_999   {digit}((_?{digit})?)((_?{digit})?)
 
 
-binary_integer  2#{bit}((_?{bit})*)
+binary_integer  2#((_?{bit})+)
 bit		[0-1]
-octal_integer   8#{octal_digit}((_?{octal_digit})*)
-hex_integer     16#{hex_digit}((_?{hex_digit})*)
+octal_integer   8#((_?{octal_digit})+)
+hex_integer     16#((_?{hex_digit})+)
 exponent        [Ee]([+-]?){integer}
 /* The correct definition for real would be:
  * real		{integer}\.{integer}({exponent}?)
