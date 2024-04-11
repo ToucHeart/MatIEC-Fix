@@ -197,7 +197,7 @@ SYM_TOKEN(single_byte_character_string_c)
 /************************/
 SYM_REF0(neg_time_c)
 SYM_REF3(duration_c, type_name, neg, interval)
-SYM_REF5(interval_c, days, hours, minutes, seconds, milliseconds)
+SYM_REF7(interval_c, days, hours, minutes, seconds, milliseconds, microseconds, nanoseconds)
 SYM_TOKEN(fixed_point_c)
 /*
 SYM_REF2(days_c, days, hours)

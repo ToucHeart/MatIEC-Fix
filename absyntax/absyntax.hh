@@ -461,6 +461,31 @@ class class_name_c: public symbol_c {											\
     virtual const char *absyntax_cname(void) {return #class_name_c;};							\
 };
 
+#define SYM_REF7(class_name_c, ref1, ref2, ref3, ref4, ref5, ref6, ref7, ...)							\
+class class_name_c: public symbol_c {											\
+  public:														\
+    symbol_c *ref1;													\
+    symbol_c *ref2;													\
+    symbol_c *ref3;													\
+    symbol_c *ref4;													\
+    symbol_c *ref5;													\
+    symbol_c *ref6;													\
+    symbol_c *ref7;                         \
+    __VA_ARGS__														\
+  public:														\
+    class_name_c(symbol_c *ref1 = NULL,											\
+		 symbol_c *ref2 = NULL,											\
+		 symbol_c *ref3 = NULL,											\
+		 symbol_c *ref4 = NULL,											\
+		 symbol_c *ref5 = NULL,											\
+		 symbol_c *ref6 = NULL,											\
+     symbol_c *ref7 = NULL,                     \
+                 int fl = 0, int fc = 0, const char *ffile = NULL /* filename */, long int forder=0,			\
+                 int ll = 0, int lc = 0, const char *lfile = NULL /* filename */, long int lorder=0);			\
+    virtual void *accept(visitor_c &visitor);										\
+    /* WARNING: only use this method for debugging purposes!! */							\
+    virtual const char *absyntax_cname(void) {return #class_name_c;};							\
+};
 
 #include "absyntax.def"
 
@@ -475,5 +500,5 @@ class class_name_c: public symbol_c {											\
 #undef SYM_REF4
 #undef SYM_REF5
 #undef SYM_REF6
-
+#undef SYM_REF7
 #endif /*  _ABSYNTAX_HH */

@@ -549,10 +549,19 @@ void *visit(duration_c *symbol) {
 /* SYM_TOKEN(fixed_point_c) */
 void *visit(fixed_point_c *symbol) {return print_striped_token(symbol);}
 
-/* SYM_REF5(interval_c, days, hours, minutes, seconds, milliseconds) */
+/* SYM_REF7(interval_c, days, hours, minutes, seconds, milliseconds) */
 void *visit(interval_c *symbol) {
   TRACE("interval_c");
   /* s4o.print("0, 0, 0, 0, 0");  // milliseconds, seconds, minutes, hours, days */
+
+  if (NULL == symbol->nanoseconds) s4o.print("0");  /* milliseconds */
+  else                              symbol->nanoseconds->accept(*this);
+  s4o.print(", ");
+
+  if (NULL == symbol->microseconds) s4o.print("0");  /* milliseconds */
+  else                              symbol->microseconds->accept(*this);
+  s4o.print(", ");
+
   if (NULL == symbol->milliseconds) s4o.print("0");  /* milliseconds */
   else                              symbol->milliseconds->accept(*this);
   s4o.print(", ");

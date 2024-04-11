@@ -855,18 +855,22 @@ fixed_point		{integer}\.{integer}
  *       milliseconds ::= fixed_point 'ms'
  */
 
+interval_ns_X		({integer_0_999}(\.{integer})?)ns
+interval_us_X		({integer_0_999}(\.{integer})?)us
 interval_ms_X		({integer_0_999}(\.{integer})?)ms
 interval_s_X		{integer_0_59}s(_?{interval_ms_X})?|({integer_0_59}(\.{integer})?s)
 interval_m_X		{integer_0_59}m(_?{interval_s_X})?|({integer_0_59}(\.{integer})?m)
 interval_h_X		{integer_0_23}h(_?{interval_m_X})?|({integer_0_23}(\.{integer})?h)
 
-interval_ms		{integer}ms|({fixed_point}ms)
+interval_ns		({fixed_point}ns)
+interval_us		{integer}us(_?{interval_ns_X})?|({fixed_point}us)
+interval_ms		{integer}ms(_?{interval_us_X})?|({fixed_point}ms)
 interval_s		{integer}s(_?{interval_ms_X})?|({fixed_point}s)
 interval_m		{integer}m(_?{interval_s_X})?|({fixed_point}m)
 interval_h		{integer}h(_?{interval_m_X})?|({fixed_point}h)
 interval_d		{integer}d(_?{interval_h_X})?|({fixed_point}d)
 
-interval		{interval_ms}|{interval_s}|{interval_m}|{interval_h}|{interval_d}
+interval		{interval_ns}|{interval_us}|{interval_ms}|{interval_s}|{interval_m}|{interval_h}|{interval_d}
 
 
 /* to help provide nice error messages, we also parse an incorrect but plausible interval... */
@@ -875,7 +879,7 @@ interval		{interval_ms}|{interval_s}|{interval_m}|{interval_h}|{interval_d}
  *      is OK as this rule will appear _after_ the rule to parse legal intervals!).
  */
 fixed_point_or_integer  {fixed_point}|{integer}
-erroneous_interval	({fixed_point_or_integer}d_?)?({fixed_point_or_integer}h_?)?({fixed_point_or_integer}m_?)?({fixed_point_or_integer}s_?)?({fixed_point_or_integer}ms)?
+erroneous_interval	({fixed_point_or_integer}d_?)?({fixed_point_or_integer}h_?)?({fixed_point_or_integer}m_?)?({fixed_point_or_integer}s_?)?({fixed_point_or_integer}ms_?)?({fixed_point_or_integer}us_?)?({fixed_point_or_integer}ns)?
 
 /********************************************/
 /* B.1.4.1   Directly Represented Variables */
@@ -1891,11 +1895,14 @@ CONTINUE    return CONTINUE;
 {integer}m		{yylval.ID=strdup(yytext); yylval.ID[yyleng-1] = '\0'; return integer_m_token;}
 {integer}s		{yylval.ID=strdup(yytext); yylval.ID[yyleng-1] = '\0'; return integer_s_token;}
 {integer}ms		{yylval.ID=strdup(yytext); yylval.ID[yyleng-2] = '\0'; return integer_ms_token;}
+{integer}us 	{yylval.ID=strdup(yytext); yylval.ID[yyleng-2] = '\0'; return integer_us_token;}
 {fixed_point}d		{yylval.ID=strdup(yytext); yylval.ID[yyleng-1] = '\0'; return fixed_point_d_token;}
 {fixed_point}h		{yylval.ID=strdup(yytext); yylval.ID[yyleng-1] = '\0'; return fixed_point_h_token;}
 {fixed_point}m		{yylval.ID=strdup(yytext); yylval.ID[yyleng-1] = '\0'; return fixed_point_m_token;}
 {fixed_point}s		{yylval.ID=strdup(yytext); yylval.ID[yyleng-1] = '\0'; return fixed_point_s_token;}
 {fixed_point}ms		{yylval.ID=strdup(yytext); yylval.ID[yyleng-2] = '\0'; return fixed_point_ms_token;}
+{fixed_point}us		{yylval.ID=strdup(yytext); yylval.ID[yyleng-2] = '\0'; return fixed_point_us_token;}
+{fixed_point}ns     {yylval.ID=strdup(yytext); yylval.ID[yyleng-2] = '\0'; return fixed_point_ns_token;}
 
 _			/* do nothing - eat it up!*/
 \#			{/*fprintf(stderr, "popping from time_literal_state (###)\n");*/ yy_pop_state(); return end_interval_token;}

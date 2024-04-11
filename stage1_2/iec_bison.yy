@@ -529,6 +529,8 @@ typedef struct YYLTYPE {
 %type  <leaf>	minutes
 %type  <leaf>	seconds
 %type  <leaf>	milliseconds
+%type  <leaf>   microseconds
+%type  <leaf>   nanoseconds
 
 %token <ID>	fixed_point_token
 %token <ID>	fixed_point_d_token
@@ -541,6 +543,9 @@ typedef struct YYLTYPE {
 %token <ID>	integer_s_token
 %token <ID>	fixed_point_ms_token
 %token <ID>	integer_ms_token
+%token <ID> fixed_point_us_token
+%token <ID> integer_us_token
+%token <ID> fixed_point_ns_token
 %token <ID>	end_interval_token
 %token <ID>	erroneous_interval_token
 // %token TIME
@@ -2247,8 +2252,8 @@ fixed_point:
 
 
 interval:
-  days hours minutes seconds milliseconds end_interval_token
-	{$$ = new interval_c($1, $2, $3, $4, $5, locloc(@$));};
+  days hours minutes seconds milliseconds microseconds nanoseconds end_interval_token
+	{$$ = new interval_c($1, $2, $3, $4, $5, $6, $7,locloc(@$));};
 ;
 
 
@@ -2282,6 +2287,16 @@ milliseconds: /*  fixed_point ('ms') */
 | integer_ms_token	{$$ = new integer_c($1, locloc(@$));};
 ;
 
+microseconds:
+  /* empty */ 	  	{$$ = NULL;}
+| fixed_point_us_token {$$ = new fixed_point_c($1, locloc(@$));};
+| integer_us_token  {$$ = new integer_c($1, locloc(@$));};
+;
+
+nanoseconds:
+  /* empty */ 	  	{$$ = NULL;}
+| fixed_point_ns_token {$$ = new fixed_point_c($1, locloc(@$));};
+;
 
 
 /************************************/

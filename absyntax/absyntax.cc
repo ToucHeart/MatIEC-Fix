@@ -357,6 +357,33 @@ class_name_c::class_name_c(symbol_c *ref1,							\
 void *class_name_c::accept(visitor_c &visitor) {return visitor.visit(this);}
 
 
+#define SYM_REF7(class_name_c, ref1, ref2, ref3, ref4, ref5, ref6, ref7, ...)				\
+class_name_c::class_name_c(symbol_c *ref1,							\
+			   symbol_c *ref2,							\
+			   symbol_c *ref3,							\
+			   symbol_c *ref4,							\
+			   symbol_c *ref5,							\
+			   symbol_c *ref6,							\
+         symbol_c *ref7,              \
+                           int fl, int fc, const char *ffile, long int forder,			\
+                           int ll, int lc, const char *lfile, long int lorder)			\
+			  :symbol_c(fl, fc, ffile, forder, ll, lc, lfile, lorder) {		\
+  this->ref1 = ref1;										\
+  this->ref2 = ref2;										\
+  this->ref3 = ref3;										\
+  this->ref4 = ref4;										\
+  this->ref5 = ref5;										\
+  this->ref6 = ref6;										\
+  this->ref7 = ref7;                    \
+  if  (NULL != ref1)   ref1->parent = this;							\
+  if  (NULL != ref2)   ref2->parent = this;							\
+  if  (NULL != ref3)   ref3->parent = this;							\
+  if  (NULL != ref4)   ref4->parent = this;							\
+  if  (NULL != ref5)   ref5->parent = this;							\
+  if  (NULL != ref6)   ref6->parent = this;							\
+  if  (NULL != ref7)   ref7->parent = this;             \
+}												\
+void *class_name_c::accept(visitor_c &visitor) {return visitor.visit(this);}
 
 #include "absyntax.def"
 
@@ -373,6 +400,7 @@ void *class_name_c::accept(visitor_c &visitor) {return visitor.visit(this);}
 #undef SYM_REF4
 #undef SYM_REF5
 #undef SYM_REF6
+#undef SYM_REF7
 
 
 

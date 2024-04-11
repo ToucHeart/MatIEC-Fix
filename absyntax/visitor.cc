@@ -74,6 +74,8 @@ null_visitor_c::~null_visitor_c(void) {return;}
 #define SYM_REF6(class_name_c, ref1, ref2, ref3, ref4, ref5, ref6, ...)	\
   void *null_visitor_c::visit(class_name_c *symbol) {return NULL;}
 
+#define SYM_REF7(class_name_c, ref1, ref2, ref3, ref4, ref5, ref6, ref7, ...) \
+  void *null_visitor_c::visit(class_name_c *symbol) { return NULL; }
 
 #include "absyntax.def"
 
@@ -89,7 +91,7 @@ null_visitor_c::~null_visitor_c(void) {return;}
 #undef SYM_REF4
 #undef SYM_REF5
 #undef SYM_REF6
-
+#undef SYM_REF7
 
 
 
@@ -116,6 +118,7 @@ null_visitor_c::~null_visitor_c(void) {return;}
 #define SYM_REF4(class_name_c, ref1, ref2, ref3, ref4, ...)                     void *fcall_visitor_c::visit(class_name_c *symbol) VISIT_METHOD;
 #define SYM_REF5(class_name_c, ref1, ref2, ref3, ref4, ref5, ...)               void *fcall_visitor_c::visit(class_name_c *symbol) VISIT_METHOD;
 #define SYM_REF6(class_name_c, ref1, ref2, ref3, ref4, ref5, ref6, ...)         void *fcall_visitor_c::visit(class_name_c *symbol) VISIT_METHOD;
+#define SYM_REF7(class_name_c, ref1, ref2, ref3, ref4, ref5, ref6, ref7, ...)   void *fcall_visitor_c::visit(class_name_c *symbol) VISIT_METHOD;
 
 #include "../absyntax/absyntax.def"
 
@@ -130,6 +133,7 @@ null_visitor_c::~null_visitor_c(void) {return;}
 #undef SYM_REF4
 #undef SYM_REF5
 #undef SYM_REF6
+#undef SYM_REF7
 
 
 
@@ -211,7 +215,17 @@ void *iterator_visitor_c::visit(class_name_c *symbol) {			\
   return NULL;								\
 }
 
-
+#define SYM_REF7(class_name_c, ref1, ref2, ref3, ref4, ref5, ref6, ref7, ...)	\
+void *iterator_visitor_c::visit(class_name_c *symbol) {			\
+  if (symbol->ref1) symbol->ref1->accept(*this);			\
+  if (symbol->ref2) symbol->ref2->accept(*this);			\
+  if (symbol->ref3) symbol->ref3->accept(*this);			\
+  if (symbol->ref4) symbol->ref4->accept(*this);			\
+  if (symbol->ref5) symbol->ref5->accept(*this);			\
+  if (symbol->ref6) symbol->ref6->accept(*this);			\
+  if (symbol->ref7) symbol->ref7->accept(*this);			\
+  return NULL;								\
+}
 
 #include "absyntax.def"
 
@@ -226,6 +240,7 @@ void *iterator_visitor_c::visit(class_name_c *symbol) {			\
 #undef SYM_REF4
 #undef SYM_REF5
 #undef SYM_REF6
+#undef SYM_REF7
 
 
 
@@ -256,6 +271,7 @@ void fcall_iterator_visitor_c::suffix_fcall(symbol_c *symbol) {return;};
 #define SYM_REF4(class_name_c, ref1, ref2, ref3, ref4, ...)                     void *fcall_iterator_visitor_c::visit(class_name_c *symbol) VISIT_METHOD;
 #define SYM_REF5(class_name_c, ref1, ref2, ref3, ref4, ref5, ...)               void *fcall_iterator_visitor_c::visit(class_name_c *symbol) VISIT_METHOD;
 #define SYM_REF6(class_name_c, ref1, ref2, ref3, ref4, ref5, ref6, ...)         void *fcall_iterator_visitor_c::visit(class_name_c *symbol) VISIT_METHOD;
+#define SYM_REF7(class_name_c, ref1, ref2, ref3, ref4, ref5, ref6, ref7, ...)   void *fcall_iterator_visitor_c::visit(class_name_c *symbol) VISIT_METHOD;
 
 #include "../absyntax/absyntax.def"
 
@@ -270,6 +286,7 @@ void fcall_iterator_visitor_c::suffix_fcall(symbol_c *symbol) {return;};
 #undef SYM_REF4
 #undef SYM_REF5
 #undef SYM_REF6
+#undef SYM_REF7
 
 
 
@@ -375,7 +392,24 @@ void *search_visitor_c::visit(class_name_c *symbol) {			\
   return NULL;								\
 }
 
-
+#define SYM_REF7(class_name_c, ref1, ref2, ref3, ref4, ref5, ref6, ref7, ...)	\
+void *search_visitor_c::visit(class_name_c *symbol) {			\
+  void *res = NULL;							\
+  if (symbol->ref1) res =  symbol->ref1->accept(*this);			\
+  if (res != NULL)  return res;						\
+  if (symbol->ref2) res =  symbol->ref2->accept(*this);			\
+  if (res != NULL)  return res;						\
+  if (symbol->ref3) res =  symbol->ref3->accept(*this);			\
+  if (res != NULL)  return res;						\
+  if (symbol->ref4) res =  symbol->ref4->accept(*this);			\
+  if (res != NULL)  return res;						\
+  if (symbol->ref5) res =  symbol->ref5->accept(*this);			\
+  if (res != NULL)  return res;						\
+  if (symbol->ref6) res =  symbol->ref6->accept(*this);			\
+  if (res != NULL)  return res;           \
+  if (symbol->ref7) return symbol->ref7->accept(*this);		  \
+  return NULL;								\
+}
 
 #include "absyntax.def"
 
@@ -390,6 +424,7 @@ void *search_visitor_c::visit(class_name_c *symbol) {			\
 #undef SYM_REF4
 #undef SYM_REF5
 #undef SYM_REF6
+#undef SYM_REF7
 
 
 
