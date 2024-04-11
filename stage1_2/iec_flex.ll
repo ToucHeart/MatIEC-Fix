@@ -1244,6 +1244,7 @@ CASE				|
 FOR				|
 WHILE				|
 EXIT				|
+CONTINUE			|
 REPEAT				{ if (isempty_bodystate_buffer())	{unput_text(0); del_bodystate_buffer(); BEGIN(st_state); return start_ST_body_token;}
 				  else				 	{append_bodystate_buffer(yytext);}
 				}
@@ -1846,7 +1847,7 @@ UNTIL		return UNTIL;		/* Keyword */
 END_REPEAT	return END_REPEAT;	/* Keyword */
 
 EXIT		return EXIT;		/* Keyword */
-
+CONTINUE    return CONTINUE;
 
 
 

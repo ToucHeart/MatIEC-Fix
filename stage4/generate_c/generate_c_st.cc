@@ -1361,7 +1361,10 @@ void *visit(exit_statement_c *symbol) {
   return NULL;
 }
 
-
+void *visit(continue_statement_c *symbol){
+  s4o.print("continue");
+  return NULL;
+}
 
 }; /* generate_c_st_c */
 
