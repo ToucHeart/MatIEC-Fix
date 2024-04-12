@@ -2963,7 +2963,7 @@ enumerated_value_list:
 	{$$ = $1; $$->add_element($3);}
 /* ERROR_CHECK_BEGIN */
 | enumerated_value_list enumerated_value
-	{$$ = $1; print_err_msg(locl(@1), locf(@2), "',' missing in enumerated value list.");}
+	{$$ = $1; print_err_msg(locl(@1), locf(@2), "',' missing in enumerated value list."); yynerrs++;}
 | enumerated_value_list ',' error
 	{$$ = $1;
 	 if (is_current_syntax_token()) {print_err_msg(locl(@2), locf(@3), "no value defined in enumerated value list.");}

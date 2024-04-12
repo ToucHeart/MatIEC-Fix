@@ -2512,10 +2512,12 @@ void *visit(program_declaration_c *symbol) {
   TRACE("program_declaration_c");
 
   var_declarations_list_c*var_list = dynamic_cast<var_declarations_list_c*>(symbol->var_declarations);
-  for(int i=0;i<var_list->n;++i) {
-    symbol_c*vars= dynamic_cast<global_var_declarations_c*>(var_list->get_element(i));
-    if(vars) {
-      vars->accept(*this);
+  if(var_list){
+    for(int i=0;i<var_list->n;++i) {
+      symbol_c*vars= dynamic_cast<global_var_declarations_c*>(var_list->get_element(i));
+      if(vars) {
+        vars->accept(*this);
+      }
     }
   }
   return NULL;
