@@ -994,13 +994,11 @@ incompl_location	%[IQM]\*
 		 int cut = yytext[1]=='{'?2:1;
 		 yytext[strlen(yytext)-cut] = '\0';
 		 yylval.ID=strdup(yytext+cut);
-		 return pragma_token;
 		}
 <vardecl_list_state>{pragma}/(VAR) {/* return the pragmma without the enclosing '{' and '}' */
 		 int cut = yytext[1]=='{'?2:1;
 		 yytext[strlen(yytext)-cut] = '\0';
 		 yylval.ID=strdup(yytext+cut);
-		 return pragma_token;
 		}
 
 
