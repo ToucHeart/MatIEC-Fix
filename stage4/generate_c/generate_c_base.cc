@@ -278,7 +278,8 @@ class generate_c_base_c: public iterator_visitor_c {
     void *print_check_function(symbol_c *type,
           symbol_c *value,
           symbol_c *fb_name = NULL,
-          bool temp = false) {
+          bool temp = false,
+          bool has_not = false) {
       if (!get_datatype_info_c::is_type_valid(type)) ERROR;
       bool is_subrange = get_datatype_info_c::is_subrange(type);
       if (is_subrange) {
@@ -287,6 +288,9 @@ class generate_c_base_c: public iterator_visitor_c {
         s4o.print("(");
       }
       if (fb_name != NULL) {
+        if(has_not){
+          s4o.print("!(");
+        }
         s4o.print(GET_VAR);
         s4o.print("(");
         print_variable_prefix();
@@ -294,6 +298,9 @@ class generate_c_base_c: public iterator_visitor_c {
         s4o.print(".");
         value->accept(*this);
         s4o.print(")");
+        if(has_not){
+          s4o.print(")");
+        }
       }
       else {
         if (temp)

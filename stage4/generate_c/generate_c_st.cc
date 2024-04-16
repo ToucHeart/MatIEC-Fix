@@ -143,7 +143,8 @@ void *print_setter(symbol_c* symbol,
         symbol_c* type,
         symbol_c* value,
         symbol_c* fb_symbol = NULL,
-        symbol_c* fb_value = NULL) {
+        symbol_c* fb_value = NULL,
+        bool has_not=false) {
  
   unsigned int vartype;
   if (fb_symbol == NULL) {
@@ -199,7 +200,7 @@ void *print_setter(symbol_c* symbol,
     s4o.print(",");
   }
   wanted_variablegeneration = expression_vg;
-  print_check_function(type, value, fb_value);
+  print_check_function(type, value, fb_value,false,has_not);
   s4o.print(")");
   wanted_variablegeneration = expression_vg;
   return NULL;
@@ -1038,6 +1039,10 @@ void *visit(fb_invocation_c *symbol) {
     if (param_value != NULL)
       if ((param_direction == function_param_iterator_c::direction_out) ||
           (param_direction == function_param_iterator_c::direction_inout)) {
+        not_var* notvar = dynamic_cast<not_var*>(param_value);
+        if(notvar){
+          param_value = notvar->var;                    
+        }
         symbol_c *param_type = search_varfb_instance_type->get_type_id(param_value);
         s4o.print(";\n" + s4o.indent_spaces);
         if (this->is_variable_prefix_null()) {
@@ -1046,7 +1051,7 @@ void *visit(fb_invocation_c *symbol) {
           print_check_function(param_type, param_name, symbol->fb_name);
         }
         else {
-          print_setter(param_value, param_type, param_name, NULL, symbol->fb_name);
+          print_setter(param_value, param_type, param_name, NULL, symbol->fb_name,notvar!=NULL);
         }
       }
   } /* for(...) */

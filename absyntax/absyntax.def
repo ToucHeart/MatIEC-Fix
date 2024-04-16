@@ -1225,7 +1225,7 @@ SYM_REF3(output_variable_param_assignment_c, not_param, variable_name, variable)
 /* helper CLASS for output_variable_param_assignment */
 SYM_REF0(not_paramassign_c)
 
-
+SYM_REF1(not_var, var)
 /********************************/
 /* B 3.2.3 Selection Statements */
 /********************************/

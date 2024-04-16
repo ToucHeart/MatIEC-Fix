@@ -138,7 +138,12 @@ void print_datatypes_error_c::handle_function_invocation(symbol_c *fcall, generi
 				param_value = fcp_iterator.get_current_value();
 				
 				/* Check if there are duplicate parameter values */
-				if(fcp_iterator.search_f(param_name) != param_value) {
+				symbol_c*temp=fcp_iterator.search_f(param_name);
+				if( temp != param_value) {
+					not_var*var = dynamic_cast<not_var*>(temp);
+					if(var && var->var == param_value){
+						continue;
+					}
 					function_invocation_error = true;
 					STAGE3_ERROR(0, param_name, param_name, "Duplicate parameter '%s' when invoking %s '%s'", ((token_c *)param_name)->value, POU_str, ((token_c *)fcall_data.function_name)->value);
 					continue; /* jump to next parameter */

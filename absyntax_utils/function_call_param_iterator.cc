@@ -190,6 +190,10 @@ symbol_c *function_call_param_iterator_c::search_f(symbol_c *param_name) {
   current_value = NULL;
   current_assign_direction = assign_none;
   if (NULL == param_name) ERROR;
+  not_var*sym=dynamic_cast<not_var*>(param_name);
+  if(sym){
+    param_name = sym->var;
+  }
   search_param_name = dynamic_cast<identifier_c *>(param_name);
   if (NULL == search_param_name) ERROR;
   current_operation = function_call_param_iterator_c::search_f_op;
@@ -561,10 +565,16 @@ void *function_call_param_iterator_c::visit(input_variable_param_assignment_c *s
 void *function_call_param_iterator_c::visit(output_variable_param_assignment_c *symbol) {
   TRACE("output_variable_param_assignment_c");
   // TODO : Handle not_param !!!
-  if (NULL != symbol->not_param) ERROR;  // we do not yet support it, so it is best to simply stop than to fail silently...
-
   current_assign_direction = assign_out;
-  return handle_parameter_assignment(symbol->variable_name, symbol->variable);
+  symbol_c*sym = (symbol_c*)handle_parameter_assignment(symbol->variable_name, symbol->variable);
+  if(NULL == sym){
+    return NULL;
+  }
+  if (NULL != symbol->not_param){
+    not_var* var = new not_var(sym);
+    return (void*)var;
+  }
+  return sym;
 }
 
 /* helper CLASS for output_variable_param_assignment */

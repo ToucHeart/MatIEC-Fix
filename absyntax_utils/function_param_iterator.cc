@@ -305,6 +305,10 @@ identifier_c *function_param_iterator_c::next(void) {
 /* Search for the value passed to the parameter named <param_name>...  */
 identifier_c *function_param_iterator_c::search(symbol_c *param_name) {
   if (NULL == param_name) ERROR;
+  not_var* sym = dynamic_cast<not_var*>(param_name);
+  if(sym){
+    param_name = sym->var;
+  }
   search_param_name = dynamic_cast<identifier_c *>(param_name);
   if (NULL == search_param_name) ERROR;
   en_eno_param_implicit = false;

@@ -2132,6 +2132,10 @@ void *visit(array_initial_element_list_c*){
   return NULL;
 }
 
+void *visit(not_var*){
+  return NULL;
+}
+
 }; /* class generate_iec_c */
 
 

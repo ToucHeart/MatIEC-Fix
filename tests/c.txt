@@ -1,12 +1,12 @@
-PROGRAM TEST_PRO
-	VAR 
-		X1 : INT; 
-	END_VAR
+PROGRAM PRGTEST
 
-	VAR_GLOBAL CONSTANT (* 不应出现 VAR_GLOBAL *)
-	 X3 : BOOL;
-	END_VAR	 
-	
-	X1 := 1;
-	
+  VAR 
+	a,b,r,out : BOOL;
+	MyTon : TON;	
+  END_VAR
+
+  MyTon ( EN := NOT (a<>b),
+          IN := r,
+          NOT Q => out );
+
 END_PROGRAM
