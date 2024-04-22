@@ -455,7 +455,7 @@ void *print_datatypes_error_c::visit(single_byte_character_string_c *symbol) {
 		if (value.find("(*") != std::string::npos && value.find("*)") != std::string::npos && value.find("(*") < value.find("*)") - 1){
 			STAGE3_ERROR(0, symbol, symbol, "Comments are not allowed within STRING data type");
 		}
-		if (value.find("{") != std::string::npos && value.find("}") != std::string::npos && value.find("{") < value.find("}")){
+		if (value.find("{") != std::string::npos && value.find("}") != std::string::npos && value.find("{") < value.find("}") - 1){
 			STAGE3_ERROR(0, symbol, symbol, "Pragmas are not allowed within STRING data type");
 		}
 	}
@@ -530,7 +530,7 @@ void *print_datatypes_error_c::visit(simple_spec_init_c *symbol) {
 		if (value.find("(*") != std::string::npos && value.find("*)") != std::string::npos && value.find("(*") < value.find("*)") - 1){
 			STAGE3_ERROR(0, symbol, symbol, "Comments are not allowed within STRING data type");
 		}
-		if (value.find("{") != std::string::npos && value.find("}") != std::string::npos && value.find("{") < value.find("}")){
+		if (value.find("{") != std::string::npos && value.find("}") != std::string::npos && value.find("{") < value.find("}") - 1){
 			STAGE3_ERROR(0, symbol, symbol, "Pragmas are not allowed within STRING data type");
 		}
 	}
