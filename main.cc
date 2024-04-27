@@ -125,7 +125,7 @@ int main(int argc, char **argv) {
   int path_len;
 
   /* Default values for the command line options... */
-  runtime_options.allow_void_datatype     = true; /* disable: allow declaration of functions returning VOID  */
+  runtime_options.allow_void_datatype     = false; /* disable: allow declaration of functions returning VOID  */
   runtime_options.allow_missing_var_in    = false; /* disable: allow definition and invocation of POUs with no input, output and in_out parameters! */
   runtime_options.disable_implicit_en_eno = false; /* disable: do not generate EN and ENO parameters */
   runtime_options.pre_parsing             = false; /* disable: allow use of forward references (run pre-parsing phase before the definitive parsing phase that builds the AST) */

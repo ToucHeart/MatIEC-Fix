@@ -678,7 +678,7 @@ void *visit(date_and_time_c *symbol) {
     void *visit(lword_type_name_c *symbol)       {s4o.print("LWORD");       return NULL;}
     void *visit(dword_type_name_c *symbol)       {s4o.print("DWORD");       return NULL;}
     void *visit(string_type_name_c *symbol)      {s4o.print("STRING");      return NULL;}
-    void *visit(wstring_type_name_c *symbol)     {s4o.print("WSTRING");     return NULL;}
+    void *visit(wstring_type_name_c *symbol)     {s4o.print("STRING");     return NULL;}
 
     void *visit(safetime_type_name_c *symbol)    {s4o.print("TIME");    return NULL;}
     void *visit(safebool_type_name_c *symbol)    {s4o.print("BOOL");    return NULL;}
