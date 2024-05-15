@@ -1505,8 +1505,8 @@ void *visit(configuration_declaration_c *symbol) {
     s4o.print("#endif\n");
   }
   
-  s4o.print("#include \"../lib/C/iec_std_lib.h\"\n\n");
-  s4o.print("#include \"../lib/C/accessor.h\"\n\n"); 
+  s4o.print("#include \"iec_std_lib.h\"\n\n");
+  s4o.print("#include \"accessor.h\"\n\n"); 
   s4o.print("#include \"POUS.h\"\n\n");
 
   /* (A) configuration declaration... */
@@ -1818,7 +1818,7 @@ END_RESOURCE
         s4o.print("#endif\n");
       }
       
-      s4o.print("#include \"../lib/C/iec_std_lib.h\"\n\n");
+      s4o.print("#include \"iec_std_lib.h\"\n\n");
       
       /* (A) resource declaration... */
       /* (A.1) resource name in comment */
@@ -1828,7 +1828,7 @@ END_RESOURCE
       
       s4o.print("extern unsigned long long common_ticktime__;\n\n");
 
-      s4o.print("#include \"../lib/C/accessor.h\"\n");
+      s4o.print("#include \"accessor.h\"\n");
       s4o.print("#include \"POUS.h\"\n\n");
       s4o.print("#include \"");
       configuration_name = true;
@@ -2591,7 +2591,7 @@ class generate_c_c: public iterator_visitor_c {
         pous_incl_s4o.print("#endif\n");
       }
       
-      pous_incl_s4o.print("#include \"../lib/C/accessor.h\"\n#include \"../lib/C/iec_std_lib.h\"\n\n");
+      pous_incl_s4o.print("#include \"accessor.h\"\n#include \"iec_std_lib.h\"\n\n");
 
       for(int i = 0; i < symbol->n; i++) {
         symbol->get_element(i)->accept(*this);
