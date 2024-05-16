@@ -561,13 +561,13 @@ void *visit(interval_c *symbol) {
   TRACE("interval_c");
   /* s4o.print("0, 0, 0, 0, 0");  // milliseconds, seconds, minutes, hours, days */
 
-  if (NULL == symbol->nanoseconds) s4o.print("0");  /* milliseconds */
-  else                              symbol->nanoseconds->accept(*this);
-  s4o.print(", ");
+  // if (NULL == symbol->nanoseconds) s4o.print("0");  /* milliseconds */
+  // else                              symbol->nanoseconds->accept(*this);
+  // s4o.print(", ");
 
-  if (NULL == symbol->microseconds) s4o.print("0");  /* milliseconds */
-  else                              symbol->microseconds->accept(*this);
-  s4o.print(", ");
+  // if (NULL == symbol->microseconds) s4o.print("0");  /* milliseconds */
+  // else                              symbol->microseconds->accept(*this);
+  // s4o.print(", ");
 
   if (NULL == symbol->milliseconds) s4o.print("0");  /* milliseconds */
   else                              symbol->milliseconds->accept(*this);
