@@ -1309,7 +1309,7 @@ __ANY_INT(__mid)
     /*     CONCAT     */
     /******************/
 
-static inline STRING CONCAT(EN_ENO_PARAMS UINT param_count, ...){
+static inline STRING CONCAT__STRING__STRING(EN_ENO_PARAMS UINT param_count, ...){
   UINT i;
   STRING res;
   va_list ap;
