@@ -316,6 +316,7 @@ class print_datatypes_error_c: public iterator_visitor_c {
     void *visit(while_statement_c *symbol);
     void *visit(repeat_statement_c *symbol);
     void *visit(exit_statement_c *symbol);
+    void *visit(continue_statement_c *symbol);
 }; // print_datatypes_error_c
 
 

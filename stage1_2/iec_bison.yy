@@ -66,7 +66,7 @@ void yyerror (const char *error_msg);
  * the variable yydebug to 1.
  */
 /*ADDNEW：Debug Control */
-#define YYDEBUG 1
+#define YYDEBUG 0
 
 
 /* file with declaration of absyntax classes... */

@@ -1337,6 +1337,12 @@ void *print_datatypes_error_c::visit(exit_statement_c *symbol) {
   return NULL;
 }
 
-
+void *print_datatypes_error_c::visit(continue_statement_c *symbol) {
+  if(!within_iteration){
+    fprintf(stderr,"\nerror:continue can only be used in iteration statements, at line %d\n",symbol->first_line);
+    exit(EXIT_FAILURE);
+  }
+  return NULL;
+}
 
 
