@@ -700,7 +700,7 @@ void *visit(date_and_time_c *symbol) {
     void *visit(safelword_type_name_c *symbol)   {s4o.print("LWORD");   return NULL;}
     void *visit(safedword_type_name_c *symbol)   {s4o.print("DWORD");   return NULL;}
     void *visit(safestring_type_name_c *symbol)  {s4o.print("STRING");  return NULL;}
-    void *visit(safewstring_type_name_c *symbol) {s4o.print("WSTRING"); return NULL;}
+    void *visit(safewstring_type_name_c *symbol) {s4o.print("STRING"); return NULL;}
 
     void *visit(void_type_name_c *symbol)        {s4o.print("void");    return NULL;}
 
