@@ -86,11 +86,15 @@ class generate_c_array_initialization_c: public generate_c_base_and_typeid_c {
       s4o.print(s4o.indent_spaces + "{\n");
       s4o.indent_right();
       s4o.print(s4o.indent_spaces);
-      s4o.print("static const ");
+      s4o.print("static ");
 
       current_mode = typedecl_am;
       array_specification->accept(*this);
-      s4o.print(" temp = ");
+      s4o.print(" temp;\n");
+      /*CHANGE: first define,then assign a value to it,don't initialize */
+      s4o.print(s4o.indent_spaces + "temp = (");
+      array_specification->accept(*this);
+      s4o.print(")");
 
       init_array_values(array_initialization);
 
