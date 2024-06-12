@@ -1,4 +1,4 @@
-This is a clone of MatIEC project , to fix several bugs of it,by [jmx](mxj0157@gmail.com)...
+This is a clone of MatIEC project , to fix several bugs of it,by mxj...
 
 Compile/Build
 =============
@@ -6,14 +6,18 @@ Compile/Build
 1.Compiling under Linux
 
 $ autoreconf -i
+
 $ ./configure 
+
 $ make 
 
 2.Cross-Compiling under Linux, for Windows 
 
 $ ./configure  --host=i586-pc-mingw32
 (or, to use static linking, which does not require installing any mingw dll's on windows)
+
 $ ./configure  --host=i586-pc-mingw32 LDFLAGS="-static" 
+
 $ make 
 
 Maintaining the Build Environment
