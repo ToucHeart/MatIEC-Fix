@@ -475,8 +475,7 @@ int GetNextChar(char *b, int maxBuffer);
 /* This is not exclusive (%x) as we must be able to parse the identifier and data types of a function/FB */
 %s header_state
 
-/*ADDNEW:add return_type_state to allow no variable defined in Program declaration */
-%s return_type_state
+
 /* we are parsing a function, program or function block sequence of VAR..END_VAR delcarations */
 %x vardecl_list_state 
 /* a substate of the vardecl_list_state: we are inside a specific VAR .. END_VAR */
@@ -1151,10 +1150,6 @@ END_PROGRAM			unput_text(0); BEGIN(vardecl_list_state);
 				 * After this pop() header_state would not return to INITIAL as it should, but
 				 * would instead enter an infitie loop push()ing again to body_state
 				 */
-				/* ADDNEW: add transition to return_type_state */
-{st_whitespace} ;
-":"			     BEGIN(return_type_state);Info_Print("\nChanging to return_type_state from header_state\n");return ':';
-.				 {unput_text(0); Info_Print("\nChanging to body_state from header_state\n"); yy_push_state(body_state);}
 }
 
 
@@ -1527,25 +1522,6 @@ ANY_BIT		return ANY_BIT;		/* Keyword (Data Type) */
 ANY_STRING	return ANY_STRING;	/* Keyword (Data Type) */
 ANY_DATE	return ANY_DATE;	/* Keyword (Data Type) */
 
-								/* ADDNEW: add return_type_state to vardecl_list_state and body_state */
-<return_type_state>{
-VAR				| /* execute the next rule's action, i.e. fall-through! */
-VAR_INPUT			|
-VAR_OUTPUT			|
-VAR_IN_OUT			|
-VAR_EXTERNAL			|
-VAR_GLOBAL			|
-VAR_TEMP			|
-VAR_CONFIG			|
-VAR_ACCESS			unput_text(0); BEGIN(vardecl_list_state);Info_Print("\nChanging to vardecl_list_state from return_type_state\n");
-
-END_FUNCTION			| /* execute the next rule's action, i.e. fall-through! */
-END_FUNCTION_BLOCK		| 
-END_PROGRAM			unput_text(0); BEGIN(vardecl_list_state);Info_Print("\nChanging to vardecl_list_state from return_type_state\n");
-
-{st_whitespace}
-. 					unput_text(0);yy_push_state(body_state);Info_Print("\nChanging to return_type_state from body_state\n");
-}
 	/********************************/
 	/* B 1.3.3 - Derived data types */
 	/********************************/
