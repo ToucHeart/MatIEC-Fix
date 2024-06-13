@@ -2375,12 +2375,15 @@ void check_LEFT_RIGHT(unordered_map<string,symbol_c*>&param_val, bool formal){
 
 void check_MID_DELETE(unordered_map<string,symbol_c*>&param_val, bool formal){
   symbol_c *sym = NULL;
+  bool flag = true;
   sym = formal ? param_val["L"] : param_val["1"];
   if(sym&&sym->const_value.is_const()){
 	if(sym->const_value._int64.get()<0){
 		fprintf(stderr,"\nincorrect value %ld of parameter L\n",sym->const_value._int64.get());
 		exit(EXIT_FAILURE);
 	}
+  }else{
+	flag=false;
   }
   int len=sym->const_value._int64.get();
   sym = formal ? param_val["P"] : param_val["2"];
@@ -2390,33 +2393,47 @@ void check_MID_DELETE(unordered_map<string,symbol_c*>&param_val, bool formal){
 		exit(EXIT_FAILURE);
 	}
   }
+  else{
+	flag=false;
+  }
   int pos=sym->const_value._int64.get();
   sym = formal ? param_val["IN"] : param_val["0"];
-  if(pos <=0 || (size_t)pos > strlen(sym->token->value)-2 ||(size_t)len+pos-1>strlen(sym->token->value)-2){
-	fprintf(stderr,"\nincorrect value %d of parameter P\n",pos);
-	exit(EXIT_FAILURE);
+  if(flag){
+	if(pos <=0 || (size_t)pos > strlen(sym->token->value)-2 ||(size_t)len+pos-1>strlen(sym->token->value)-2){
+		fprintf(stderr,"\nincorrect value %d of parameter P\n",pos);
+		exit(EXIT_FAILURE);
+	}
   }
 }
 
 void check_INSERT(unordered_map<string,symbol_c*>&param_val, bool formal){
   symbol_c*sym = NULL;
+  bool flag = true;
   sym = formal ? param_val["P"] : param_val["2"];
+  if(!(sym&&sym->const_value.is_const())){
+	flag=false;
+  }
   int pos = sym->const_value._int64.get();
   sym = formal ? param_val["IN1"] : param_val["0"];
-  if(pos <=0 || (size_t)pos > strlen(sym->token->value)-2){
-	fprintf(stderr,"\nincorrect value %d of parameter P\n",pos);
-	exit(EXIT_FAILURE);
+  if(flag){
+	if(pos <=0 || (size_t)pos > strlen(sym->token->value)-2){
+		fprintf(stderr,"\nincorrect value %d of parameter P\n",pos);
+		exit(EXIT_FAILURE);
+	}
   }
 }
 
 void check_REPLACE(unordered_map<string,symbol_c*>&param_val, bool formal){
   symbol_c *sym = NULL;
+  bool flag=true;
   sym = formal ? param_val["L"] : param_val["2"];
   if(sym&&sym->const_value.is_const()){
 	if(sym->const_value._int64.get()<0){
 		fprintf(stderr,"\nincorrect value %ld of parameter L\n",sym->const_value._int64.get());
 		exit(EXIT_FAILURE);
 	}
+  }else{
+	flag=false;
   }
   int len=sym->const_value._int64.get();
   sym = formal ? param_val["P"] : param_val["3"];
@@ -2425,12 +2442,16 @@ void check_REPLACE(unordered_map<string,symbol_c*>&param_val, bool formal){
 		fprintf(stderr,"\nincorrect value %ld of parameter P\n",sym->const_value._int64.get());
 		exit(EXIT_FAILURE);
 	}
+  }else{
+	flag=false;
   }
   int pos=sym->const_value._int64.get();
   sym = formal ? param_val["IN1"] : param_val["0"];
-  if(pos <=0 || (size_t)pos > strlen(sym->token->value)-2 || (size_t)len+pos-1>strlen(sym->token->value)-2){
-	fprintf(stderr,"\nincorrect value %d of parameter P\n",pos);
-	exit(EXIT_FAILURE);
+  if(flag){
+	if(pos <=0 || (size_t)pos > strlen(sym->token->value)-2 || (size_t)len+pos-1>strlen(sym->token->value)-2){
+		fprintf(stderr,"\nincorrect value %d of parameter P\n",pos);
+		exit(EXIT_FAILURE);
+	}
   }
 }
 
