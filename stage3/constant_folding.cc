@@ -1393,7 +1393,24 @@ void *constant_propagation_c::handle_var_decl(symbol_c *var_list, bool fixed_ini
   return NULL;
 }
 
-
+void handle_signed_vals(symbol_c* type_symbol,symbol_c* init_value){
+	if(dynamic_cast<sint_type_name_c*>(type_symbol)){
+		signed char val = GET_CVALUE(int64,init_value);
+		SET_CVALUE(int64,init_value,val);
+	}
+	if(dynamic_cast<int_type_name_c*>(type_symbol)){
+		short val = GET_CVALUE(int64,init_value);
+		SET_CVALUE(int64,init_value,val);
+	}
+	if(dynamic_cast<dint_type_name_c*>(type_symbol)){
+		int val = GET_CVALUE(int64,init_value);
+		SET_CVALUE(int64,init_value,val);
+	}
+	if(dynamic_cast<lint_type_name_c*>(type_symbol)){
+		long long int val = GET_CVALUE(int64,init_value);
+		SET_CVALUE(int64,init_value,val);
+	}
+}
 #include <algorithm>    // std::find
 void *constant_propagation_c::handle_var_list_decl(symbol_c *var_list, symbol_c *type_decl, bool is_global_var) {
   type_decl->accept(*this);  // Do constant folding of the initial value, and literals in subranges! (we will probably be doing this multiple times for the same init value, but this is safe as the cvalue is idem-potent)
@@ -1439,6 +1456,8 @@ void *constant_propagation_c::handle_var_list_decl(symbol_c *var_list, symbol_c 
   if (NULL == init_value)   {return NULL;} // this is some datatype for which no initial value exists! Do nothing and return.
   init_value->accept(*this); // necessary when handling default initial values, that were not constant folded in the call type_decl->accept(*this)
   
+  /*ADDNEW: since not set correctly for signed values,handle signed values here! */
+  handle_signed_vals(type_symbol,init_value);
   list_c *list = dynamic_cast<list_c *>(var_list);
   if (NULL == list) ERROR;
   for (int i = 0; i < list->n; i++) {
