@@ -1139,17 +1139,19 @@ VAR_EXTERNAL			|
 VAR_GLOBAL			|
 VAR_TEMP			|
 VAR_CONFIG			|
-VAR_ACCESS			unput_text(0); BEGIN(vardecl_list_state);
+VAR_ACCESS			unput_text(0); BEGIN(vardecl_list_state); Info_Print("\nChanging to vardecl_list_state from header_state\n"); 
 
 END_FUNCTION			| /* execute the next rule's action, i.e. fall-through! */
 END_FUNCTION_BLOCK		| 
-END_PROGRAM			unput_text(0); BEGIN(vardecl_list_state); 
+END_PROGRAM			unput_text(0); BEGIN(INITIAL); Info_Print("\nChanging to INITIAL from header_state\n");
 				/* Notice that we do NOT go directly to body_state, as that requires a push().
 				 * If we were to puch to body_state here, then the corresponding pop() at the
 				 *end of body_state would return to header_state.
 				 * After this pop() header_state would not return to INITIAL as it should, but
 				 * would instead enter an infitie loop push()ing again to body_state
 				 */
+				/* ADDNEW: */
+.				unput_text(0);yy_push_state(body_state);Info_Print("\nChanging to body_state from header_state\n"); 
 }
 
 
@@ -1232,7 +1234,7 @@ END_TRANSITION   		|
 END_PROGRAM			{ append_bodystate_buffer(yytext); unput_bodystate_buffer(); BEGIN(il_state); Info_Print("returning start_IL_body_token\n"); return start_IL_body_token;}
 .|\n				{ append_bodystate_buffer(yytext);
 				  if (strcmp(yytext, ";") == 0)
-				    {unput_bodystate_buffer(); BEGIN(st_state); Info_Print("returning start_ST_body_token\n"); return start_ST_body_token;}
+				    {unput_bodystate_buffer(); BEGIN(st_state); Info_Print("Change to st_state from body_state\n"); return start_ST_body_token;}
 				}
 	/* The following rules are not really necessary. They just make compilation faster in case the ST Statement List starts with one fot he following... */
 RETURN				| /* execute the next rule's action, i.e. fall-through! */
