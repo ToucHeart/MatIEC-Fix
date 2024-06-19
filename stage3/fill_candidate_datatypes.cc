@@ -2536,8 +2536,12 @@ void *fill_candidate_datatypes_c::visit(assignment_statement_c *symbol) {
 	symbol_c *left_type, *right_type;
 	symbol->l_exp->accept(*this);
 	symbol->r_exp->accept(*this);
-	single_byte_limited_len_string_spec_c*sym = dynamic_cast<single_byte_limited_len_string_spec_c*>(symbol->l_exp->candidate_datatypes[0]);
-	double_byte_limited_len_string_spec_c*sym2= dynamic_cast<double_byte_limited_len_string_spec_c*>(symbol->l_exp->candidate_datatypes[0]);
+	single_byte_limited_len_string_spec_c*sym = NULL; 
+	double_byte_limited_len_string_spec_c*sym2= NULL;
+	if(symbol->l_exp->candidate_datatypes.size()){
+		sym = dynamic_cast<single_byte_limited_len_string_spec_c*>(symbol->l_exp->candidate_datatypes[0]);
+		sym2 = dynamic_cast<double_byte_limited_len_string_spec_c*>(symbol->l_exp->candidate_datatypes[0]);
+	}
 	if(sym){
 		check_str_len(sym,symbol->r_exp);
 		add_datatype_to_candidate_list(symbol->l_exp,sym->string_type_name);
