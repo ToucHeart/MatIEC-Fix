@@ -666,6 +666,7 @@ void *print_datatypes_error_c::visit(located_var_decl_c *symbol) {
 /*********************/
 void *print_datatypes_error_c::visit(function_declaration_c *symbol) {
 	search_varfb_instance_type = new search_varfb_instance_type_c(symbol);
+	search_var_instance_decl = new search_var_instance_decl_c(symbol);
  	symbol->var_declarations_list->accept(*this);
 	if (debug) printf("Print error data types list in body of function %s\n", ((token_c *)(symbol->derived_function_name))->value);
 	il_parenthesis_level = 0;
@@ -673,6 +674,8 @@ void *print_datatypes_error_c::visit(function_declaration_c *symbol) {
 	symbol->function_body->accept(*this);
 	delete search_varfb_instance_type;
 	search_varfb_instance_type = NULL;
+	delete search_var_instance_decl;
+	search_var_instance_decl = NULL;
 	return NULL;
 }
 
@@ -681,6 +684,7 @@ void *print_datatypes_error_c::visit(function_declaration_c *symbol) {
 /***************************/
 void *print_datatypes_error_c::visit(function_block_declaration_c *symbol) {
 	search_varfb_instance_type = new search_varfb_instance_type_c(symbol);
+	search_var_instance_decl = new search_var_instance_decl_c(symbol);
  	symbol->var_declarations->accept(*this);
 	if (debug) printf("Print error data types list in body of FB %s\n", ((token_c *)(symbol->fblock_name))->value);
 	il_parenthesis_level = 0;
@@ -688,6 +692,8 @@ void *print_datatypes_error_c::visit(function_block_declaration_c *symbol) {
 	symbol->fblock_body->accept(*this);
 	delete search_varfb_instance_type;
 	search_varfb_instance_type = NULL;
+	delete search_var_instance_decl;
+	search_var_instance_decl = NULL;
 	return NULL;
 }
 
@@ -696,6 +702,7 @@ void *print_datatypes_error_c::visit(function_block_declaration_c *symbol) {
 /**********************/
 void *print_datatypes_error_c::visit(program_declaration_c *symbol) {
 	search_varfb_instance_type = new search_varfb_instance_type_c(symbol);
+	search_var_instance_decl = new search_var_instance_decl_c(symbol);
 	if(symbol->var_declarations)
 	symbol->var_declarations->accept(*this);
 	if (debug) printf("Print error data types list in body of program %s\n", ((token_c *)(symbol->program_type_name))->value);
@@ -704,6 +711,8 @@ void *print_datatypes_error_c::visit(program_declaration_c *symbol) {
 	symbol->function_block_body->accept(*this);
 	delete search_varfb_instance_type;
 	search_varfb_instance_type = NULL;
+	delete search_var_instance_decl;
+	search_var_instance_decl = NULL;
 	return NULL;
 }
 
@@ -1097,7 +1106,31 @@ void *print_datatypes_error_c::print_binary_expression_errors(const char *operat
 	if ((symbol->candidate_datatypes.size() == 0) 		&&
 		(l_expr->candidate_datatypes.size() > 0)	&&
 		(r_expr->candidate_datatypes.size() > 0))
-		STAGE3_ERROR(0, symbol, symbol, "Data type mismatch for '%s' expression.", operation);
+		{
+			symbol_c*rtype=search_var_instance_decl->get_basetype_decl(r_expr);
+			symbol_c*ltype=search_var_instance_decl->get_basetype_decl(l_expr);
+			if(rtype&&ltype){
+				STAGE3_ERROR(0, symbol, symbol, "Data type mismatch for %s:%s %s %s:%s",
+				l_expr->token->value,
+				get_datatype_info_c::get_id_str(ltype),
+				operation,
+				r_expr->token->value,
+				get_datatype_info_c::get_id_str(rtype)
+				);
+			}
+			else{
+				STAGE3_ERROR(0, symbol, symbol, "Data type mismatch for '%s'",operation);
+				fprintf(stderr,"%s:",l_expr->token->value);
+				for(size_t i=0;i<3&&i<l_expr->candidate_datatypes.size();++i){
+					fprintf(stderr,"%s ",get_datatype_info_c::get_id_str(l_expr->candidate_datatypes[i]));
+				}
+				fprintf(stderr,"%s %s:",operation,r_expr->token->value);
+				for(size_t i=0;i<3&&i<r_expr->candidate_datatypes.size();++i){
+					fprintf(stderr,"%s ",get_datatype_info_c::get_id_str(r_expr->candidate_datatypes[i]));
+				}
+				fprintf(stderr,"%s","\n");
+			}
+		}
         if (deprecated_operation)
                 STAGE3_WARNING(symbol, symbol, "Deprecated operation for '%s' expression.", operation);
 	return NULL;
@@ -1173,7 +1206,30 @@ void *print_datatypes_error_c::visit(assignment_statement_c *symbol) {
 	    (!get_datatype_info_c::is_type_valid(symbol->r_exp->datatype)) &&
 	    (symbol->l_exp->candidate_datatypes.size() > 0)	&&
 	    (symbol->r_exp->candidate_datatypes.size() > 0))
-		STAGE3_ERROR(0, symbol, symbol, "Incompatible data types for ':=' operation.");
+		{
+			symbol_c*rtype=search_var_instance_decl->get_basetype_decl(symbol->r_exp);
+			if(rtype){
+				STAGE3_ERROR(0, symbol, symbol, "Incompatible data types for ':=':\n%s:%s := %s:%s",
+				symbol->l_exp->token->value,
+				get_datatype_info_c::get_id_str(search_var_instance_decl->get_basetype_decl(symbol->l_exp)),
+				symbol->r_exp->token->value,
+				get_datatype_info_c::get_id_str(rtype)
+				);
+			}
+			else{
+				STAGE3_ERROR(0, symbol, symbol, "Incompatible data types for ':='");
+				fprintf(stderr,"%s:%s := %s:",
+					symbol->l_exp->token->value,
+					get_datatype_info_c::get_id_str(search_var_instance_decl->get_basetype_decl(symbol->l_exp)),
+					symbol->r_exp->token->value
+				);
+				for(size_t i=0;i<3&&i<symbol->r_exp->candidate_datatypes.size();++i){
+					symbol_c*t=symbol->r_exp->candidate_datatypes[i];
+					fprintf(stderr,"%s ",get_datatype_info_c::get_id_str(t));
+				}
+				fprintf(stderr,"%s","\n");
+			}
+		}
 	return NULL;
 }
 

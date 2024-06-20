@@ -32,6 +32,7 @@ class print_datatypes_error_c: public iterator_visitor_c {
     unsigned int current_display_error_level;
     
     search_varfb_instance_type_c *search_varfb_instance_type;
+    search_var_instance_decl_c* search_var_instance_decl;
     /* When calling a function block, we must first find it's type,
      * by searching through the declarations of the variables currently
      * in scope.
