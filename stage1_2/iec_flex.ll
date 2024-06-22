@@ -988,7 +988,6 @@ incompl_location	%[IQM]\*
 <body_state>{enable_code_generation_pragma}			append_bodystate_buffer(yytext); /* in body state we do not process any tokens, we simply store them for later processing! */
 	/* Any other pragma we find, we just pass it up to the syntax parser...   */
 	/* Note that the <body_state> state is exclusive, so we have to include it here too. */
-<body_state>{pragma}					append_bodystate_buffer(yytext); /* in body state we do not process any tokens, we simply store them for later processing! */
 {pragma}	{/* return the pragmma without the enclosing '{' and '}' */
 		 int cut = yytext[1]=='{'?2:1;
 		 yytext[strlen(yytext)-cut] = '\0';
@@ -1081,10 +1080,10 @@ incompl_location	%[IQM]\*
 
 	/* INITIAL -> header_state */
 <INITIAL>{
-FUNCTION{st_whitespace} 		if (get_preparse_state()) BEGIN(get_pou_name_state); else {BEGIN(header_state);Info_Print("\nChanging to header_state from INITIAL\n"); } return FUNCTION;
-FUNCTION_BLOCK{st_whitespace}		if (get_preparse_state()) BEGIN(get_pou_name_state); else {BEGIN(header_state); Info_Print("\nChanging to header_state from INITIAL\n"); } return FUNCTION_BLOCK;
-PROGRAM{st_whitespace}			if (get_preparse_state()) BEGIN(get_pou_name_state); else {BEGIN(header_state); Info_Print("\nChanging to header_state from INITIAL\n"); } return PROGRAM;
-CONFIGURATION{st_whitespace}		if (get_preparse_state()) BEGIN(get_pou_name_state); else {BEGIN(config_state); Info_Print("\nChanging to config_state from INITIAL\n"); } return CONFIGURATION;
+FUNCTION{st_whitespace} 		if (get_preparse_state()) BEGIN(get_pou_name_state); else {BEGIN(header_state);Info_Print("\nchange to header_state from INITIAL\n"); } return FUNCTION;
+FUNCTION_BLOCK{st_whitespace}		if (get_preparse_state()) BEGIN(get_pou_name_state); else {BEGIN(header_state); Info_Print("\nchange to header_state from INITIAL\n"); } return FUNCTION_BLOCK;
+PROGRAM{st_whitespace}			if (get_preparse_state()) BEGIN(get_pou_name_state); else {BEGIN(header_state); Info_Print("\nchange to header_state from INITIAL\n"); } return PROGRAM;
+CONFIGURATION{st_whitespace}		if (get_preparse_state()) BEGIN(get_pou_name_state); else {BEGIN(config_state); Info_Print("\nchange to config_state from INITIAL\n"); } return CONFIGURATION;
 }
 
 <get_pou_name_state>{
@@ -1172,7 +1171,7 @@ VAR_GLOBAL{st_whitespace_char}		|
 VAR_TEMP{st_whitespace_char}		|
 VAR_CONFIG{st_whitespace_char}		|
 VAR_ACCESS{st_whitespace_char}		|
-VAR{st_whitespace_char}			unput_text(0); yy_push_state(vardecl_state); Info_Print("\nChanging to vardecl_state from vardecl_list_state\n");
+VAR{st_whitespace_char}			unput_text(0); yy_push_state(vardecl_state); Info_Print("\nchange to vardecl_state from vardecl_list_state\n");
 
 END_FUNCTION{st_whitespace}		unput_text(0); BEGIN(INITIAL);
 END_FUNCTION_BLOCK{st_whitespace}	unput_text(0); BEGIN(INITIAL);
@@ -1186,7 +1185,7 @@ END_PROGRAM{st_whitespace}		unput_text(0); BEGIN(INITIAL);
 {st_whitespace}			/* Eat any whitespace */ 
 
 				/* anything else, just change to body_state! */
-.				unput_text(0); yy_push_state(body_state); Info_Print("\nChanging to body_state from vardecl_list_state\n");
+.				unput_text(0); yy_push_state(body_state); Info_Print("\nchange to body_state from vardecl_list_state\n");
 }
 
 
@@ -1232,7 +1231,7 @@ END_TRANSITION   		|
 END_PROGRAM			{ append_bodystate_buffer(yytext); unput_bodystate_buffer(); BEGIN(il_state); Info_Print("returning start_IL_body_token\n"); return start_IL_body_token;}
 .|\n				{ append_bodystate_buffer(yytext);
 				  if (strcmp(yytext, ";") == 0)
-				    {unput_bodystate_buffer(); BEGIN(st_state); Info_Print("returning start_ST_body_token\n"); return start_ST_body_token;}
+				    {unput_bodystate_buffer(); BEGIN(st_state); Info_Print("change to st_state from body_state\n"); return start_ST_body_token;}
 				}
 	/* The following rules are not really necessary. They just make compilation faster in case the ST Statement List starts with one fot he following... */
 RETURN				| /* execute the next rule's action, i.e. fall-through! */
