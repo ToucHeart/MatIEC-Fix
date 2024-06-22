@@ -8642,7 +8642,7 @@ bool is_current_syntax_token() {
 }
 /* ERROR_CHECK_END */
 
-
+extern void PRINT_CUR_LINE();
 void print_err_msg(int first_line,
                    int first_column,
                    const char *first_filename,
@@ -8667,6 +8667,7 @@ void print_err_msg(int first_line,
   }
   //fprintf(stderr, "error %d: %s\n", yynerrs /* a global variable */, additional_error_msg);
   print_include_stack();
+  PRINT_CUR_LINE();
 }
 
 

@@ -151,6 +151,33 @@ b*/
       result = YY_NULL;\
     }
 
+#define MAX_LINE_LENGTH 1024
+char LINE_BUF[MAX_LINE_LENGTH];
+static int last_line=-1;
+static int last_col=-1;
+static int line_ptr;
+void UPDATE_LINE(int cur_line,int cur_col,char *text){
+   if(last_line==cur_line&&last_col>=cur_col){
+      return;
+   }
+   if(last_col!=cur_col){
+      last_col=cur_col;
+   }
+	if(last_line!=cur_line){
+		LINE_BUF[line_ptr]='\0';
+		last_line=cur_line;
+		line_ptr=0;
+	}
+	strcpy(LINE_BUF+line_ptr,text);
+	line_ptr += strlen(text);
+	LINE_BUF[line_ptr]=' ';
+}
+
+void PRINT_CUR_LINE(){
+	LINE_BUF[line_ptr]='\0';
+	fprintf(stderr,"%s\n",LINE_BUF);
+    LINE_BUF[line_ptr]=' ';
+}
 
 /* Macro that is executed for every action.
  * We use it to pass the location of the token
@@ -164,6 +191,7 @@ b*/
 	yylloc.first_order  = current_order;					\
 	\
 	UpdateTracking(yytext);							\
+	UPDATE_LINE(current_tracking->lineNumber,current_tracking->currentChar,yytext);		\
 	\
 	yylloc.last_line    = current_tracking->lineNumber;			\
 	yylloc.last_column  = current_tracking->currentChar - 1;		\
@@ -1939,7 +1967,7 @@ _			/* do nothing - eat it up!*/
 /* Tracking Functions... */
 /*************************/
 
-#define MAX_LINE_LENGTH 1024
+
 
 tracking_t *GetNewTracking(FILE* in_file) {
   tracking_t* new_env = new tracking_t;
