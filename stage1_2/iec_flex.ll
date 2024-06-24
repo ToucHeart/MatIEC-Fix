@@ -988,8 +988,9 @@ incompl_location	%[IQM]\*
 <body_state>{enable_code_generation_pragma}			append_bodystate_buffer(yytext); /* in body state we do not process any tokens, we simply store them for later processing! */
 	/* Any other pragma we find, we just pass it up to the syntax parser...   */
 	/* Note that the <body_state> state is exclusive, so we have to include it here too. */
-	/* <body_state>{pragma}					append_bodystate_buffer(yytext); in body state we do not process any tokens, we simply store them for later processing! */
+	/* <body_state>{pragma}					Info_Print("match pragma in body_state\n"); append_bodystate_buffer(yytext); //in body state we do not process any tokens, we simply store them for later processing! */
 {pragma}	{/* return the pragmma without the enclosing '{' and '}' */
+		 Info_Print("match pragma in st_state\n");
 		 int cut = yytext[1]=='{'?2:1;
 		 yytext[strlen(yytext)-cut] = '\0';
 		 yylval.ID=strdup(yytext+cut);

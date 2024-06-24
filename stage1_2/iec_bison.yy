@@ -8042,6 +8042,7 @@ fb_invocation:
 	{$$ = NULL; print_err_msg(locl(@3), locf(@4), "')' missing after parameter list of function block invocation in ST statement."); yyerrok;}
 | prev_declared_fb_name '(' param_assignment_nonformal_list error
 	{$$ = NULL; print_err_msg(locl(@3), locf(@4), "')' missing after parameter list of function block invocation in ST statement."); yyerrok;}
+/* ADDNEW: add invalid fb name check */
 | error '(' ')'
 	{$$ = NULL; print_err_msg(locl(@1), locf(@1), "invalid function block name in ST statement."); yynerrs++;}
 | error '(' error ')'
