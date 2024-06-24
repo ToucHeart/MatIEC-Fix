@@ -988,6 +988,7 @@ incompl_location	%[IQM]\*
 <body_state>{enable_code_generation_pragma}			append_bodystate_buffer(yytext); /* in body state we do not process any tokens, we simply store them for later processing! */
 	/* Any other pragma we find, we just pass it up to the syntax parser...   */
 	/* Note that the <body_state> state is exclusive, so we have to include it here too. */
+	/* <body_state>{pragma}					append_bodystate_buffer(yytext); in body state we do not process any tokens, we simply store them for later processing! */
 {pragma}	{/* return the pragmma without the enclosing '{' and '}' */
 		 int cut = yytext[1]=='{'?2:1;
 		 yytext[strlen(yytext)-cut] = '\0';
@@ -1229,7 +1230,7 @@ END_FUNCTION			|
 END_FUNCTION_BLOCK		|
 END_TRANSITION   		|
 END_PROGRAM			{ append_bodystate_buffer(yytext); unput_bodystate_buffer(); BEGIN(il_state); Info_Print("returning start_IL_body_token\n"); return start_IL_body_token;}
-.|\n				{ append_bodystate_buffer(yytext);
+.|\n				{ append_bodystate_buffer(yytext);Info_Print("match '.' in body_state,yytext is %s\n",yytext);
 				  if (strcmp(yytext, ";") == 0)
 				    {unput_bodystate_buffer(); BEGIN(st_state); Info_Print("change to st_state from body_state\n"); return start_ST_body_token;}
 				}
